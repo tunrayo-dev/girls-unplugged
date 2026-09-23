@@ -3376,3 +3376,64 @@ body.menu-open {
 .footer-bottom-links a:hover {
   color: var(--pink);
 }
+
+
+/* =========================================
+   WELCOME CARD — CUSTOM ICONS
+========================================= */
+
+.welcome-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  background: var(--soft-lavender);
+  position: relative;
+}
+
+/* Spark */
+.icon-spark::before,
+.icon-spark::after {
+  content: "";
+  position: absolute;
+  background: var(--plum);
+  border-radius: 999px;
+}
+
+.icon-spark::before {
+  width: 4px;
+  height: 28px;
+}
+
+.icon-spark::after {
+  width: 28px;
+  height: 4px;
+}
+
+/* Heart */
+.icon-heart::before {
+  content: "♡";
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--plum);
+}
+
+/* Star */
+.icon-star::before {
+  content: "✦";
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--plum);
+}
+
+/* Growth */
+.icon-growth::before {
+  content: "⌁";
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--plum);
+  transform: rotate(-25deg);
+}
