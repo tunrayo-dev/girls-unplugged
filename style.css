@@ -1553,3 +1553,136 @@ body.menu-open {
   line-height: 1.7;
   margin: 0;
 }
+
+/* =========================================
+   WHY WE EXIST SECTION
+   ========================================= */
+
+.why-section {
+  background: var(--soft-lavender);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-section::before {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  border: 1px solid rgba(91, 40, 95, 0.1);
+  top: -170px;
+  left: -140px;
+  pointer-events: none;
+}
+
+.why-section::after {
+  content: "✦";
+  position: absolute;
+  color: var(--pink);
+  font-size: 5rem;
+  opacity: 0.35;
+  right: 6%;
+  bottom: 8%;
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+
+.why-intro {
+  max-width: 850px;
+  margin-bottom: 4rem;
+}
+
+.why-intro h2 {
+  max-width: 800px;
+  margin-bottom: 1.5rem;
+}
+
+.why-intro h2 span {
+  color: var(--plum);
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+}
+
+.why-intro p {
+  max-width: 760px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.why-card {
+  position: relative;
+  background: rgba(255, 253, 251, 0.85);
+  border: 1px solid rgba(91, 40, 95, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  min-height: 280px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  background: var(--warm-white);
+}
+
+.why-number {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  font-family: "Playfair Display", serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--plum);
+  opacity: 0.08;
+  line-height: 1;
+}
+
+.why-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--soft-pink);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.why-card:nth-child(2) .why-icon {
+  background: var(--soft-lavender);
+}
+
+.why-card:nth-child(3) .why-icon {
+  background: #f8eedc;
+}
+
+.why-card:nth-child(4) .why-icon {
+  background: #e3f0e6;
+}
+
+.why-card h3 {
+  color: var(--deep-plum);
+  font-size: 1.25rem;
+  margin-bottom: 0.8rem;
+  max-width: 80%;
+}
+
+.why-card p {
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0;
+}
