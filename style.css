@@ -3643,3 +3643,50 @@ body.menu-open {
   font-size: 2.1rem;
   color: var(--plum);
 }
+
+/* =========================================
+   SISTERHOOD WITHOUT BORDERS — FLOWER ICON
+========================================= */
+
+.icon-flower {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  display: block;
+  transform: rotate(45deg);
+}
+
+.icon-flower::before,
+.icon-flower::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+}
+
+.icon-flower::before {
+  top: 0;
+  left: 8px;
+}
+
+.icon-flower::after {
+  top: 8px;
+  left: 0;
+}
+
+.icon-flower {
+  background:
+    radial-gradient(
+      circle at center,
+      var(--plum) 0 4px,
+      transparent 5px
+    );
+}
+
+.borders-flower {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
