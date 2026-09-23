@@ -3574,3 +3574,42 @@ body.menu-open {
   font-size: 2rem;
   color: var(--plum);
 }
+
+
+/* =========================================
+   BLOOM & GLOW — CUSTOM ICONS
+========================================= */
+
+.circle-day-icon {
+  position: relative;
+}
+
+/* Sun */
+.icon-sun::before {
+  content: "☼";
+  font-size: 2rem;
+  color: var(--plum);
+}
+
+/* Leaf */
+.icon-leaf::before {
+  content: "⌁";
+  font-size: 2.1rem;
+  color: var(--plum);
+  transform: rotate(-45deg);
+  display: block;
+}
+
+/* Fun */
+.icon-fun::before {
+  content: "✦";
+  font-size: 2rem;
+  color: var(--plum);
+}
+
+/* Moon */
+.icon-moon::before {
+  content: "◐";
+  font-size: 2rem;
+  color: var(--plum);
+}
