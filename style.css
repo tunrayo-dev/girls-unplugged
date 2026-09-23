@@ -3796,3 +3796,21 @@ body.menu-open {
   font-size: 2.3rem;
   color: var(--plum);
 }
+
+/* =========================================
+   HERO — NOTE ICON
+========================================= */
+
+.hero-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.hero-note-icon {
+  width: 18px;
+  height: 18px;
+  transform: scale(0.55) rotate(45deg);
+  transform-origin: center;
+  flex-shrink: 0;
+}
