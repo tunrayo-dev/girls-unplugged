@@ -292,3 +292,154 @@
     transform: none;
   }
 }
+
+/* =========================================
+   HOMEPAGE NEW SECTIONS — MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+
+  /* Guest Speakers */
+  .speakers-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .speaker-preview-card:last-child {
+    grid-column: 1 / -1;
+    max-width: 500px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  /* Voices */
+  .voices-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .voices-message {
+    max-width: 700px;
+  }
+
+  /* Footer */
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    max-width: 650px;
+  }
+
+  .footer-connect {
+    grid-column: 1 / -1;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 700px) {
+
+  /* Guest Speakers */
+  .speakers-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .speaker-preview-card:last-child {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .speaker-preview-image {
+    height: 240px;
+  }
+
+  /* Voices */
+  .voices-heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .voices-message h3 {
+    font-size: 1.45rem;
+  }
+
+  .voices-image {
+    height: 240px;
+  }
+
+  /* Final CTA */
+  .final-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .final-cta-buttons .btn {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .final-cta-note {
+    gap: 0.65rem;
+  }
+
+  .cta-line {
+    width: 30px;
+  }
+
+  /* Footer */
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 4rem 0 3rem;
+  }
+
+  .footer-brand,
+  .footer-connect {
+    grid-column: auto;
+  }
+
+  .footer-links {
+    gap: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .speakers-preview-image {
+    height: 220px;
+  }
+
+  .speaker-preview-content {
+    padding: 1.5rem;
+  }
+
+  .voices-message h3 {
+    font-size: 1.35rem;
+  }
+
+  .voices-placeholder-card {
+    padding: 1.5rem;
+  }
+
+  .final-cta-content > p {
+    font-size: 0.94rem;
+  }
+
+  .final-cta-note {
+    font-size: 0.72rem;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
