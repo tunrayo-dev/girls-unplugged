@@ -1,1 +1,660 @@
-animations.css
+/* ========================================
+   GIRLS UNPLUGGED
+   ANIMATION SYSTEM
+======================================== */
+
+
+/* ========================================
+   PAGE LOAD
+======================================== */
+
+.page-load {
+  animation: pageFadeIn 0.8s ease both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ========================================
+   FADE + REVEAL ANIMATIONS
+======================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-45px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(45px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal-scale.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* ========================================
+   STAGGERED ANIMATIONS
+======================================== */
+
+.stagger > * {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.stagger.active > * {
+  animation: staggerUp 0.7s ease forwards;
+}
+
+.stagger.active > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.stagger.active > *:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.stagger.active > *:nth-child(3) {
+  animation-delay: 0.25s;
+}
+
+.stagger.active > *:nth-child(4) {
+  animation-delay: 0.35s;
+}
+
+.stagger.active > *:nth-child(5) {
+  animation-delay: 0.45s;
+}
+
+.stagger.active > *:nth-child(6) {
+  animation-delay: 0.55s;
+}
+
+.stagger.active > *:nth-child(7) {
+  animation-delay: 0.65s;
+}
+
+.stagger.active > *:nth-child(8) {
+  animation-delay: 0.75s;
+}
+
+@keyframes staggerUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ========================================
+   HERO ANIMATIONS
+======================================== */
+
+.hero-title {
+  animation: heroTitle 1s ease 0.15s both;
+}
+
+.hero-description {
+  animation: heroDescription 1s ease 0.35s both;
+}
+
+.hero-buttons {
+  animation: heroButtons 1s ease 0.5s both;
+}
+
+.hero-image {
+  animation: heroImage 1.1s ease 0.25s both;
+}
+
+@keyframes heroTitle {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroDescription {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroButtons {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroImage {
+  from {
+    opacity: 0;
+    transform: translateX(45px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+
+/* ========================================
+   FLOATING EFFECT
+======================================== */
+
+.float {
+  animation: floating 5s ease-in-out infinite;
+}
+
+.float-slow {
+  animation: floating 7s ease-in-out infinite;
+}
+
+.float-fast {
+  animation: floating 3.5s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+
+/* ========================================
+   GENTLE BOBBING
+======================================== */
+
+.bob {
+  animation: bob 3s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+
+/* ========================================
+   PULSE
+======================================== */
+
+.pulse {
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+
+/* ========================================
+   SOFT GLOW
+======================================== */
+
+.glow {
+  animation: softGlow 3s ease-in-out infinite;
+}
+
+@keyframes softGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(233, 166, 189, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(233, 166, 189, 0.28);
+  }
+}
+
+
+/* ========================================
+   DECORATIVE ROTATION
+======================================== */
+
+.rotate-slow {
+  animation: rotateSlow 20s linear infinite;
+}
+
+@keyframes rotateSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ========================================
+   IMAGE ZOOM
+======================================== */
+
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition: transform 0.8s ease;
+}
+
+.image-zoom:hover img {
+  transform: scale(1.06);
+}
+
+
+/* ========================================
+   BUTTON MICRO-INTERACTION
+======================================== */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.6s ease;
+}
+
+.btn:hover::after {
+  left: 140%;
+}
+
+
+/* ========================================
+   CARD HOVER
+======================================== */
+
+.interactive-card {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+
+/* ========================================
+   UNDERLINE ANIMATION
+======================================== */
+
+.animated-link {
+  position: relative;
+}
+
+.animated-link::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+
+  width: 100%;
+  height: 2px;
+
+  background: var(--pink);
+
+  transform: scaleX(0);
+  transform-origin: right;
+
+  transition: transform 0.35s ease;
+}
+
+.animated-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+/* ========================================
+   IMAGE OVERLAY
+======================================== */
+
+.image-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-overlay::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to top,
+    rgba(53, 22, 56, 0.55),
+    transparent 65%
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.4s ease;
+}
+
+.image-overlay:hover::after {
+  opacity: 1;
+}
+
+
+/* ========================================
+   STAT COUNTER
+======================================== */
+
+.stat-number {
+  display: inline-block;
+
+  font-variant-numeric: tabular-nums;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.stat-card:hover .stat-number {
+  transform: scale(1.05);
+}
+
+
+/* ========================================
+   COUNTING COMPLETION EFFECT
+======================================== */
+
+.stat-number.counted {
+  animation: numberPop 0.45s ease;
+}
+
+@keyframes numberPop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* ========================================
+   TIMELINE
+======================================== */
+
+.timeline-item {
+  opacity: 0;
+  transform: translateY(30px);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.timeline-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ========================================
+   FAQ ACCORDION
+======================================== */
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+
+  opacity: 0;
+
+  transition:
+    max-height 0.45s ease,
+    opacity 0.35s ease,
+    padding 0.35s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  opacity: 1;
+}
+
+
+/* ========================================
+   FAQ ICON
+======================================== */
+
+.faq-icon {
+  transition: transform 0.35s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+
+/* ========================================
+   MOBILE MENU
+======================================== */
+
+.mobile-menu {
+  transform: translateY(-15px);
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.mobile-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* ========================================
+   PAGE SECTION TRANSITION
+======================================== */
+
+.section-transition {
+  position: relative;
+}
+
+.section-transition::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 0;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--lavender);
+
+  transform: translateX(-50%);
+
+  transition: width 1s ease;
+}
+
+.section-transition.active::after {
+  width: 80%;
+}
+
+
+/* ========================================
+   LOADING DOTS
+======================================== */
+
+.loading-dots span {
+  display: inline-block;
+
+  width: 6px;
+  height: 6px;
+
+  margin: 0 3px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  animation: loadingDots 1.2s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes loadingDots {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  30% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .timeline-item {
+    opacity: 1;
+    transform: none;
+  }
+}
