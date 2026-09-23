@@ -3690,3 +3690,40 @@ body.menu-open {
   align-items: center;
   justify-content: center;
 }
+
+/* =========================================
+   TEAM PREVIEW — CUSTOM PLACEHOLDER ICON
+========================================= */
+
+.team-placeholder-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--soft-lavender);
+  position: relative;
+}
+
+.icon-person::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  position: absolute;
+  top: 12px;
+  left: 21px;
+}
+
+.icon-person::after {
+  content: "";
+  width: 32px;
+  height: 17px;
+  border: 2px solid var(--plum);
+  border-radius: 18px 18px 8px 8px;
+  position: absolute;
+  bottom: 11px;
+  left: 15px;
+}
