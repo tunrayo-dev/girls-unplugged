@@ -3814,3 +3814,76 @@ body.menu-open {
   transform-origin: center;
   flex-shrink: 0;
 }
+
+
+/* =========================================
+   FOOTER — SOCIAL ICONS
+========================================= */
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+}
+
+/* Instagram */
+.social-instagram {
+  border: 2px solid currentColor;
+  border-radius: 6px;
+}
+
+.social-instagram::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.social-instagram::after {
+  content: "";
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+/* TikTok */
+.social-tiktok::before {
+  content: "♪";
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Email */
+.social-email {
+  border: 2px solid currentColor;
+  border-radius: 4px;
+}
+
+.social-email::before,
+.social-email::after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 2px;
+  background: currentColor;
+  top: 7px;
+}
+
+.social-email::before {
+  left: 0;
+  transform: rotate(32deg);
+}
+
+.social-email::after {
+  right: 0;
+  transform: rotate(-32deg);
+}
