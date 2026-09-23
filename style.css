@@ -3727,3 +3727,72 @@ body.menu-open {
   bottom: 11px;
   left: 15px;
 }
+
+
+/* =========================================
+   SPEAKER PREVIEW — CUSTOM ICONS
+========================================= */
+
+.speaker-placeholder-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--soft-lavender);
+  position: relative;
+}
+
+/* Microphone */
+.icon-microphone::before {
+  content: "";
+  width: 13px;
+  height: 25px;
+  border: 2px solid var(--plum);
+  border-radius: 10px;
+  position: absolute;
+  top: 11px;
+}
+
+.icon-microphone::after {
+  content: "";
+  width: 25px;
+  height: 17px;
+  border: 2px solid var(--plum);
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+  position: absolute;
+  top: 27px;
+}
+
+/* Conversation */
+.icon-conversation::before {
+  content: "";
+  width: 25px;
+  height: 18px;
+  border: 2px solid var(--plum);
+  border-radius: 6px;
+  position: absolute;
+  top: 15px;
+  left: 14px;
+}
+
+.icon-conversation::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-left: 2px solid var(--plum);
+  border-bottom: 2px solid var(--plum);
+  position: absolute;
+  top: 29px;
+  left: 18px;
+  transform: skew(-20deg);
+}
+
+/* Sparkle */
+.icon-sparkle::before {
+  content: "✦";
+  font-size: 2.3rem;
+  color: var(--plum);
+}
