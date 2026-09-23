@@ -3613,3 +3613,33 @@ body.menu-open {
   font-size: 2rem;
   color: var(--plum);
 }
+
+/* =========================================
+   IMPACT PREVIEW — CUSTOM ICONS
+========================================= */
+
+.impact-preview-icon {
+  position: relative;
+}
+
+/* Heart */
+.icon-heart::before {
+  content: "♡";
+  font-size: 2rem;
+  color: var(--plum);
+}
+
+/* Voice */
+.icon-voice::before {
+  content: "◌";
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--plum);
+}
+
+/* Globe */
+.icon-globe::before {
+  content: "◎";
+  font-size: 2.1rem;
+  color: var(--plum);
+}
