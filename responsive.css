@@ -1054,3 +1054,56 @@
     overflow-wrap: break-word;
   }
 }
+
+
+/* =========================================
+   BLOOM & GLOW — MOBILE CARD REFINEMENT
+========================================= */
+
+@media (max-width: 700px) {
+
+  .circle-week {
+    gap: 1rem;
+  }
+
+  .circle-day {
+    min-height: 0;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+  }
+
+  .circle-day-top {
+    margin-bottom: 1.1rem;
+  }
+
+  .circle-day-number {
+    font-size: 1.45rem;
+  }
+
+  .circle-day-label {
+    font-size: 0.7rem;
+  }
+
+  .circle-day-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .circle-day h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .circle-day p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .circle-tag {
+    font-size: 0.7rem;
+  }
+
+}
