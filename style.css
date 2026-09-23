@@ -3160,3 +3160,219 @@ body.menu-open {
   background: var(--lavender);
   opacity: 0.5;
 }
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+  background: #241025;
+  color: var(--warm-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.1fr;
+  gap: 4rem;
+  padding: 5rem 0 4rem;
+}
+
+.footer-brand {
+  max-width: 400px;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--warm-white);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo strong {
+  font-family: "Playfair Display", serif;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.footer-logo small {
+  color: var(--lavender);
+  font-size: 0.72rem;
+  margin-top: 0.2rem;
+}
+
+.footer-logo-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--soft-pink);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flower-petal {
+  position: absolute;
+  width: 13px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--plum);
+}
+
+.flower-petal:nth-child(1) {
+  transform: translateY(-8px);
+}
+
+.flower-petal:nth-child(2) {
+  transform: translateX(-8px) rotate(-90deg);
+}
+
+.flower-petal:nth-child(3) {
+  transform: translateX(8px) rotate(90deg);
+}
+
+.flower-center {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  position: relative;
+  z-index: 2;
+}
+
+.footer-brand > p {
+  color: rgba(255, 253, 251, 0.7);
+  line-height: 1.8;
+  font-size: 0.94rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-brand .footer-motto {
+  color: var(--pink);
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-column h3,
+.footer-connect h3 {
+  color: var(--warm-white);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-column a {
+  color: rgba(255, 253, 251, 0.65);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.footer-column a:hover {
+  color: var(--pink);
+  transform: translateX(4px);
+}
+
+.footer-connect p {
+  color: rgba(255, 253, 251, 0.7);
+  line-height: 1.7;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--warm-white);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.footer-socials a:hover {
+  background: var(--plum);
+  border-color: var(--lavender);
+  transform: translateY(-3px);
+}
+
+.footer-email {
+  color: var(--pink);
+  font-size: 0.85rem;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.footer-email:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.footer-bottom p {
+  color: rgba(255, 253, 251, 0.5);
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 253, 251, 0.6);
+  font-size: 0.78rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-bottom-links a:hover {
+  color: var(--pink);
+}
