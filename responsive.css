@@ -795,3 +795,262 @@
     max-width: 100%;
   }
 }
+
+
+/* =========================================
+   MOBILE CARD LAYOUT — FINAL FIX
+========================================= */
+
+@media (max-width: 700px) {
+
+  /* -------------------------------
+     WELCOME CARDS
+  ------------------------------- */
+
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .welcome-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .welcome-card {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 1.75rem;
+    overflow: visible;
+  }
+
+
+  /* -------------------------------
+     WHY WE EXIST CARDS
+  ------------------------------- */
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .why-card {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 1.75rem;
+    overflow: visible;
+  }
+
+  .why-card h3 {
+    max-width: 100%;
+  }
+
+
+  /* -------------------------------
+     WHAT WE BELIEVE CARDS
+  ------------------------------- */
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .value-card {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 1.75rem;
+    overflow: visible;
+  }
+
+
+  /* -------------------------------
+     BLOOM & GLOW CIRCLE CARDS
+  ------------------------------- */
+
+  .circle-week {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .circle-day {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 1.75rem;
+    overflow: hidden;
+  }
+
+
+  /* -------------------------------
+     SISTERHOOD WITHOUT BORDERS
+  ------------------------------- */
+
+  .borders-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .borders-story {
+    width: 100%;
+  }
+
+  .borders-visual {
+    width: min(100%, 420px);
+    margin-inline: auto;
+  }
+
+  .borders-content {
+    width: 100%;
+  }
+
+  .borders-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .border-stat {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .borders-message {
+    width: 100%;
+    padding: 1.75rem;
+  }
+
+
+  /* -------------------------------
+     IMPACT CARDS
+  ------------------------------- */
+
+  .impact-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .impact-preview-card {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 1.75rem;
+    overflow: visible;
+  }
+
+  .impact-preview-card p {
+    max-width: 100%;
+  }
+
+  .impact-preview-link {
+    margin-top: 1rem;
+  }
+
+  .impact-preview-cta {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  /* -------------------------------
+     TEAM CARDS
+     Make them behave like
+     the Speaker cards
+  ------------------------------- */
+
+  .team-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .team-preview-card,
+  .team-founder-card {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .team-preview-image,
+  .team-founder-image {
+    width: 100%;
+    min-height: 220px;
+    height: 220px;
+  }
+
+  .team-preview-content {
+    width: 100%;
+    padding: 1.75rem;
+  }
+
+  .team-role {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .team-preview-content h3,
+  .team-preview-content p {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+
+  /* -------------------------------
+     SPEAKER CARDS
+     Keep their working behaviour
+  ------------------------------- */
+
+  .speakers-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .speaker-preview-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+  }
+
+  .speaker-preview-image {
+    width: 100%;
+    height: 230px;
+  }
+
+  .speaker-preview-content {
+    width: 100%;
+    padding: 1.75rem;
+  }
+
+
+  /* -------------------------------
+     GENERAL CARD SAFETY
+  ------------------------------- */
+
+  .welcome-card *,
+  .why-card *,
+  .value-card *,
+  .circle-day *,
+  .border-stat *,
+  .borders-message *,
+  .impact-preview-card *,
+  .team-preview-card *,
+  .speaker-preview-card * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+}
