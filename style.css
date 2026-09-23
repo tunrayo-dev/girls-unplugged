@@ -3038,3 +3038,125 @@ body.menu-open {
   line-height: 1.7;
   margin: 0;
 }
+
+/* =========================================
+   FINAL CALL TO ACTION
+========================================= */
+
+.final-cta-section {
+  background: var(--deep-plum);
+  position: relative;
+  overflow: hidden;
+  color: var(--warm-white);
+}
+
+.final-cta-section::before {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: var(--purple);
+  opacity: 0.2;
+  top: -180px;
+  left: -120px;
+}
+
+.final-cta-section::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--pink);
+  opacity: 0.1;
+  right: -100px;
+  bottom: -150px;
+}
+
+.final-cta-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.final-cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.final-cta-content .section-label {
+  color: var(--lavender);
+}
+
+.final-cta-content h2 {
+  color: var(--warm-white);
+  margin-bottom: 1.5rem;
+}
+
+.final-cta-content h2 span {
+  color: var(--pink);
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+}
+
+.final-cta-content > p {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(255, 253, 251, 0.82);
+  line-height: 1.8;
+}
+
+.final-cta-content > p + p {
+  margin-top: 0.75rem;
+}
+
+.final-cta-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.final-cta-section .btn-primary {
+  background: var(--pink);
+  color: var(--deep-plum);
+}
+
+.final-cta-section .btn-primary:hover {
+  background: var(--warm-white);
+  color: var(--deep-plum);
+}
+
+.final-cta-section .btn-secondary {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: var(--warm-white);
+}
+
+.final-cta-section .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--warm-white);
+}
+
+.final-cta-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  color: var(--lavender);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cta-line {
+  width: 45px;
+  height: 1px;
+  background: var(--lavender);
+  opacity: 0.5;
+}
