@@ -640,3 +640,158 @@
     flex-wrap: wrap;
   }
 }
+
+
+/* =========================================
+   GLOBAL MOBILE OVERFLOW FIX
+========================================= */
+
+@media (max-width: 700px) {
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section,
+  .section-small {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Make every major homepage grid become one
+     comfortable mobile column */
+
+  .welcome-grid,
+  .welcome-cards,
+  .why-grid,
+  .values-grid,
+  .circle-preview-grid,
+  .borders-grid,
+  .impact-preview-grid,
+  .team-preview-grid,
+  .speakers-preview-grid,
+  .voices-content {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Stop individual cards from forcing the page wider */
+
+  .welcome-card,
+  .why-card,
+  .value-card,
+  .circle-preview-card,
+  .impact-preview-card,
+  .team-preview-card,
+  .speaker-preview-card,
+  .voices-message,
+  .voices-placeholder,
+  .voices-placeholder-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Make card contents wrap instead of overflowing */
+
+  .welcome-card *,
+  .why-card *,
+  .value-card *,
+  .circle-preview-card *,
+  .impact-preview-card *,
+  .team-preview-card *,
+  .speaker-preview-card *,
+  .voices-message *,
+  .voices-placeholder-card * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  /* Sisterhood / statistics */
+
+  .borders-stats,
+  .stats-grid,
+  .impact-stats {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Buttons */
+
+  .button-group,
+  .hero-buttons,
+  .final-cta-buttons {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .button-group .btn,
+  .hero-buttons .btn,
+  .final-cta-buttons .btn {
+    max-width: 100%;
+  }
+
+  /* Images */
+
+  img {
+    max-width: 100%;
+  }
+
+  .hero-image,
+  .hero-image-main,
+  .hero-placeholder,
+  .voices-image {
+    max-width: 100%;
+  }
+
+  /* Text */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  /* Footer */
+
+  .footer-main,
+  .footer-links {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-brand,
+  .footer-connect,
+  .footer-column {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
