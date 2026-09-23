@@ -1107,3 +1107,77 @@
   }
 
 }
+
+
+/* =========================================
+   BLOOM & GLOW — MOBILE CAROUSEL
+========================================= */
+
+@media (max-width: 700px) {
+
+  .circle-week {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding: 0.25rem 0.15rem 1rem;
+    margin-inline: -0.15rem;
+    scrollbar-width: none;
+  }
+
+  .circle-week::-webkit-scrollbar {
+    display: none;
+  }
+
+  .circle-day {
+    flex: 0 0 82%;
+    width: 82%;
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    padding: 1.35rem;
+    border-radius: 1.35rem;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .circle-day-top {
+    margin-bottom: 0.8rem;
+  }
+
+  .circle-day-number {
+    font-size: 1.2rem;
+  }
+
+  .circle-day-label {
+    font-size: 0.68rem;
+  }
+
+  .circle-day-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .circle-day h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .circle-day p {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    margin-bottom: 0.8rem;
+  }
+
+  .circle-tag {
+    font-size: 0.65rem;
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+}
