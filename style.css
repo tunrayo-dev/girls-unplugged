@@ -3513,3 +3513,64 @@ body.menu-open {
   width: 28px;
   height: 4px;
 }
+
+
+/* =========================================
+   WHAT WE BELIEVE — CUSTOM ICONS
+========================================= */
+
+.value-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  background: var(--soft-lavender);
+  position: relative;
+}
+
+/* Respect */
+.icon-respect::before {
+  content: "♡";
+  font-size: 2rem;
+  color: var(--plum);
+}
+
+/* Safety */
+.icon-safety::before {
+  content: "";
+  width: 20px;
+  height: 24px;
+  border: 2px solid var(--plum);
+  border-radius: 10px 10px 12px 12px;
+  display: block;
+}
+
+.icon-safety::after {
+  content: "";
+  width: 7px;
+  height: 4px;
+  border-left: 2px solid var(--plum);
+  border-bottom: 2px solid var(--plum);
+  position: absolute;
+  top: 23px;
+  left: 22px;
+  transform: rotate(-45deg);
+}
+
+/* Voice */
+.icon-voice::before {
+  content: "◌";
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--plum);
+}
+
+/* Star */
+.icon-star::before {
+  content: "✦";
+  font-size: 2rem;
+  color: var(--plum);
+}
