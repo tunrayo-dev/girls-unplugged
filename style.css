@@ -3858,8 +3858,9 @@ body.menu-open {
 /* TikTok */
 .social-tiktok::before {
   content: "♪";
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   line-height: 1;
+  align: centre;
 }
 
 /* Email */
