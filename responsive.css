@@ -446,14 +446,17 @@
 
 
 /* =========================================
-   HOMEPAGE NEW SECTIONS — MOBILE
+   HOMEPAGE NEW SECTIONS — MOBILE FIX
 ========================================= */
 
 @media (max-width: 900px) {
 
-  /* Guest Speakers */
   .speakers-preview-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .speaker-preview-card {
+    min-width: 0;
   }
 
   .speaker-preview-card:last-child {
@@ -463,95 +466,139 @@
     justify-self: center;
   }
 
-  /* Voices */
   .voices-content {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .voices-message {
-    max-width: 700px;
+  .voices-message,
+  .voices-placeholder {
+    min-width: 0;
+    max-width: 100%;
   }
 
-  /* Footer */
   .footer-main {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .footer-brand {
     grid-column: 1 / -1;
-    max-width: 650px;
+    min-width: 0;
   }
 
   .footer-connect {
-    grid-column: 1 / -1;
-    max-width: 500px;
+    min-width: 0;
+  }
+
+  .footer-links {
+    min-width: 0;
   }
 }
 
+
 @media (max-width: 700px) {
 
-  /* Guest Speakers */
-  .speakers-preview-grid {
-    grid-template-columns: 1fr;
+  /* Prevent individual sections from becoming wider
+     than the phone viewport */
+
+  .section,
+  .section-small {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
 
+  .container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Guest Speakers */
+
+  .speakers-preview-grid {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .speaker-preview-card,
   .speaker-preview-card:last-child {
+    width: 100%;
+    max-width: 100%;
     grid-column: auto;
-    max-width: none;
   }
 
   .speaker-preview-image {
-    height: 240px;
+    height: 230px;
+  }
+
+  .speaker-preview-content {
+    min-width: 0;
   }
 
   /* Voices */
-  .voices-heading {
-    margin-bottom: 2.5rem;
+
+  .voices-content {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
   }
 
-  .voices-message h3 {
-    font-size: 1.45rem;
+  .voices-message,
+  .voices-placeholder {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .voices-image {
-    height: 240px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .voices-placeholder-card {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* Final CTA */
-  .final-cta-buttons {
-    flex-direction: column;
+
+  .final-cta-content {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .final-cta-buttons {
+    width: 100%;
+    flex-direction: column;
   }
 
   .final-cta-buttons .btn {
     width: 100%;
     max-width: 320px;
-  }
-
-  .final-cta-note {
-    gap: 0.65rem;
-  }
-
-  .cta-line {
-    width: 30px;
+    box-sizing: border-box;
   }
 
   /* Footer */
+
   .footer-main {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding: 4rem 0 3rem;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
   }
 
   .footer-brand,
+  .footer-links,
   .footer-connect {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     grid-column: auto;
   }
 
   .footer-links {
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-column {
+    min-width: 0;
   }
 
   .footer-bottom {
@@ -560,14 +607,16 @@
   }
 }
 
+
 @media (max-width: 500px) {
 
-  .speakers-preview-image {
-    height: 220px;
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
-  .speaker-preview-content {
-    padding: 1.5rem;
+  .speakers-preview-image {
+    height: 210px;
   }
 
   .voices-message h3 {
@@ -578,20 +627,16 @@
     padding: 1.5rem;
   }
 
-  .final-cta-content > p {
-    font-size: 0.94rem;
-  }
-
-  .final-cta-note {
-    font-size: 0.72rem;
+  .final-cta-buttons .btn {
+    max-width: 100%;
   }
 
   .footer-links {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
   }
 
   .footer-bottom-links {
     flex-wrap: wrap;
-    gap: 1rem;
   }
 }
