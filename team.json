@@ -1,1 +1,79 @@
-team.json
+{
+  "team": [
+    {
+      "id": "motunrayo-linda-idowu",
+      "name": "Motunrayo Linda Idowu",
+      "role": "Founder & Community Director",
+      "image": "",
+      "imageAlt": "Photo placeholder for Motunrayo Linda Idowu",
+      "bio": "Motunrayo Linda Idowu is the founder and Community Director of Girls Unplugged: Bloom & Glow Circle. She created the community to give girls a space to connect, have honest conversations, discover opportunities, build confidence, and grow together.",
+      "longBio": "Girls Unplugged began with a simple idea: girls should not have to navigate everything alone. What started as an online sisterhood has grown into a community where girls from different parts of Africa can connect, share experiences, celebrate one another, discover opportunities, and support each other through different seasons of life.",
+      "responsibilities": [
+        "Community direction",
+        "Community programming",
+        "Member engagement",
+        "Partnerships and collaborations",
+        "Guest speaker coordination",
+        "Community storytelling"
+      ],
+      "socials": {
+        "linkedin": "https://ng.linkedin.com/in/motunrayo-idowu-373330258",
+        "instagram": "https://www.instagram.com/tunraayo_idowu/"
+      }
+    }
+  ],
+
+  "teamIntro": {
+    "label": "Our people",
+    "title": "A community built with intention.",
+    "paragraphs": [
+      "Behind every conversation, activity, guest session, opportunity, and community moment is a group of people contributing their time, ideas, skills, and energy to make Girls Unplugged what it is.",
+      "We are growing this community carefully, keeping the girls at the heart of what we do and creating room for more people to contribute as the circle grows."
+    ]
+  },
+
+  "howWeWork": [
+    {
+      "number": "01",
+      "title": "Listen",
+      "description": "We pay attention to what girls actually need, rather than assuming we already have all the answers."
+    },
+    {
+      "number": "02",
+      "title": "Collaborate",
+      "description": "We believe good ideas become stronger when people bring their different experiences and skills together."
+    },
+    {
+      "number": "03",
+      "title": "Create",
+      "description": "We turn conversations and ideas into activities, opportunities, resources, and experiences that girls can actually use."
+    },
+    {
+      "number": "04",
+      "title": "Grow",
+      "description": "We are still learning, improving, and becoming better as a community."
+    }
+  ],
+
+  "founderSection": {
+    "label": "Founder",
+    "name": "Motunrayo Linda Idowu",
+    "role": "Founder & Community Director",
+    "image": "",
+    "imageAlt": "Founder photo placeholder",
+    "paragraphs": [
+      "Girls Unplugged started with a simple idea: girls should not have to navigate everything alone.",
+      "What began as a small online sisterhood has grown into a community where girls from different parts of Africa can connect, have honest conversations, celebrate one another, discover opportunities, and grow together.",
+      "Motunrayo continues to lead the community with a focus on creating meaningful experiences rather than simply building another online group."
+    ],
+    "quote": "A space does not have to start big to matter. Sometimes, it just has to start."
+  },
+
+  "joinTeam": {
+    "label": "Want to contribute?",
+    "title": "There is room for your voice too.",
+    "description": "Girls Unplugged is growing. If you have a skill, idea, experience, opportunity, or simply a genuine desire to support girls, there are different ways you can contribute.",
+    "buttonText": "Get involved",
+    "buttonLink": "get-involved.html"
+  }
+}
