@@ -4377,3 +4377,8 @@ body.menu-open {
     font-size: 0.92rem;
   }
 }
+
+
+body {
+  outline: 8px solid red !important;
+}
