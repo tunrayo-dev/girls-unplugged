@@ -1,1 +1,26 @@
-impact.json
+{
+  "stats": [
+    {
+      "label": "Community Members",
+      "value": 0,
+      "suffix": "+"
+    },
+    {
+      "label": "Countries Represented",
+      "value": 0,
+      "suffix": "+"
+    },
+    {
+      "label": "Guest Conversations",
+      "value": 0,
+      "suffix": "+"
+    },
+    {
+      "label": "Community Activities",
+      "value": 0,
+      "suffix": "+"
+    }
+  ],
+
+  "lastUpdated": "September 2026"
+}
