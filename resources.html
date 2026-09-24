@@ -8,7 +8,14 @@
 
   <meta
     name="description"
-    content="Helpful resources for girls and young women covering personal growth, education, technology, wellbeing, leadership and more."
+    content="A curated collection of useful opportunities, learning platforms, technology resources and wellbeing tools for girls and young women."
+  >
+
+  <meta name="theme-color" content="#5b285f">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
   >
 
   <link rel="stylesheet" href="style.css">
@@ -26,12 +33,7 @@
     <div class="container nav-container">
 
       <a href="index.html" class="site-logo" aria-label="Girls Unplugged home">
-        <span class="logo-mark" aria-hidden="true">
-          <span class="flower-petal"></span>
-          <span class="flower-petal"></span>
-          <span class="flower-petal"></span>
-          <span class="flower-center"></span>
-        </span>
+        <span class="logo-mark" aria-hidden="true">🌸</span>
 
         <span class="logo-text">
           <strong>Girls Unplugged</strong>
@@ -40,23 +42,20 @@
       </a>
 
       <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="circle.html">The Circle</a>
         <a href="programs.html">Programs</a>
         <a href="speakers.html">Speakers</a>
-        <a href="team.html">Our Team</a>
         <a href="impact.html">Impact</a>
         <a href="resources.html" class="active">Resources</a>
+        <a href="get-involved.html" class="nav-cta">Get Involved</a>
       </nav>
-
-      <a href="get-involved.html" class="btn btn-primary nav-cta">
-        Get Involved
-      </a>
 
       <button
         class="menu-toggle"
         type="button"
-        aria-label="Open menu"
+        aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
@@ -68,23 +67,24 @@
     </div>
 
     <div class="mobile-menu" id="mobile-menu">
-      <nav aria-label="Mobile navigation">
-        <a href="about.html">About</a>
-        <a href="circle.html">The Circle</a>
-        <a href="programs.html">Programs</a>
-        <a href="speakers.html">Speakers</a>
-        <a href="team.html">Our Team</a>
-        <a href="impact.html">Impact</a>
-        <a href="resources.html" class="active">Resources</a>
-        <a href="get-involved.html">Get Involved</a>
-      </nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="circle.html">The Circle</a>
+      <a href="programs.html">Programs</a>
+      <a href="speakers.html">Speakers</a>
+      <a href="team.html">Our Team</a>
+      <a href="impact.html">Our Impact</a>
+      <a href="resources.html" class="active">Resources</a>
+      <a href="get-involved.html">Get Involved</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
     </div>
   </header>
 
 
-  <!-- HERO -->
   <main>
 
+    <!-- HERO -->
     <section class="hero page-hero">
       <div class="container hero-content">
 
@@ -95,18 +95,19 @@
           </span>
 
           <h1>
-            Things that help you
-            <span class="hero-highlight">grow.</span>
+            Find something useful.
+            <span class="hero-highlight">Learn. Grow. Bloom.</span>
           </h1>
 
           <p class="hero-description">
-            Helpful tools, ideas and opportunities to support your
-            learning, wellbeing, confidence, creativity and growth.
+            A curated collection of opportunities, learning platforms,
+            technology tools and trusted resources to help you move
+            forward.
           </p>
 
           <div class="hero-buttons">
             <a href="#resource-library" class="btn btn-primary">
-              Explore Resources
+              Explore the Library
             </a>
 
             <a href="get-involved.html" class="btn btn-secondary">
@@ -114,13 +115,19 @@
             </a>
           </div>
 
+          <div class="hero-note">
+            <span class="hero-note-icon icon-flower" aria-hidden="true"></span>
+            <span>Useful things, in one place.</span>
+          </div>
+
         </div>
 
-        <div class="hero-image reveal" aria-hidden="true">
+        <div class="hero-image reveal reveal-delay-2">
           <div class="hero-placeholder">
             <div class="hero-placeholder-content">
-              <span class="hero-flower">🌸</span>
-              <span>Learn. Explore. Bloom.</span>
+              <span class="hero-flower" aria-hidden="true">🌸</span>
+              <strong>Explore. Learn. Bloom.</strong>
+              <span>Resources for your journey.</span>
             </div>
           </div>
         </div>
@@ -129,211 +136,185 @@
     </section>
 
 
-    <!-- INTRO -->
-    <section class="section">
+    <!-- RESOURCE LIBRARY -->
+    <section class="section" id="resource-library">
       <div class="container">
 
         <div class="section-heading centered reveal">
-          <span class="section-label">A little help goes a long way</span>
-
-          <h2>
-            Resources for every part of your journey.
-          </h2>
-
-          <p>
-            Growing up comes with questions, new experiences and plenty
-            of things to figure out. This space brings together resources
-            that can make some of those steps a little easier.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- RESOURCE LIBRARY -->
-    <section class="section section-soft" id="resource-library">
-      <div class="container">
-
-        <div class="section-heading reveal">
           <span class="section-label">Resource Library</span>
 
           <h2>
-            Find something useful.
+            Start where you need to.
           </h2>
 
           <p>
-            Explore resources across different parts of life, learning
-            and personal growth.
+            Pick a category and explore resources that can help with
+            opportunities, learning, technology, leadership and wellbeing.
           </p>
         </div>
 
 
-        <div class="resources-grid">
+        <div class="grid grid-3">
 
-          <!-- PERSONAL GROWTH -->
-          <article class="resource-card reveal">
+          <article class="value-card reveal">
 
-            <div class="resource-icon" aria-hidden="true">
-              <span class="icon-growth"></span>
-            </div>
-
-            <span class="resource-category">
-              Personal Growth
-            </span>
-
-            <h3>
-              Becoming more confident
-            </h3>
-
-            <p>
-              Ideas, reflection prompts and practical tools to help you
-              understand yourself, build confidence and navigate change.
-            </p>
-
-            <a href="#" class="resource-link">
-              Explore resources
-              <span aria-hidden="true">→</span>
-            </a>
-
-          </article>
-
-
-          <!-- WELLBEING -->
-          <article class="resource-card reveal">
-
-            <div class="resource-icon" aria-hidden="true">
-              <span class="icon-heart"></span>
-            </div>
-
-            <span class="resource-category">
-              Wellness
-            </span>
-
-            <h3>
-              Taking care of yourself
-            </h3>
-
-            <p>
-              Resources around emotional wellbeing, healthy relationships,
-              self-care and creating space to check in with yourself.
-            </p>
-
-            <a href="#" class="resource-link">
-              Explore resources
-              <span aria-hidden="true">→</span>
-            </a>
-
-          </article>
-
-
-          <!-- EDUCATION -->
-          <article class="resource-card reveal">
-
-            <div class="resource-icon" aria-hidden="true">
+            <div class="value-icon" aria-hidden="true">
               <span class="icon-spark"></span>
             </div>
 
-            <span class="resource-category">
-              Education
-            </span>
+            <span class="badge">Opportunities</span>
 
-            <h3>
-              Learning & opportunities
-            </h3>
+            <h3>Find opportunities</h3>
 
             <p>
-              Helpful places to discover scholarships, learning
-              opportunities, programmes and ways to keep developing.
+              Explore a regularly updated source for scholarships,
+              fellowships, competitions, internships and other youth
+              opportunities.
             </p>
 
-            <a href="#" class="resource-link">
-              Explore resources
-              <span aria-hidden="true">→</span>
+            <a
+              href="https://opportunitydesk.org/"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore opportunities
             </a>
 
           </article>
 
 
-          <!-- TECHNOLOGY -->
-          <article class="resource-card reveal">
+          <article class="value-card reveal">
 
-            <div class="resource-icon" aria-hidden="true">
+            <div class="value-icon" aria-hidden="true">
+              <span class="icon-growth"></span>
+            </div>
+
+            <span class="badge">Learning</span>
+
+            <h3>Learn for free</h3>
+
+            <p>
+              Learn at your own pace with free courses, projects and
+              certifications across coding, data, technology and more.
+            </p>
+
+            <a
+              href="https://www.freecodecamp.org/"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit freeCodeCamp
+            </a>
+
+          </article>
+
+
+          <article class="value-card reveal">
+
+            <div class="value-icon" aria-hidden="true">
               <span class="icon-connection"></span>
             </div>
 
-            <span class="resource-category">
-              Technology
-            </span>
+            <span class="badge">Technology</span>
 
-            <h3>
-              Build your digital skills
-            </h3>
+            <h3>Build digital skills</h3>
 
             <p>
-              Beginner-friendly resources for exploring technology,
-              digital skills, coding and other possibilities in tech.
+              Explore free technology and career learning in areas such
+              as AI, data, cybersecurity, cloud computing and software.
             </p>
 
-            <a href="#" class="resource-link">
-              Explore resources
-              <span aria-hidden="true">→</span>
+            <a
+              href="https://skillsbuild.org/"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore IBM SkillsBuild
             </a>
 
           </article>
 
 
-          <!-- LEADERSHIP -->
-          <article class="resource-card reveal">
+          <article class="value-card reveal">
 
-            <div class="resource-icon" aria-hidden="true">
+            <div class="value-icon" aria-hidden="true">
+              <span class="icon-star"></span>
+            </div>
+
+            <span class="badge">Girls in Tech</span>
+
+            <h3>Explore Girls Who Code</h3>
+
+            <p>
+              Explore learning experiences designed to help girls and
+              young people discover coding, technology and careers in tech.
+            </p>
+
+            <a
+              href="https://girlswhocode.com/"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit Girls Who Code
+            </a>
+
+          </article>
+
+
+          <article class="value-card reveal">
+
+            <div class="value-icon" aria-hidden="true">
+              <span class="icon-heart"></span>
+            </div>
+
+            <span class="badge">Wellbeing</span>
+
+            <h3>Look after your wellbeing</h3>
+
+            <p>
+              Find practical guidance for understanding emotions,
+              managing stress, building resilience and navigating
+              relationships.
+            </p>
+
+            <a
+              href="https://www.unicef.org/adolescentmentalhealthhub/resources/adolescents"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore UNICEF resources
+            </a>
+
+          </article>
+
+
+          <article class="value-card reveal">
+
+            <div class="value-icon" aria-hidden="true">
               <span class="icon-voice"></span>
             </div>
 
-            <span class="resource-category">
-              Leadership
-            </span>
+            <span class="badge">Life Skills</span>
 
-            <h3>
-              Find your voice
-            </h3>
+            <h3>Build your life skills</h3>
 
             <p>
-              Resources to help you develop leadership, communication,
-              public speaking and the confidence to contribute.
+              Explore activities that support communication, confidence,
+              problem-solving, healthy relationships and self-worth.
             </p>
 
-            <a href="#" class="resource-link">
-              Explore resources
-              <span aria-hidden="true">→</span>
-            </a>
-
-          </article>
-
-
-          <!-- GIRLS' HEALTH -->
-          <article class="resource-card reveal">
-
-            <div class="resource-icon" aria-hidden="true">
-              <span class="icon-flower"></span>
-            </div>
-
-            <span class="resource-category">
-              Girls' Wellbeing
-            </span>
-
-            <h3>
-              Know your body & wellbeing
-            </h3>
-
-            <p>
-              Age-appropriate resources to support conversations around
-              health, body awareness, menstrual wellbeing and self-care.
-            </p>
-
-            <a href="#" class="resource-link">
-              Explore resources
-              <span aria-hidden="true">→</span>
+            <a
+              href="https://www.unicef.org/adolescentkit/reports/guide-adolescents-and-life-skills-education"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore the guide
             </a>
 
           </article>
@@ -344,94 +325,107 @@
     </section>
 
 
-    <!-- FEATURED RESOURCES -->
-    <section class="section">
+    <!-- MORE RESOURCES -->
+    <section class="section section-soft">
       <div class="container">
 
-        <div class="section-heading centered reveal">
-          <span class="section-label">Featured</span>
+        <div class="section-heading reveal">
+
+          <span class="section-label">
+            More places worth knowing
+          </span>
 
           <h2>
-            Worth exploring.
+            Keep exploring.
           </h2>
 
           <p>
-            We’ll use this space to highlight resources, opportunities,
-            tools and conversations we think Bloomies should know about.
+            A few more trusted spaces to visit when you need information,
+            learning support or practical tools.
           </p>
+
         </div>
 
 
-        <div class="featured-resources-grid">
+        <div class="grid grid-3">
 
-          <article class="featured-resource-card reveal">
+          <article class="value-card reveal">
 
-            <div class="featured-resource-top">
-              <span class="featured-resource-tag">
-                Opportunity
-              </span>
+            <div class="value-icon" aria-hidden="true">
+              <span class="icon-spark"></span>
             </div>
 
-            <h3>
-              Opportunities for girls
-            </h3>
+            <span class="badge">Nigeria</span>
+
+            <h3>UNICEF Nigeria Education</h3>
 
             <p>
-              Scholarships, fellowships, programmes, competitions and
-              other opportunities worth keeping an eye on.
+              Explore education information, reports and resources focused
+              on learning and educational equity in Nigeria.
             </p>
 
-            <span class="coming-soon">
-              Coming soon
-            </span>
+            <a
+              href="https://www.unicef.org/nigeria/education"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore education resources
+            </a>
 
           </article>
 
 
-          <article class="featured-resource-card reveal">
+          <article class="value-card reveal">
 
-            <div class="featured-resource-top">
-              <span class="featured-resource-tag">
-                Learning
-              </span>
+            <div class="value-icon" aria-hidden="true">
+              <span class="icon-voice"></span>
             </div>
 
-            <h3>
-              Learn something new
-            </h3>
+            <span class="badge">Expression & Innovation</span>
+
+            <h3>UNICEF Adolescent Kit</h3>
 
             <p>
-              Curated learning platforms, guides and tools for girls
-              who want to explore beyond the classroom.
+              Find creative activities that help adolescents express
+              themselves, develop skills and connect with their communities.
             </p>
 
-            <span class="coming-soon">
-              Coming soon
-            </span>
+            <a
+              href="https://www.unicef.org/adolescentkit/programme-resources"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore the toolkit
+            </a>
 
           </article>
 
 
-          <article class="featured-resource-card reveal">
+          <article class="value-card reveal">
 
-            <div class="featured-resource-top">
-              <span class="featured-resource-tag">
-                Community
-              </span>
+            <div class="value-icon" aria-hidden="true">
+              <span class="icon-flower"></span>
             </div>
 
-            <h3>
-              Places to connect
-            </h3>
+            <span class="badge">Girls' Wellbeing</span>
+
+            <h3>Girls Are in Action Toolkit</h3>
 
             <p>
-              Communities, initiatives and spaces where girls can meet
-              people, exchange ideas and discover new possibilities.
+              Explore a practical toolkit with activities around girls'
+              wellbeing, life skills, protection and future opportunities.
             </p>
 
-            <span class="coming-soon">
-              Coming soon
-            </span>
+            <a
+              href="https://www.unicef.org/esa/documents/girls-are-action-gaia-toolkit"
+              class="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Explore the toolkit
+            </a>
 
           </article>
 
@@ -441,8 +435,8 @@
     </section>
 
 
-    <!-- GIRLS UNPLUGGED PICKS -->
-    <section class="section section-soft">
+    <!-- KEEP IT FRESH -->
+    <section class="section">
       <div class="container">
 
         <div class="borders-layout">
@@ -450,27 +444,27 @@
           <div class="borders-story reveal">
 
             <span class="section-label">
-              From the Circle
+              A growing library
             </span>
 
             <h2>
-              Resources we’d actually recommend to our girls.
+              We’ll keep adding things worth your time.
             </h2>
 
             <p>
-              Not everything online is worth your time. We want this
-              space to become a collection of resources that are
-              genuinely useful, relevant and worth exploring.
+              The goal is simple: when you visit this page, you should
+              leave with something useful — a course to try, an opportunity
+              to investigate, a guide to read or a new place to explore.
             </p>
 
             <p>
-              As Girls Unplugged grows, we’ll keep adding opportunities,
-              tools, guides and recommendations that can support the
-              Bloom & Glow journey.
+              Opportunities can change quickly, so always check the
+              original organisation's website for eligibility, deadlines
+              and application requirements before applying.
             </p>
 
-            <a href="contact.html" class="btn btn-secondary">
-              Suggest a resource
+            <a href="contact.html" class="btn btn-primary">
+              Suggest a Resource
             </a>
 
           </div>
@@ -483,50 +477,17 @@
             </div>
 
             <div class="borders-message">
+
               <strong>
-                Your growth matters.
+                Your next opportunity could start with one click.
               </strong>
 
               <p>
-                Keep asking questions. Keep learning. Keep becoming.
+                Keep exploring. Keep learning. Keep becoming.
               </p>
+
             </div>
 
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- SUGGEST A RESOURCE -->
-    <section class="section">
-      <div class="container">
-
-        <div class="section-heading centered reveal">
-
-          <span class="section-label">
-            Help us grow the library
-          </span>
-
-          <h2>
-            Know something worth sharing?
-          </h2>
-
-          <p>
-            If you know a useful opportunity, tool, article, programme
-            or resource that could benefit girls in the Circle, tell us.
-          </p>
-
-          <div class="section-actions">
-            <a href="contact.html" class="btn btn-primary">
-              Suggest a Resource
-            </a>
-
-            <a href="get-involved.html" class="btn btn-secondary">
-              Get Involved
-            </a>
           </div>
 
         </div>
@@ -542,16 +503,17 @@
         <div class="cta-card reveal">
 
           <span class="section-label">
-            You don't have to figure it all out alone.
+            Keep blooming
           </span>
 
           <h2>
-            Find your people. Keep growing.
+            You don't have to figure it all out alone.
           </h2>
 
           <p>
-            Girls Unplugged is a sisterhood where you can connect,
-            learn, laugh, ask questions and bloom alongside other girls.
+            Join Girls Unplugged for a sisterhood where you can connect,
+            learn, ask questions, share opportunities and grow alongside
+            other girls.
           </p>
 
           <a href="get-involved.html" class="btn btn-primary">
@@ -701,7 +663,6 @@
 
     </div>
   </footer>
-
 
 </body>
 </html>
