@@ -4506,3 +4506,8 @@ body.menu-open {
     line-height: 1.65;
   }
 }
+
+/* FAQ answers stay hidden until opened */
+.faq-answer[hidden] {
+  display: none !important;
+}
