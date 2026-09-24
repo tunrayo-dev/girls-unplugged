@@ -390,3 +390,82 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+
+
+async function loadImpactStats() {
+  const statsContainer = document.getElementById("impact-stats");
+
+  if (!statsContainer) return;
+
+  try {
+    const response = await fetch("impact.json");
+
+    if (!response.ok) {
+      throw new Error("Could not load impact data.");
+    }
+
+    const data = await response.json();
+
+    if (!data.stats || !Array.isArray(data.stats)) {
+      throw new Error("Impact data is not in the expected format.");
+    }
+
+    const statElements = document.querySelectorAll("[data-stat]");
+
+    statElements.forEach((element) => {
+      const statId = element.dataset.stat;
+
+      const stat = data.stats.find((item) => {
+        return item.label
+          .toLowerCase()
+          .replace(/\s+/g, "-") === statId;
+      });
+
+      if (!stat) return;
+
+      const target = Number(stat.value);
+
+      if (!Number.isFinite(target) || target < 0) {
+        element.textContent = "0";
+        return;
+      }
+
+      element.dataset.target = target;
+      element.textContent = "0";
+
+      const duration = 1600;
+      const startTime = performance.now();
+
+      function animateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.floor(target * easedProgress);
+
+        element.textContent = currentValue.toLocaleString();
+
+        if (progress < 1) {
+          requestAnimationFrame(animateCounter);
+        } else {
+          element.textContent = target.toLocaleString();
+        }
+      }
+
+      requestAnimationFrame(animateCounter);
+    });
+
+    const updatedElement = document.getElementById("impact-last-updated");
+
+    if (updatedElement && data.lastUpdated) {
+      updatedElement.textContent =
+        `Impact data last updated: ${data.lastUpdated}`;
+    }
+
+  } catch (error) {
+    console.error("Impact data could not be loaded:", error);
+  }
+}
+
+loadImpactStats();
