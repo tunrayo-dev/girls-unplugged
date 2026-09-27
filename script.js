@@ -76,13 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateStat(element, number) {
 
-    const suffix = element.dataset.suffix || "";
+  const suffix =
+    element.getAttribute("data-suffix") || "";
 
-    element.textContent =
-      formatNumber(number) + suffix;
+  element.textContent =
+    formatNumber(number) + suffix;
 
-  }
-
+}
 
   function animateCounter(element) {
 
