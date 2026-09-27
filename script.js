@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-
     revealElements.forEach((element) => {
       revealObserver.observe(element);
     });
@@ -68,25 +67,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   function formatNumber(number) {
-
     return new Intl.NumberFormat("en-US").format(number);
+  }
+
+
+  function getSuffix(element) {
+
+    const suffix =
+      element.getAttribute("data-suffix");
+
+    return suffix === "+" ? "+" : "";
 
   }
 
 
   function updateStat(element, number) {
 
-  const suffix =
-    element.getAttribute("data-suffix") || "";
+    const suffix = getSuffix(element);
 
-  element.textContent =
-    formatNumber(number) + suffix;
+    element.textContent =
+      formatNumber(number) + suffix;
 
-}
+  }
+
 
   function animateCounter(element) {
 
-    const target = Number(element.dataset.target);
+    const target =
+      Number(element.getAttribute("data-target"));
 
     if (!Number.isFinite(target)) {
       return;
@@ -130,13 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-      /*
-        Ease-out effect.
-
-        Starts quickly and slows down
-        as it reaches the final number.
-      */
-
       const easedProgress =
         1 - Math.pow(
           1 - progress,
@@ -164,12 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } else {
 
+        /* Always show the final suffix */
+
         updateStat(
           element,
           target
         );
 
         element.classList.add("counted");
+
       }
 
     }
@@ -178,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(
       updateCounter
     );
+
   }
 
 
@@ -206,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 observer.unobserve(
                   entry.target
                 );
+
               }
 
             });
