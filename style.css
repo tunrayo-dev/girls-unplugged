@@ -4507,3 +4507,43 @@ body.menu-open {
   }
 }
 
+
+/* ========================================
+   FAQ ACCORDION — FINAL FIX
+======================================== */
+
+.faq-answer {
+  display: none;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+/* Keep the icon itself stationary */
+.faq-icon {
+  transform: none !important;
+}
+
+/* Plus sign */
+.faq-icon::before {
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Vertical line disappears when opened */
+.faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg) !important;
+}
+
+/* Open state = minus */
+.faq-item.active .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(0deg) !important;
+}
+
+@media (max-width: 700px) {
+  .faq-answer {
+    padding: 0 1.1rem 1.25rem;
+  }
+}
+
