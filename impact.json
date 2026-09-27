@@ -2,12 +2,12 @@
   "stats": [
     {
       "label": "Community Members",
-      "value": 120+,
+      "value": 120,
       "suffix": "+"
     },
     {
       "label": "Countries Represented",
-      "value": 10+,
+      "value": 10,
       "suffix": ""
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "label": "Community Activities",
-      "value": 51+,
+      "value": 51,
       "suffix": "+"
     }
   ],
