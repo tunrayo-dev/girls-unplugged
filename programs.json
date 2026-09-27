@@ -1,1 +1,205 @@
-programs.json
+{
+  "page": {
+    "title": "Programs",
+    "label": "Our Programs & Activities",
+    "heroTitle": "Spaces to learn, connect & bloom.",
+    "heroDescription": "From weekly community activities to conversations, learning experiences and special events, Girls Unplugged creates different ways for girls to grow together.",
+    "heroNote": "Learn. Connect. Grow."
+  },
+
+  "programs": [
+    {
+      "id": "community-activities",
+      "title": "Community Activities",
+      "description": "Regular activities that keep the Bloom & Glow Circle connected, engaged and growing throughout the year.",
+      "link": "circle.html#weekly-vibes",
+      "linkText": "Explore the Circle",
+      "icon": "connection"
+    },
+    {
+      "id": "guest-conversations",
+      "title": "Guest Conversations",
+      "description": "Conversations with guests who bring knowledge, experiences and perspectives that girls can learn from.",
+      "link": "speakers.html",
+      "linkText": "Meet our speakers",
+      "icon": "microphone"
+    },
+    {
+      "id": "learning-growth",
+      "title": "Learning & Growth",
+      "description": "Opportunities to explore new ideas, develop useful skills, discover resources and grow personally.",
+      "link": "resources.html",
+      "linkText": "Explore resources",
+      "icon": "growth"
+    },
+    {
+      "id": "wellness-sisterhood",
+      "title": "Wellness & Sisterhood",
+      "description": "Spaces that encourage girls to check in with themselves, support one another and build healthier relationships with themselves and others.",
+      "link": "circle.html#what-we-do",
+      "linkText": "Discover the Circle",
+      "icon": "heart"
+    },
+    {
+      "id": "special-events",
+      "title": "Special Events",
+      "description": "Special community moments, themed activities, virtual gatherings and experiences created throughout the year.",
+      "link": "#special-events",
+      "linkText": "See what's possible",
+      "icon": "spark"
+    },
+    {
+      "id": "girls-led-spaces",
+      "title": "Girls-Led Spaces",
+      "description": "Opportunities for girls to contribute ideas, share experiences, lead conversations and help shape the community they belong to.",
+      "link": "get-involved.html",
+      "linkText": "Get involved",
+      "icon": "voice"
+    }
+  ],
+
+  "weeklyRhythm": [
+    {
+      "id": "motivation-monday",
+      "day": "Monday",
+      "number": "01",
+      "title": "Motivation Monday",
+      "description": "A little encouragement to help Bloomies start the week with intention and confidence.",
+      "tag": "Start strong",
+      "icon": "sun"
+    },
+    {
+      "id": "wellness-wednesday",
+      "day": "Wednesday",
+      "number": "02",
+      "title": "Wellness Wednesday",
+      "description": "A chance to pause, check in and talk about wellbeing, self-care and healthy growth.",
+      "tag": "Check in",
+      "icon": "leaf"
+    },
+    {
+      "id": "fun-friday",
+      "day": "Friday",
+      "number": "03",
+      "title": "Fun Friday",
+      "description": "Games, laughter, random conversations and moments to simply enjoy being part of the sisterhood.",
+      "tag": "Unplug & have fun",
+      "icon": "fun"
+    },
+    {
+      "id": "reflection-saturday",
+      "day": "Saturday",
+      "number": "04",
+      "title": "Reflection Saturday",
+      "description": "A slower moment to reflect on the week, appreciate your progress and think about what comes next.",
+      "tag": "Reflect & reset",
+      "icon": "moon"
+    }
+  ],
+
+  "guestConversations": {
+    "title": "Learn from people with stories to share.",
+    "paragraphs": [
+      "We create opportunities for girls to hear from people with different experiences, skills and perspectives.",
+      "These conversations can cover personal growth, leadership, education, technology, wellbeing, careers, creativity and other topics that matter to girls.",
+      "The goal is not simply to listen. It is to leave with something you can think about, try or carry with you."
+    ],
+    "link": "speakers.html",
+    "linkText": "Explore Guest Speakers"
+  },
+
+  "learningAndGrowth": [
+    {
+      "title": "Personal growth",
+      "description": "Explore confidence, identity, communication, leadership and the everyday process of becoming.",
+      "icon": "growth"
+    },
+    {
+      "title": "Exploring interests",
+      "description": "Discover ideas, fields, skills and possibilities that may help you understand what you want to explore next.",
+      "icon": "spark"
+    },
+    {
+      "title": "Opportunities",
+      "description": "We aim to make useful opportunities and resources easier for girls to discover and understand.",
+      "icon": "star"
+    },
+    {
+      "title": "Using your voice",
+      "description": "Girls should not only participate in spaces created for them. They should also have opportunities to shape them.",
+      "icon": "voice"
+    }
+  ],
+
+  "wellnessAndSisterhood": [
+    {
+      "title": "Emotional wellbeing",
+      "description": "We create opportunities for girls to talk, reflect, check in and feel supported.",
+      "icon": "heart"
+    },
+    {
+      "title": "Healthy connection",
+      "description": "We encourage friendships and conversations rooted in respect, honesty and healthy boundaries.",
+      "icon": "connection"
+    },
+    {
+      "title": "Safe spaces",
+      "description": "We work to make our community welcoming and respectful, with clear expectations around how we treat one another.",
+      "icon": "safety"
+    }
+  ],
+
+  "specialEvents": [
+    {
+      "title": "Themed Experiences",
+      "description": "Activities and conversations built around topics that matter to the community.",
+      "icon": "spark"
+    },
+    {
+      "title": "Community Moments",
+      "description": "Special opportunities to connect beyond our regular weekly activities.",
+      "icon": "connection"
+    },
+    {
+      "title": "Celebrations",
+      "description": "Moments to celebrate milestones, contributions, growth and the people who make the Circle what it is.",
+      "icon": "star"
+    },
+    {
+      "title": "New Ideas",
+      "description": "The community is still growing, so new activities and ideas can emerge from what girls actually need.",
+      "icon": "growth"
+    }
+  ],
+
+  "howItWorks": [
+    {
+      "title": "We Listen",
+      "description": "We pay attention to the conversations, questions and ideas coming from the community.",
+      "icon": "message"
+    },
+    {
+      "title": "We Create",
+      "description": "We turn those ideas into conversations, activities, experiences and opportunities where possible.",
+      "icon": "spark"
+    },
+    {
+      "title": "We Learn",
+      "description": "We reflect on what works, what can improve and what the community needs next.",
+      "icon": "growth"
+    },
+    {
+      "title": "We Grow Together",
+      "description": "Girls are not just participants in the Circle. Their experiences help shape what the community becomes.",
+      "icon": "connection"
+    }
+  ],
+
+  "comingUp": {
+    "title": "This space will keep growing.",
+    "description": "As Girls Unplugged grows, we will continue developing experiences, conversations and opportunities that respond to the community.",
+    "message": "New activities, collaborations, learning experiences and community ideas will be shared here as they become available.",
+    "link": "get-involved.html",
+    "linkText": "Stay Connected"
+  }
+}
