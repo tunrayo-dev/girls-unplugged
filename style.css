@@ -5435,3 +5435,60 @@ min-height: auto;
   box-shadow:
     0 10px 28px rgba(91, 40, 95, 0.16);
 }
+
+
+/* =========================================
+   WHAT WE'RE BUILDING
+   ========================================= */
+
+.building-section {
+  background: var(--background-alt);
+}
+
+.building-section .why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.building-section .why-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.building-section .why-card h3 {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1rem;
+}
+
+.building-section .why-card p {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.why-card-footer {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 1rem;
+  color: var(--plum);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .building-section .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .building-section .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
