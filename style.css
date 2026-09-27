@@ -4509,34 +4509,37 @@ body.menu-open {
 
 
 /* ========================================
-   FAQ ACCORDION — FINAL FIX
+   FAQ ACCORDION — FINAL
 ======================================== */
 
 .faq-answer {
   display: none;
   padding: 0 1.5rem 1.5rem;
+  max-height: none !important;
+  overflow: visible !important;
+  opacity: 1 !important;
 }
 
 .faq-item.active .faq-answer {
   display: block;
 }
 
-/* Keep the icon itself stationary */
+/* Keep the circular icon stationary */
 .faq-icon {
   transform: none !important;
 }
 
-/* Plus sign */
+/* Horizontal line */
 .faq-icon::before {
   transform: translate(-50%, -50%) !important;
 }
 
-/* Vertical line disappears when opened */
+/* Vertical line — makes the + */
 .faq-icon::after {
   transform: translate(-50%, -50%) rotate(90deg) !important;
 }
 
-/* Open state = minus */
+/* When open, remove the vertical line → − */
 .faq-item.active .faq-icon::after {
   transform: translate(-50%, -50%) rotate(0deg) !important;
 }
@@ -4546,4 +4549,3 @@ body.menu-open {
     padding: 0 1.1rem 1.25rem;
   }
 }
-
