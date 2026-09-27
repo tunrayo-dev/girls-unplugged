@@ -5271,3 +5271,126 @@ min-height: auto;
 }
 
 }
+
+/* ========================================
+   PRIVACY PAGE — NOTE CARD
+======================================== */
+
+.privacy-note-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 2.8rem 3rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.privacy-note-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 100%;
+  background: var(--plum);
+}
+
+.privacy-note-card::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -70px;
+  bottom: -90px;
+  border-radius: 50%;
+  background: var(--soft-lavender);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.privacy-note-icon-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.privacy-note-icon-wrap .why-icon {
+  width: 78px;
+  height: 78px;
+  margin: 0;
+  background: var(--soft-lavender);
+  border: 8px solid var(--warm-white);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  font-size: 1.6rem;
+}
+
+.privacy-note-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.privacy-card-eyebrow {
+  display: block;
+  margin-bottom: 0.7rem;
+  color: var(--plum);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.privacy-note-content h3 {
+  margin: 0 0 1rem;
+  color: var(--deep-plum);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.55rem, 2.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.privacy-note-content p {
+  max-width: 760px;
+  margin: 0 0 0.85rem;
+  color: var(--text-medium);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.privacy-note-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .privacy-note-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem 2rem 1.75rem;
+  }
+
+  .privacy-note-icon-wrap {
+    justify-content: flex-start;
+  }
+
+  .privacy-note-icon-wrap .why-icon {
+    width: 68px;
+    height: 68px;
+  }
+
+  .privacy-note-content h3 {
+    font-size: 1.45rem;
+  }
+
+  .privacy-note-content p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+   }
