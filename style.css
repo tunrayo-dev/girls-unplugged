@@ -4379,9 +4379,9 @@ body.menu-open {
 }
 
 
-/* ================================
-   FAQ ACCORDION — GIRLS UNPLUGGED
-================================ */
+/* ========================================
+   FAQ ACCORDION — CLEAN VERSION
+======================================== */
 
 .faq-list {
   display: grid;
@@ -4396,14 +4396,9 @@ body.menu-open {
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 8px 25px rgba(91, 40, 95, 0.06);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.faq-item:hover {
-  border-color: rgba(91, 40, 95, 0.28);
-  box-shadow: 0 12px 30px rgba(91, 40, 95, 0.1);
-  transform: translateY(-2px);
-}
+/* Question button */
 
 .faq-question {
   width: 100%;
@@ -4427,12 +4422,8 @@ body.menu-open {
   color: #6b3270;
 }
 
-.faq-question:focus-visible {
-  outline: 3px solid rgba(107, 50, 112, 0.25);
-  outline-offset: -3px;
-}
+/* Circle around + / − */
 
-/* Proper plus icon */
 .faq-icon {
   position: relative;
   flex: 0 0 34px;
@@ -4441,7 +4432,12 @@ body.menu-open {
   border-radius: 50%;
   background: #ead8ee;
   border: 1px solid rgba(91, 40, 95, 0.12);
+
+  /* IMPORTANT: the circle itself never rotates */
+  transform: none !important;
 }
+
+/* The two lines */
 
 .faq-icon::before,
 .faq-icon::after {
@@ -4453,37 +4449,67 @@ body.menu-open {
   height: 2px;
   border-radius: 2px;
   background: #5b285f;
-  transform: translate(-50%, -50%);
-  transition: transform 0.25s ease;
 }
 
+/* Horizontal line */
+.faq-icon::before {
+  transform: translate(-50%, -50%);
+}
+
+/* Vertical line */
 .faq-icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-/* Turn + into − when open */
+/* Open = minus */
 .faq-item.active .faq-icon::after {
-  transform: translate(-50%, -50%) rotate(0deg);
+  display: none;
 }
 
+/* Answer is completely hidden by default */
+
 .faq-answer {
+  display: none;
   padding: 0 1.5rem 1.5rem;
   color: #684f69;
   font-size: 0.95rem;
   line-height: 1.75;
+
+  /* Prevent any old animation CSS from hiding it */
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
+
+/* Answer becomes visible when clicked */
+
+.faq-item.active .faq-answer {
+  display: block !important;
+}
+
+/* Answer paragraphs */
 
 .faq-answer p {
-  margin: 0;
+  margin: 0 0 1rem;
 }
 
-/* Open question */
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+/* Open card */
+
 .faq-item.active {
   border-color: rgba(91, 40, 95, 0.3);
   box-shadow: 0 14px 35px rgba(91, 40, 95, 0.1);
 }
 
+/* Mobile */
+
 @media (max-width: 700px) {
+
   .faq-list {
     gap: 0.8rem;
   }
@@ -4504,48 +4530,5 @@ body.menu-open {
     padding: 0 1.1rem 1.25rem;
     font-size: 0.88rem;
     line-height: 1.65;
-  }
-}
-
-
-/* ========================================
-   FAQ ACCORDION — FINAL
-======================================== */
-
-.faq-answer {
-  display: none;
-  padding: 0 1.5rem 1.5rem;
-  max-height: none !important;
-  overflow: visible !important;
-  opacity: 1 !important;
-}
-
-.faq-item.active .faq-answer {
-  display: block;
-}
-
-/* Keep the circular icon stationary */
-.faq-icon {
-  transform: none !important;
-}
-
-/* Horizontal line */
-.faq-icon::before {
-  transform: translate(-50%, -50%) !important;
-}
-
-/* Vertical line — makes the + */
-.faq-icon::after {
-  transform: translate(-50%, -50%) rotate(90deg) !important;
-}
-
-/* When open, remove the vertical line → − */
-.faq-item.active .faq-icon::after {
-  transform: translate(-50%, -50%) rotate(0deg) !important;
-}
-
-@media (max-width: 700px) {
-  .faq-answer {
-    padding: 0 1.1rem 1.25rem;
   }
 }
