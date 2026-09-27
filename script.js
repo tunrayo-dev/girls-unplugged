@@ -67,21 +67,37 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
+  function formatNumber(number) {
+
+    return new Intl.NumberFormat("en-US").format(number);
+
+  }
+
+
+  function updateStat(element, number) {
+
+    const suffix = element.dataset.suffix || "";
+
+    element.textContent =
+      formatNumber(number) + suffix;
+
+  }
+
+
   function animateCounter(element) {
 
     const target = Number(element.dataset.target);
 
-    if (Number.isNaN(target)) {
+    if (!Number.isFinite(target)) {
       return;
     }
 
 
-    /* Already counted */
+    /* Prevent duplicate animation */
 
     if (element.dataset.counted === "true") {
       return;
     }
-
 
     element.dataset.counted = "true";
 
@@ -90,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (prefersReducedMotion) {
 
-      element.textContent = formatNumber(target);
+      updateStat(element, target);
 
       element.classList.add("counted");
 
@@ -104,12 +120,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateCounter(currentTime) {
 
-      const elapsed = currentTime - startTime;
+      const elapsed =
+        currentTime - startTime;
 
-      const progress = Math.min(
-        elapsed / duration,
-        1
-      );
+      const progress =
+        Math.min(
+          elapsed / duration,
+          1
+        );
 
 
       /*
@@ -120,25 +138,36 @@ document.addEventListener("DOMContentLoaded", () => {
       */
 
       const easedProgress =
-        1 - Math.pow(1 - progress, 3);
+        1 - Math.pow(
+          1 - progress,
+          3
+        );
 
 
       const currentValue =
-        Math.floor(target * easedProgress);
+        Math.floor(
+          target * easedProgress
+        );
 
 
-      element.textContent =
-        formatNumber(currentValue);
+      updateStat(
+        element,
+        currentValue
+      );
 
 
       if (progress < 1) {
 
-        requestAnimationFrame(updateCounter);
+        requestAnimationFrame(
+          updateCounter
+        );
 
       } else {
 
-        element.textContent =
-          formatNumber(target);
+        updateStat(
+          element,
+          target
+        );
 
         element.classList.add("counted");
       }
@@ -146,14 +175,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    requestAnimationFrame(updateCounter);
-  }
-
-
-  function formatNumber(number) {
-
-    return new Intl.NumberFormat("en-US").format(number);
-
+    requestAnimationFrame(
+      updateCounter
+    );
   }
 
 
@@ -175,9 +199,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
               if (entry.isIntersecting) {
 
-                animateCounter(entry.target);
+                animateCounter(
+                  entry.target
+                );
 
-                observer.unobserve(entry.target);
+                observer.unobserve(
+                  entry.target
+                );
               }
 
             });
@@ -190,7 +218,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
       statNumbers.forEach((element) => {
-        counterObserver.observe(element);
+
+        counterObserver.observe(
+          element
+        );
+
       });
 
     }
@@ -203,46 +235,54 @@ document.addEventListener("DOMContentLoaded", () => {
   ====================================== */
 
   const internalLinks =
-    document.querySelectorAll('a[href^="#"]');
+    document.querySelectorAll(
+      'a[href^="#"]'
+    );
 
 
   internalLinks.forEach((link) => {
 
-    link.addEventListener("click", (event) => {
+    link.addEventListener(
+      "click",
+      (event) => {
 
-      const targetId =
-        link.getAttribute("href");
+        const targetId =
+          link.getAttribute("href");
 
 
-      if (
-        !targetId ||
-        targetId === "#"
-      ) {
-        return;
+        if (
+          !targetId ||
+          targetId === "#"
+        ) {
+          return;
+        }
+
+
+        const target =
+          document.querySelector(
+            targetId
+          );
+
+
+        if (!target) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        target.scrollIntoView({
+          behavior:
+            prefersReducedMotion
+              ? "auto"
+              : "smooth",
+
+          block: "start"
+        });
+
       }
-
-
-      const target =
-        document.querySelector(targetId);
-
-
-      if (!target) {
-        return;
-      }
-
-
-      event.preventDefault();
-
-
-      target.scrollIntoView({
-        behavior:
-          prefersReducedMotion
-            ? "auto"
-            : "smooth",
-        block: "start"
-      });
-
-    });
+    );
 
   });
 
@@ -252,7 +292,9 @@ document.addEventListener("DOMContentLoaded", () => {
   ====================================== */
 
   const yearElements =
-    document.querySelectorAll("[data-current-year]");
+    document.querySelectorAll(
+      "[data-current-year]"
+    );
 
 
   yearElements.forEach((element) => {
@@ -346,7 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
   ====================================== */
 
   const backToTop =
-    document.querySelector(".back-to-top");
+    document.querySelector(
+      ".back-to-top"
+    );
 
 
   if (backToTop) {
@@ -357,11 +401,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (window.scrollY > 600) {
 
-          backToTop.classList.add("show");
+          backToTop.classList.add(
+            "show"
+          );
 
         } else {
 
-          backToTop.classList.remove("show");
+          backToTop.classList.remove(
+            "show"
+          );
 
         }
 
@@ -378,6 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         window.scrollTo({
           top: 0,
+
           behavior:
             prefersReducedMotion
               ? "auto"
@@ -390,82 +439,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
-
-
-
-async function loadImpactStats() {
-  const statsContainer = document.getElementById("impact-stats");
-
-  if (!statsContainer) return;
-
-  try {
-    const response = await fetch("impact.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load impact data.");
-    }
-
-    const data = await response.json();
-
-    if (!data.stats || !Array.isArray(data.stats)) {
-      throw new Error("Impact data is not in the expected format.");
-    }
-
-    const statElements = document.querySelectorAll("[data-stat]");
-
-    statElements.forEach((element) => {
-      const statId = element.dataset.stat;
-
-      const stat = data.stats.find((item) => {
-        return item.label
-          .toLowerCase()
-          .replace(/\s+/g, "-") === statId;
-      });
-
-      if (!stat) return;
-
-      const target = Number(stat.value);
-
-      if (!Number.isFinite(target) || target < 0) {
-        element.textContent = "0";
-        return;
-      }
-
-      element.dataset.target = target;
-      element.textContent = "0";
-
-      const duration = 1600;
-      const startTime = performance.now();
-
-      function animateCounter(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
-        const currentValue = Math.floor(target * easedProgress);
-
-        element.textContent = currentValue.toLocaleString();
-
-        if (progress < 1) {
-          requestAnimationFrame(animateCounter);
-        } else {
-          element.textContent = target.toLocaleString();
-        }
-      }
-
-      requestAnimationFrame(animateCounter);
-    });
-
-    const updatedElement = document.getElementById("impact-last-updated");
-
-    if (updatedElement && data.lastUpdated) {
-      updatedElement.textContent =
-        `Impact data last updated: ${data.lastUpdated}`;
-    }
-
-  } catch (error) {
-    console.error("Impact data could not be loaded:", error);
-  }
-}
-
-loadImpactStats();
