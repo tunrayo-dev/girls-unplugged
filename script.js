@@ -83,12 +83,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateStat(element, number) {
 
-    const suffix = getSuffix(element);
+  const suffix =
+    element.querySelector(".stat-suffix");
 
-    element.textContent =
-      formatNumber(number) + suffix;
+  element.firstChild.textContent =
+    formatNumber(number);
 
+  if (suffix) {
+    suffix.textContent = "+";
   }
+
+}
 
 
   function animateCounter(element) {
