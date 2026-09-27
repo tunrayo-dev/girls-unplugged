@@ -5149,3 +5149,125 @@ border-radius: 20px;
 }
 
    }
+
+
+/* ========================================
+PRIVACY PAGE
+Uses existing Girls Unplugged card system
+======================================== */
+
+.privacy-note-card {
+display: grid;
+grid-template-columns: auto 1fr;
+gap: 1.75rem;
+align-items: start;
+padding: 2.5rem;
+background: var(--warm-white);
+}
+
+.privacy-note-icon-wrap {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.privacy-note-icon-wrap .why-icon {
+margin: 0;
+}
+
+.privacy-note-content {
+max-width: 780px;
+}
+
+.privacy-card-eyebrow {
+display: block;
+margin-bottom: 0.6rem;
+color: var(--plum);
+font-size: 0.78rem;
+font-weight: 700;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+}
+
+.privacy-note-content h3 {
+margin-bottom: 0.9rem;
+font-size: 1.55rem;
+}
+
+.privacy-note-content p {
+margin: 0 0 0.8rem;
+line-height: 1.8;
+}
+
+.privacy-note-content p:last-child {
+margin-bottom: 0;
+}
+
+.privacy-card-grid,
+.privacy-use-grid,
+.privacy-platform-grid,
+.privacy-choice-grid {
+margin-top: 0;
+}
+
+.privacy-card-grid .why-card,
+.privacy-use-grid .why-card,
+.privacy-choice-grid .why-card {
+height: 100%;
+}
+
+.privacy-use-grid .why-card {
+min-height: 300px;
+}
+
+.privacy-platform-grid .value-card {
+height: 100%;
+}
+
+.privacy-platform-grid .value-card p {
+max-width: 420px;
+}
+
+@media (max-width: 900px) {
+
+.privacy-card-grid,
+.privacy-platform-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.privacy-card-grid .why-card:last-child,
+.privacy-platform-grid .value-card:last-child {
+grid-column: 1 / -1;
+}
+
+}
+
+@media (max-width: 700px) {
+
+.privacy-note-card {
+grid-template-columns: 1fr;
+gap: 1.25rem;
+padding: 1.5rem;
+}
+
+.privacy-note-icon-wrap {
+justify-content: flex-start;
+}
+
+.privacy-card-grid,
+.privacy-use-grid,
+.privacy-platform-grid,
+.privacy-choice-grid {
+grid-template-columns: 1fr;
+}
+
+.privacy-card-grid .why-card:last-child,
+.privacy-platform-grid .value-card:last-child {
+grid-column: auto;
+}
+
+.privacy-use-grid .why-card {
+min-height: auto;
+}
+
+}
