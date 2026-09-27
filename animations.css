@@ -505,40 +505,6 @@
 }
 
 
-/* ========================================
-   FAQ ACCORDION
-======================================== */
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-
-  opacity: 0;
-
-  transition:
-    max-height 0.45s ease,
-    opacity 0.35s ease,
-    padding 0.35s ease;
-}
-
-.faq-item.active .faq-answer {
-  max-height: 500px;
-  opacity: 1;
-}
-
-
-/* ========================================
-   FAQ ICON
-======================================== */
-
-.faq-icon {
-  transition: transform 0.35s ease;
-}
-
-.faq-item.active .faq-icon {
-  transform: rotate(45deg);
-}
-
 
 /* ========================================
    MOBILE MENU
@@ -658,3 +624,5 @@
     transform: none;
   }
 }
+
+
