@@ -4507,7 +4507,3 @@ body.menu-open {
   }
 }
 
-/* FAQ answers stay hidden until opened */
-.faq-answer[hidden] {
-  display: none !important;
-}
