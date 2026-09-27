@@ -167,7 +167,7 @@
      IMPACT STATISTICS
 ====================================== -->
 
-<section class="content-section impact-stats-section">
+<section class="content-section">
 
   <div class="container">
 
@@ -190,26 +190,29 @@
     </div>
 
 
-    <div class="impact-stats-grid">
+    <!-- =================================
+         IMPACT STAT CARDS
+    ================================== -->
+
+    <div class="stats-grid">
 
 
       <!-- COMMUNITY MEMBERS -->
 
-      <article
-        class="impact-stat-card reveal"
-      >
+      <article class="stat-card reveal">
 
         <div
-          class="impact-stat-icon"
+          class="stat-icon"
           aria-hidden="true"
         >
           <span class="icon-person"></span>
         </div>
 
-        <div class="impact-stat-number">
+        <div class="stat-number-wrap">
 
           <span
             class="stat-number"
+            data-stat="community-members"
             data-target="120"
             data-suffix="+"
           >
@@ -230,23 +233,22 @@
       </article>
 
 
-      <!-- COUNTRIES -->
+      <!-- COUNTRIES REPRESENTED -->
 
-      <article
-        class="impact-stat-card reveal"
-      >
+      <article class="stat-card reveal">
 
         <div
-          class="impact-stat-icon"
+          class="stat-icon"
           aria-hidden="true"
         >
           <span class="icon-globe"></span>
         </div>
 
-        <div class="impact-stat-number">
+        <div class="stat-number-wrap">
 
           <span
             class="stat-number"
+            data-stat="countries-represented"
             data-target="10"
             data-suffix=""
           >
@@ -269,21 +271,20 @@
 
       <!-- GUEST CONVERSATIONS -->
 
-      <article
-        class="impact-stat-card reveal"
-      >
+      <article class="stat-card reveal">
 
         <div
-          class="impact-stat-icon"
+          class="stat-icon"
           aria-hidden="true"
         >
           <span class="icon-message"></span>
         </div>
 
-        <div class="impact-stat-number">
+        <div class="stat-number-wrap">
 
           <span
             class="stat-number"
+            data-stat="guest-conversations"
             data-target="4"
             data-suffix=""
           >
@@ -306,21 +307,20 @@
 
       <!-- COMMUNITY ACTIVITIES -->
 
-      <article
-        class="impact-stat-card reveal"
-      >
+      <article class="stat-card reveal">
 
         <div
-          class="impact-stat-icon"
+          class="stat-icon"
           aria-hidden="true"
         >
           <span class="icon-spark"></span>
         </div>
 
-        <div class="impact-stat-number">
+        <div class="stat-number-wrap">
 
           <span
             class="stat-number"
+            data-stat="community-activities"
             data-target="51"
             data-suffix="+"
           >
@@ -346,8 +346,6 @@
   </div>
 
 </section>
-
-            
 
     <!-- =========================
          WHAT IMPACT LOOKS LIKE
