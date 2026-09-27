@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!question || !answer) return;
 
     // Start closed
-    answer.hidden = true;
+    item.classList.remove("active");
     question.setAttribute("aria-expanded", "false");
 
     question.addEventListener("click", function () {
@@ -23,13 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         item.classList.remove("active");
         question.setAttribute("aria-expanded", "false");
-        answer.hidden = true;
 
       } else {
 
         item.classList.add("active");
         question.setAttribute("aria-expanded", "true");
-        answer.hidden = false;
 
       }
 
