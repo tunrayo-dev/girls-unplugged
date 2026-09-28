@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Dashboard | Girls Unplugged</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       LOGIN SCREEN
+  ========================== -->
+  <section id="login-screen" class="login-screen">
+    <div class="login-card">
+
+      <div class="login-brand">
+        <div class="brand-flower" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <b></b>
+        </div>
+
+        <div>
+          <strong>Girls Unplugged</strong>
+          <small>Bloom & Glow Circle</small>
+        </div>
+      </div>
+
+      <div class="login-heading">
+        <p class="eyebrow">PRIVATE AREA</p>
+        <h1>Welcome back.</h1>
+        <p>Sign in to manage the Girls Unplugged website.</p>
+      </div>
+
+      <form id="login-form">
+
+        <div class="form-group">
+          <label for="login-email">Email address</label>
+          <input
+            type="email"
+            id="login-email"
+            placeholder="Your email address"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+
+          <div class="password-field">
+            <input
+              type="password"
+              id="login-password"
+              placeholder="Your password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              id="toggle-password"
+              class="password-toggle"
+              aria-label="Show password"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="primary-button full-width">
+          Sign in
+        </button>
+
+        <p id="login-message" class="form-message"></p>
+
+      </form>
+
+      <a href="index.html" class="back-home">
+        ← Back to website
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       DASHBOARD
+  ========================== -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- MOBILE TOP BAR -->
+    <header class="mobile-topbar">
+
+      <button
+        type="button"
+        id="mobile-sidebar-toggle"
+        class="mobile-menu-button"
+        aria-label="Open dashboard menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="mobile-brand">
+        <strong>Girls Unplugged</strong>
+        <small>Admin</small>
+      </div>
+
+    </header>
+
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+
+      <div class="sidebar-brand">
+
+        <a href="index.html" class="sidebar-logo">
+
+          <div class="brand-flower small" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <b></b>
+          </div>
+
+          <div>
+            <strong>Girls Unplugged</strong>
+            <small>Bloom & Glow Circle</small>
+          </div>
+
+        </a>
+
+        <span class="admin-label">ADMIN DASHBOARD</span>
+
+      </div>
+
+
+      <nav class="dashboard-nav">
+
+        <button
+          type="button"
+          class="dashboard-nav-item active"
+          data-section="overview"
+        >
+          <span class="nav-symbol">01</span>
+          <span>Overview</span>
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-nav-item"
+          data-section="settings"
+        >
+          <span class="nav-symbol">02</span>
+          <span>Site Settings</span>
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-nav-item"
+          data-section="impact"
+        >
+          <span class="nav-symbol">03</span>
+          <span>Impact</span>
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-nav-item"
+          data-section="programs"
+        >
+          <span class="nav-symbol">04</span>
+          <span>Programs</span>
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-nav-item"
+          data-section="speakers"
+        >
+          <span class="nav-symbol">05</span>
+          <span>Speakers</span>
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-nav-item"
+          data-section="team"
+        >
+          <span class="nav-symbol">06</span>
+          <span>Our Team</span>
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-nav-item"
+          data-section="resources"
+        >
+          <span class="nav-symbol">07</span>
+          <span>Resources</span>
+        </button>
+
+      </nav>
+
+
+      <div class="sidebar-bottom">
+
+        <a href="index.html" target="_blank" class="view-site">
+          View website ↗
+        </a>
+
+        <button type="button" id="logout-button" class="logout-button">
+          Log out
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- =========================
+           OVERVIEW
+      ========================== -->
+      <section
+        id="section-overview"
+        class="dashboard-section active-section"
+      >
+
+        <div class="page-heading">
+
+          <div>
+            <p class="eyebrow">GIRLS UNPLUGGED</p>
+            <h1>Dashboard</h1>
+            <p>
+              Manage the content that appears across your website.
+            </p>
+          </div>
+
+          <div class="heading-date" id="dashboard-date"></div>
+
+        </div>
+
+
+        <div class="overview-grid">
+
+          <article class="overview-card">
+            <span class="overview-number" id="overview-members">—</span>
+            <span class="overview-label">Community Members</span>
+          </article>
+
+          <article class="overview-card">
+            <span class="overview-number" id="overview-countries">—</span>
+            <span class="overview-label">Countries</span>
+          </article>
+
+          <article class="overview-card">
+            <span class="overview-number" id="overview-programs">—</span>
+            <span class="overview-label">Programs</span>
+          </article>
+
+          <article class="overview-card">
+            <span class="overview-number" id="overview-resources">—</span>
+            <span class="overview-label">Resources</span>
+          </article>
+
+        </div>
+
+
+        <div class="welcome-panel">
+
+          <div>
+            <p class="eyebrow">CONTENT MANAGEMENT</p>
+
+            <h2>Your website, your content.</h2>
+
+            <p>
+              Use the sections on the left to update your community
+              information, impact numbers, programs, speakers, team
+              members and opportunities without editing your website code.
+            </p>
+          </div>
+
+          <div class="welcome-note">
+            <span>TIP</span>
+            <p>
+              Changes saved here are stored in your Girls Unplugged
+              database. Published content can then be displayed on the
+              public website.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           SITE SETTINGS
+      ========================== -->
+      <section
+        id="section-settings"
+        class="dashboard-section"
+      >
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">02 / SETTINGS</p>
+            <h1>Site Settings</h1>
+            <p>Manage the core information used across Girls Unplugged.</p>
+          </div>
+        </div>
+
+
+        <form id="settings-form" class="editor-card">
+
+          <div class="editor-card-header">
+            <div>
+              <h2>General information</h2>
+              <p>Keep your public contact and social information up to date.</p>
+            </div>
+          </div>
+
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="settings-site-name">Site name</label>
+              <input
+                type="text"
+                id="settings-site-name"
+                placeholder="Girls Unplugged"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="settings-tagline">Tagline</label>
+              <input
+                type="text"
+                id="settings-tagline"
+                placeholder="Bloom & Glow Circle"
+              >
+            </div>
+
+            <div class="form-group full">
+              <label for="settings-description">Description</label>
+              <textarea
+                id="settings-description"
+                rows="4"
+                placeholder="A growing sisterhood..."
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="settings-email">Email</label>
+              <input
+                type="email"
+                id="settings-email"
+                placeholder="grlsunplugged@gmail.com"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="settings-instagram">Instagram URL</label>
+              <input
+                type="url"
+                id="settings-instagram"
+                placeholder="https://www.instagram.com/grls_unplugged"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="settings-tiktok">TikTok URL</label>
+              <input
+                type="url"
+                id="settings-tiktok"
+                placeholder="https://www.tiktok.com/@grls.unplugged"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="settings-whatsapp">WhatsApp URL</label>
+              <input
+                type="url"
+                id="settings-whatsapp"
+                placeholder="WhatsApp community link"
+              >
+            </div>
+
+          </div>
+
+
+          <div class="editor-actions">
+            <button type="submit" class="primary-button">
+              Save site settings
+            </button>
+
+            <span id="settings-message" class="save-message"></span>
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- =========================
+           IMPACT
+      ========================== -->
+      <section
+        id="section-impact"
+        class="dashboard-section"
+      >
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">03 / IMPACT</p>
+            <h1>Impact statistics</h1>
+            <p>Update the numbers shown on the impact page.</p>
+          </div>
+        </div>
+
+
+        <div id="impact-list" class="editor-list"></div>
+
+        <button
+          type="button"
+          id="add-impact"
+          class="secondary-button"
+        >
+          + Add statistic
+        </button>
+
+      </section>
+
+
+      <!-- =========================
+           PROGRAMS
+      ========================== -->
+      <section
+        id="section-programs"
+        class="dashboard-section"
+      >
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">04 / PROGRAMS</p>
+            <h1>Programs</h1>
+            <p>Manage Girls Unplugged programs and initiatives.</p>
+          </div>
+        </div>
+
+
+        <div id="programs-list" class="editor-list"></div>
+
+        <button
+          type="button"
+          id="add-program"
+          class="secondary-button"
+        >
+          + Add program
+        </button>
+
+      </section>
+
+
+      <!-- =========================
+           SPEAKERS
+      ========================== -->
+      <section
+        id="section-speakers"
+        class="dashboard-section"
+      >
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">05 / SPEAKERS</p>
+            <h1>Speakers</h1>
+            <p>Manage guest speakers and featured conversations.</p>
+          </div>
+        </div>
+
+
+        <div id="speakers-list" class="editor-list"></div>
+
+        <button
+          type="button"
+          id="add-speaker"
+          class="secondary-button"
+        >
+          + Add speaker
+        </button>
+
+      </section>
+
+
+      <!-- =========================
+           TEAM
+      ========================== -->
+      <section
+        id="section-team"
+        class="dashboard-section"
+      >
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">06 / TEAM</p>
+            <h1>Our Team</h1>
+            <p>Manage the people behind Girls Unplugged.</p>
+          </div>
+        </div>
+
+
+        <div id="team-list" class="editor-list"></div>
+
+        <button
+          type="button"
+          id="add-team"
+          class="secondary-button"
+        >
+          + Add team member
+        </button>
+
+      </section>
+
+
+      <!-- =========================
+           RESOURCES
+      ========================== -->
+      <section
+        id="section-resources"
+        class="dashboard-section"
+      >
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">07 / RESOURCES</p>
+            <h1>Resources</h1>
+            <p>Manage opportunities and useful resources for Bloomies.</p>
+          </div>
+        </div>
+
+
+        <div id="resources-list" class="editor-list"></div>
+
+        <button
+          type="button"
+          id="add-resource"
+          class="secondary-button"
+        >
+          + Add resource
+        </button>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- ADMIN JAVASCRIPT -->
+  <script src="admin.js"></script>
+
+</body>
+</html>
