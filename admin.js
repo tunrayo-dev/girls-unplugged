@@ -495,6 +495,478 @@ async function loadEverything() {
 
 }
 
+
+/* =========================================================
+   HOMEPAGE
+   ========================================================= */
+
+async function loadHomepage() {
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("homepage_content")
+    .select("*")
+    .order("display_order", { ascending: true });
+
+  if (error) {
+
+    console.error("Homepage error:", error);
+
+    const container = $("#homepage-editor");
+
+    if (container) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <strong>Could not load homepage content.</strong>
+          <p>${escapeHTML(error.message)}</p>
+        </div>
+      `;
+    }
+
+    return;
+  }
+
+  homepageContent = data || [];
+
+  renderHomepage();
+
+}
+
+
+function renderHomepage() {
+
+  const container = $("#homepage-editor");
+
+  if (!container) return;
+
+  if (!homepageContent.length) {
+
+    container.innerHTML = `
+      <div class="empty-state">
+        <strong>No homepage content found.</strong>
+        <p>Your homepage content has not been added yet.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = homepageContent.map((item) => {
+
+    const content = item.content || {};
+
+    return `
+
+      <article class="editor-card homepage-editor-card">
+
+        <div class="editor-card-header">
+
+          <div>
+
+            <p class="eyebrow">
+              ${escapeHTML(
+                String(item.display_order).padStart(2, "0")
+              )}
+            </p>
+
+            <h2>
+              ${escapeHTML(item.section)}
+            </h2>
+
+            <p>
+              Edit the content for this homepage section.
+            </p>
+
+          </div>
+
+          <div class="publish-row">
+
+            <label class="publish-switch">
+
+              <input
+                id="homepage-published-${item.id}"
+                type="checkbox"
+                ${item.published !== false ? "checked" : ""}
+              >
+
+              <span class="switch-track"></span>
+
+            </label>
+
+            <span class="publish-label">
+              Published
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="homepage-fields">
+
+          ${renderHomepageFields(
+            item.id,
+            content
+          )}
+
+        </div>
+
+
+        <div class="editor-actions">
+
+          <button
+            type="button"
+            class="primary-button"
+            onclick="saveHomepageSection(${item.id})"
+          >
+            Save ${escapeHTML(item.section)}
+          </button>
+
+          <span
+            id="homepage-message-${item.id}"
+            class="save-message"
+          ></span>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }).join("");
+
+}
+
+
+function renderHomepageFields(id, content) {
+
+  let html = "";
+
+  Object.entries(content).forEach(([key, value]) => {
+
+    if (Array.isArray(value)) {
+
+      html += `
+        <div class="homepage-array full">
+
+          <div class="homepage-array-heading">
+            ${formatHomepageLabel(key)}
+          </div>
+
+          <div class="homepage-array-items">
+
+            ${value.map((item, index) => {
+
+              if (
+                item &&
+                typeof item === "object" &&
+                !Array.isArray(item)
+              ) {
+
+                return `
+                  <div class="homepage-nested-card">
+
+                    <div class="homepage-nested-title">
+                      ${formatHomepageLabel(key)}
+                      ${index + 1}
+                    </div>
+
+                    ${Object.entries(item).map(
+                      ([nestedKey, nestedValue]) => {
+
+                        return renderHomepageField(
+                          id,
+                          `${key}.${index}.${nestedKey}`,
+                          nestedKey,
+                          nestedValue
+                        );
+
+                      }
+                    ).join("")}
+
+                  </div>
+                `;
+
+              }
+
+              return renderHomepageField(
+                id,
+                `${key}.${index}`,
+                key,
+                item
+              );
+
+            }).join("")}
+
+          </div>
+
+        </div>
+      `;
+
+      return;
+    }
+
+
+    if (
+      value &&
+      typeof value === "object"
+    ) {
+
+      html += `
+        <div class="homepage-object full">
+
+          <div class="homepage-array-heading">
+            ${formatHomepageLabel(key)}
+          </div>
+
+          ${Object.entries(value).map(
+            ([nestedKey, nestedValue]) =>
+              renderHomepageField(
+                id,
+                `${key}.${nestedKey}`,
+                nestedKey,
+                nestedValue
+              )
+          ).join("")}
+
+        </div>
+      `;
+
+      return;
+    }
+
+
+    html += renderHomepageField(
+      id,
+      key,
+      key,
+      value
+    );
+
+  });
+
+  return html;
+}
+
+
+function renderHomepageField(
+  id,
+  path,
+  label,
+  value
+) {
+
+  const fieldId =
+    `homepage-${id}-${path.replace(/[^a-zA-Z0-9]/g, "-")}`;
+
+  const isLongText =
+    String(value ?? "").length > 120 ||
+    String(label).toLowerCase().includes("description") ||
+    String(label).toLowerCase().includes("paragraph") ||
+    String(label).toLowerCase().includes("bio");
+
+  return `
+
+    <div class="form-group">
+
+      <label for="${fieldId}">
+        ${formatHomepageLabel(label)}
+      </label>
+
+      ${
+        isLongText
+
+          ? `
+            <textarea
+              id="${fieldId}"
+              data-homepage-path="${escapeHTML(path)}"
+              data-homepage-type="textarea"
+            >${escapeHTML(value ?? "")}</textarea>
+          `
+
+          : `
+            <input
+              id="${fieldId}"
+              type="text"
+              value="${escapeHTML(value ?? "")}"
+              data-homepage-path="${escapeHTML(path)}"
+              data-homepage-type="input"
+            >
+          `
+      }
+
+    </div>
+
+  `;
+}
+
+
+function formatHomepageLabel(value) {
+
+  return String(value || "")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+}
+
+
+async function saveHomepageSection(id) {
+
+  const item =
+    homepageContent.find(
+      (entry) => entry.id === id
+    );
+
+  if (!item) return;
+
+
+  const message =
+    $(`#homepage-message-${id}`);
+
+  if (message) {
+    message.textContent = "Saving...";
+    message.className = "save-message";
+  }
+
+
+  const updatedContent =
+    structuredClone(item.content || {});
+
+
+  const fields =
+    document.querySelectorAll(
+      `[data-homepage-path]`
+    );
+
+
+  fields.forEach((field) => {
+
+    const path =
+      field.dataset.homepagePath;
+
+    if (!field.id.includes(`homepage-${id}-`)) {
+      return;
+    }
+
+    setNestedValue(
+      updatedContent,
+      path,
+      field.value
+    );
+
+  });
+
+
+  const published =
+    $(`#homepage-published-${id}`)?.checked !== false;
+
+
+  const {
+    error
+  } = await supabaseClient
+    .from("homepage_content")
+    .update({
+      content: updatedContent,
+      published,
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", id);
+
+
+  if (error) {
+
+    console.error(error);
+
+    if (message) {
+      message.textContent =
+        error.message || "Could not save.";
+      message.className = "save-message";
+    }
+
+    return;
+  }
+
+
+  if (message) {
+    message.textContent =
+      "Saved successfully.";
+    message.className =
+      "save-message success";
+  }
+
+
+  await loadHomepage();
+
+}
+
+
+function setNestedValue(
+  object,
+  path,
+  value
+) {
+
+  const parts =
+    path.split(".");
+
+  let current = object;
+
+
+  for (let index = 0; index < parts.length - 1; index++) {
+
+    const part = parts[index];
+
+    if (
+      current[part] === undefined ||
+      current[part] === null
+    ) {
+
+      const nextPart =
+        parts[index + 1];
+
+      current[part] =
+        /^\d+$/.test(nextPart)
+          ? []
+          : {};
+
+    }
+
+    current = current[part];
+
+  }
+
+
+  const finalKey =
+    parts[parts.length - 1];
+
+
+  const originalValue =
+    current[finalKey];
+
+
+  if (typeof originalValue === "number") {
+
+    const numberValue =
+      Number(value);
+
+    current[finalKey] =
+      Number.isNaN(numberValue)
+        ? 0
+        : numberValue;
+
+  } else {
+
+    current[finalKey] =
+      value;
+
+  }
+
+}
+
+
 /* =========================================================
    SETTINGS
    ========================================================= */
