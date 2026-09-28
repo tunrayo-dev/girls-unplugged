@@ -483,6 +483,7 @@ async function loadEverything() {
 
   await Promise.all([
     loadSettings(),
+    loadHomepage(),
     loadImpact(),
     loadPrograms(),
     loadSpeakers(),
@@ -493,7 +494,6 @@ async function loadEverything() {
   updateOverview();
 
 }
-
 
 /* =========================================================
    SETTINGS
