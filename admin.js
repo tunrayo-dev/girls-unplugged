@@ -28,6 +28,8 @@ let currentUser = null;
 
 let settingsRecord = null;
 
+let homepageContent = [];
+
 let impactStats = [];
 let programs = [];
 let speakers = [];
