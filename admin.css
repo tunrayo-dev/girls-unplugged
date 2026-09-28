@@ -1121,3 +1121,90 @@ button:disabled {
   }
 
 }
+
+
+/* =========================================================
+   HOMEPAGE CMS EDITOR
+   ========================================================= */
+
+.homepage-editor-card {
+  margin-bottom: 24px;
+}
+
+.homepage-editor-card .editor-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.homepage-editor-card .editor-card-header h2 {
+  font-size: 1.65rem;
+}
+
+.homepage-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 22px;
+}
+
+.homepage-fields .form-group {
+  min-width: 0;
+}
+
+.homepage-fields .form-group textarea {
+  min-height: 125px;
+}
+
+.homepage-array,
+.homepage-object {
+  grid-column: 1 / -1;
+  margin: 12px 0 28px;
+}
+
+.homepage-array-heading {
+  color: var(--plum);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.homepage-array-items {
+  display: grid;
+  gap: 15px;
+}
+
+.homepage-nested-card {
+  background: #fffafc;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.homepage-nested-title {
+  color: var(--deep-plum);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  margin-bottom: 15px;
+}
+
+.homepage-object {
+  background: #fffafc;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+@media (max-width: 620px) {
+
+  .homepage-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-editor-card .editor-card-header {
+    flex-direction: column;
+  }
+
+}
