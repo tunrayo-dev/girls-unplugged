@@ -139,6 +139,8 @@ async function checkExistingSession() {
    ========================================================= */
 
 async function verifyAdmin(userId) {
+
+  console.log("========== ADMIN DIAGNOSTIC ==========");
   console.log("LOGIN UID:", userId);
 
   const {
@@ -160,16 +162,29 @@ async function verifyAdmin(userId) {
   console.log("ADMIN QUERY DATA:", data);
   console.log("ADMIN QUERY ERROR:", error);
 
-  alert(
-    "LOGIN UID:\n" +
-    userId +
-    "\n\nCURRENT AUTH USER:\n" +
-    (userData?.user?.id || "NONE") +
-    "\n\nADMIN QUERY:\n" +
-    JSON.stringify(data) +
-    "\n\nERROR:\n" +
-    (error?.message || "NONE")
-  );
+  const diagnostic = `
+LOGIN UID:
+${userId || "NONE"}
+
+CURRENT AUTH USER:
+${userData?.user?.id || "NONE"}
+
+ADMIN QUERY DATA:
+${JSON.stringify(data) || "NONE"}
+
+ADMIN QUERY ERROR:
+${error?.message || "NONE"}
+`;
+
+  console.log(diagnostic);
+
+  const messageBox = $("#login-message");
+
+  if (messageBox) {
+    messageBox.textContent = diagnostic;
+    messageBox.style.whiteSpace = "pre-line";
+    messageBox.style.display = "block";
+  }
 
   if (error) {
     return false;
@@ -177,7 +192,7 @@ async function verifyAdmin(userId) {
 
   return Array.isArray(data) && data.length > 0;
 }
-
+  
 /* =========================================================
    LOGIN
    ========================================================= */
