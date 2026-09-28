@@ -139,26 +139,44 @@ async function checkExistingSession() {
    ========================================================= */
 
 async function verifyAdmin(userId) {
+  console.log("LOGIN UID:", userId);
+
+  const {
+    data: userData,
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+  console.log("CURRENT AUTH USER:", userData?.user?.id);
+  console.log("AUTH ERROR:", userError);
 
   const {
     data,
     error
   } = await supabaseClient
     .from("admin_users")
-    .select("id")
-    .eq("user_id", userId)
-    .maybeSingle();
+    .select("id, user_id")
+    .eq("user_id", userId);
+
+  console.log("ADMIN QUERY DATA:", data);
+  console.log("ADMIN QUERY ERROR:", error);
+
+  alert(
+    "LOGIN UID:\n" +
+    userId +
+    "\n\nCURRENT AUTH USER:\n" +
+    (userData?.user?.id || "NONE") +
+    "\n\nADMIN QUERY:\n" +
+    JSON.stringify(data) +
+    "\n\nERROR:\n" +
+    (error?.message || "NONE")
+  );
 
   if (error) {
-
-    console.error("Admin verification error:", error);
-
     return false;
   }
 
-  return !!data;
+  return Array.isArray(data) && data.length > 0;
 }
-
 
 /* =========================================================
    LOGIN
