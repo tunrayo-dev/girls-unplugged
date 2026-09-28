@@ -839,10 +839,9 @@ async function saveHomepageSection(id) {
 
 
   const fields =
-    document.querySelectorAll(
-      `[data-homepage-path]`
-    );
-
+  document.querySelectorAll(
+    `#section-homepage [data-homepage-path]`
+  );
 
   fields.forEach((field) => {
 
