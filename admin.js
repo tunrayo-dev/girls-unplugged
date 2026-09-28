@@ -2291,4 +2291,89 @@ async function uploadImage(file, folder) {
 
 /* =========================================================
    OVERVIEW
-   =====================
+   ========================================================= */
+
+function updateOverview() {
+
+  const memberStat =
+    impactStats.find(
+      (item) =>
+        String(item.label || "")
+          .toLowerCase()
+          .includes("community members")
+    );
+
+  const countryStat =
+    impactStats.find(
+      (item) =>
+        String(item.label || "")
+          .toLowerCase()
+          .includes("countries")
+    );
+
+
+  $("#overview-members").textContent =
+    memberStat
+      ? `${memberStat.value ?? 0}${memberStat.suffix || ""}`
+      : "—";
+
+
+  $("#overview-countries").textContent =
+    countryStat
+      ? `${countryStat.value ?? 0}${countryStat.suffix || ""}`
+      : "—";
+
+
+  $("#overview-programs").textContent =
+    programs.length;
+
+
+  $("#overview-resources").textContent =
+    resources.length;
+
+}
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+function updateDashboardDate() {
+
+  const element = $("#dashboard-date");
+
+  if (!element) return;
+
+  const date = new Date();
+
+  element.textContent =
+    date.toLocaleDateString(
+      "en-NG",
+      {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+}
+
+
+/* =========================================================
+   SUPABASE AUTH STATE
+   ========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (event === "SIGNED_OUT") {
+
+      currentUser = null;
+
+      showLogin();
+
+    }
+
+  }
+);
