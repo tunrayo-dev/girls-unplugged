@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+window.animateStatCounter = animateCounter;
 
   if (statNumbers.length > 0) {
 
