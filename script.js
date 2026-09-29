@@ -450,3 +450,87 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+
+/* =========================================================
+   HOMEPAGE CMS
+   ========================================================= */
+
+async function loadHomepageContent() {
+
+  if (
+    typeof supabaseClient === "undefined" ||
+    !document.querySelector("main")
+  ) {
+    return;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("homepage_content")
+      .select("*")
+      .eq("published", true)
+      .order("display_order", {
+        ascending: true
+      });
+
+    if (error) {
+      console.error(
+        "Homepage CMS error:",
+        error
+      );
+      return;
+    }
+
+    if (!data || !data.length) {
+      return;
+    }
+
+    data.forEach((section) => {
+      updateHomepageSection(
+        section.content_key,
+        section.content
+      );
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Could not load homepage content:",
+      error
+    );
+
+  }
+
+}
+
+
+function updateHomepageSection(
+  contentKey,
+  content
+) {
+
+  if (!content) {
+    return;
+  }
+
+  console.log(
+    "Homepage section loaded:",
+    contentKey
+  );
+
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    loadHomepageContent();
+
+  }
+);
