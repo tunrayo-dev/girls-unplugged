@@ -1117,17 +1117,24 @@ function updateHomepageSection(contentKey, content) {
 
           if (number) {
 
-            number.dataset.target =
-              stat.value;
+  number.dataset.target =
+    stat.value;
 
-            number.dataset.suffix =
-              stat.suffix || "";
+  number.dataset.suffix =
+    stat.suffix || "";
 
-            number.textContent =
-              `0${stat.suffix || ""}`;
+  number.textContent =
+    `0${stat.suffix || ""}`;
 
-          }
+  number.dataset.counted = "false";
 
+  number.classList.remove("counted");
+
+  if (window.animateStatCounter) {
+    window.animateStatCounter(number);
+  }
+
+}
 
           setText(
             element.querySelector(".stat-label"),
