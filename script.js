@@ -1515,11 +1515,319 @@ function updateHomepageSection(contentKey, content) {
 }
 
 
+/* =========================================================
+   TEAM PREVIEW
+   ========================================================= */
+
+async function loadTeamPreview() {
+
+  if (typeof supabaseClient === "undefined") {
+    return;
+  }
+
+  const section =
+    document.querySelector("#team-preview");
+
+  if (!section) {
+    return;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("team_members")
+      .select("*")
+      .eq("published", true)
+      .order("display_order", {
+        ascending: true
+      })
+      .order("id", {
+        ascending: true
+      })
+      .limit(4);
+
+    if (error) {
+
+      console.error(
+        "Team preview error:",
+        error
+      );
+
+      return;
+    }
+
+    const cards =
+      section.querySelectorAll(
+        ".team-preview-card"
+      );
+
+    (data || []).forEach(
+      (member, index) => {
+
+        const card =
+          cards[index];
+
+        if (!card) {
+          return;
+        }
+
+        const image =
+          card.querySelector(
+            "[data-team-preview-image]"
+          );
+
+        const fallback =
+          card.querySelector(
+            ".team-image-fallback"
+          );
+
+        if (
+          image &&
+          member.image_url
+        ) {
+
+          image.src =
+            member.image_url;
+
+          image.alt =
+            member.name
+              ? `${member.name} — ${
+                  member.role ||
+                  "Girls Unplugged team member"
+                }`
+              : "Girls Unplugged team member";
+
+          image.classList.add(
+            "loaded"
+          );
+
+          if (fallback) {
+            fallback.hidden = true;
+          }
+
+        }
+
+        const role =
+          card.querySelector(
+            ".team-role"
+          );
+
+        const name =
+          card.querySelector(
+            "h3"
+          );
+
+        const bio =
+          card.querySelector(
+            ".team-preview-content > p"
+          );
+
+        if (
+          role &&
+          member.role
+        ) {
+          role.textContent =
+            member.role;
+        }
+
+        if (
+          name &&
+          member.name
+        ) {
+          name.textContent =
+            member.name;
+        }
+
+        if (
+          bio &&
+          member.bio
+        ) {
+          bio.textContent =
+            member.bio;
+        }
+
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Could not load team preview:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   GUEST SPEAKERS PREVIEW
+   ========================================================= */
+
+async function loadSpeakerPreview() {
+
+  if (typeof supabaseClient === "undefined") {
+    return;
+  }
+
+  const section =
+    document.querySelector(
+      "#speakers-preview"
+    );
+
+  if (!section) {
+    return;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("speakers")
+      .select("*")
+      .eq("published", true)
+      .order("display_order", {
+        ascending: true
+      })
+      .order("id", {
+        ascending: true
+      })
+      .limit(3);
+
+    if (error) {
+
+      console.error(
+        "Speaker preview error:",
+        error
+      );
+
+      return;
+    }
+
+    const cards =
+      section.querySelectorAll(
+        ".speaker-preview-card"
+      );
+
+    (data || []).forEach(
+      (speaker, index) => {
+
+        const card =
+          cards[index];
+
+        if (!card) {
+          return;
+        }
+
+        const image =
+          card.querySelector(
+            "[data-speaker-preview-image]"
+          );
+
+        const fallback =
+          card.querySelector(
+            ".speaker-image-fallback"
+          );
+
+        if (
+          image &&
+          speaker.image_url
+        ) {
+
+          image.src =
+            speaker.image_url;
+
+          image.alt =
+            speaker.name
+              ? `${speaker.name} — ${
+                  speaker.role ||
+                  "Guest speaker"
+                }`
+              : "Girls Unplugged guest speaker";
+
+          image.classList.add(
+            "loaded"
+          );
+
+          if (fallback) {
+            fallback.hidden = true;
+          }
+
+        }
+
+        const tag =
+          card.querySelector(
+            ".speaker-preview-tag"
+          );
+
+        const heading =
+          card.querySelector(
+            "h3"
+          );
+
+        const bio =
+          card.querySelector(
+            ".speaker-preview-content > p"
+          );
+
+        if (
+          tag &&
+          speaker.role
+        ) {
+          tag.textContent =
+            speaker.role;
+        }
+
+        if (
+          heading &&
+          speaker.name
+        ) {
+          heading.textContent =
+            speaker.name;
+        }
+
+        if (
+          bio &&
+          speaker.bio
+        ) {
+          bio.textContent =
+            speaker.bio;
+        }
+
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Could not load speaker preview:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   PAGE LOAD
+   ========================================================= */
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
 
     loadHomepageContent();
+
+    loadTeamPreview();
+
+    loadSpeakerPreview();
 
   }
 );
