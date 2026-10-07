@@ -2884,3 +2884,75 @@ supabaseClient.auth.onAuthStateChange(
 
   }
 );
+
+
+/* =========================================
+   HOMEPAGE EDITOR — SAVE FIX
+   ========================================= */
+
+window.saveHomepageSection = async function (id) {
+
+  const section = homepageContent.find(
+    (item) => item.content_key === id
+  );
+
+  if (!section) {
+    showMessage("Homepage section not found.", "error");
+    return;
+  }
+
+  const updatedContent = JSON.parse(
+    JSON.stringify(section.content || {})
+  );
+
+  const fields = document.querySelectorAll(
+    `#section-homepage [data-homepage-id="${id}"]`
+  );
+
+  fields.forEach((field) => {
+
+    const path = field.dataset.homepagePath;
+
+    if (!path) return;
+
+    setNestedValue(
+      updatedContent,
+      path,
+      field.value
+    );
+
+  });
+
+  const { error } = await supabaseClient
+    .from("homepage_content")
+    .update({
+      content: updatedContent,
+      updated_at: new Date().toISOString()
+    })
+    .eq("content_key", id);
+
+  if (error) {
+
+    console.error(
+      "Error saving homepage section:",
+      error
+    );
+
+    showMessage(
+      `Could not save homepage section: ${error.message}`,
+      "error"
+    );
+
+    return;
+  }
+
+  section.content = updatedContent;
+
+  showMessage(
+    "Homepage section saved successfully.",
+    "success"
+  );
+
+  await loadHomepage();
+
+};
