@@ -2893,11 +2893,11 @@ supabaseClient.auth.onAuthStateChange(
 window.saveHomepageSection = async function (id) {
 
   const section = homepageContent.find(
-    (item) => item.content_key === id
+    (item) => item.id === id
   );
 
   if (!section) {
-    showMessage("Homepage section not found.", "error");
+    console.error("Homepage section not found:", id);
     return;
   }
 
@@ -2906,14 +2906,20 @@ window.saveHomepageSection = async function (id) {
   );
 
   const fields = document.querySelectorAll(
-    `#section-homepage [data-homepage-id="${id}"]`
+    `#section-homepage [data-homepage-path]`
   );
 
   fields.forEach((field) => {
 
+    if (!field.id.includes(`homepage-${id}-`)) {
+      return;
+    }
+
     const path = field.dataset.homepagePath;
 
-    if (!path) return;
+    if (!path) {
+      return;
+    }
 
     setNestedValue(
       updatedContent,
@@ -2923,13 +2929,19 @@ window.saveHomepageSection = async function (id) {
 
   });
 
+  const published =
+    document.querySelector(
+      `#homepage-published-${id}`
+    )?.checked !== false;
+
   const { error } = await supabaseClient
     .from("homepage_content")
     .update({
       content: updatedContent,
+      published,
       updated_at: new Date().toISOString()
     })
-    .eq("content_key", id);
+    .eq("id", id);
 
   if (error) {
 
@@ -2938,20 +2950,11 @@ window.saveHomepageSection = async function (id) {
       error
     );
 
-    showMessage(
-      `Could not save homepage section: ${error.message}`,
-      "error"
-    );
-
     return;
   }
 
   section.content = updatedContent;
-
-  showMessage(
-    "Homepage section saved successfully.",
-    "success"
-  );
+  section.published = published;
 
   await loadHomepage();
 
