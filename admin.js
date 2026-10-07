@@ -794,6 +794,7 @@ function renderHomepageField(
               id="${fieldId}"
               type="text"
               value="${escapeHTML(value ?? "")}"
+              data-homepage-id="${id}"
               data-homepage-path="${escapeHTML(path)}"
               data-homepage-type="input"
             >
