@@ -5665,3 +5665,41 @@ min-height: auto;
 }
 
 }
+
+
+
+
+/* ==========================================
+   SISTERHOOD WITHOUT BORDERS — REAL FLAGS
+========================================== */
+
+.borders-country-bubbles {
+  display: contents;
+}
+
+.borders-visual .border-dot {
+  overflow: hidden;
+  padding: 0;
+  background: #ffffff;
+  isolation: isolate;
+}
+
+.borders-visual .border-dot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.borders-visual .border-dot:focus-visible {
+  outline: 3px solid var(--plum);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .borders-visual .border-dot {
+    animation: none;
+  }
+}
