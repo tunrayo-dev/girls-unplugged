@@ -1,0 +1,501 @@
+
+/* ==========================================
+   GIRLS UNPLUGGED
+   GUEST SPEAKERS PAGE
+========================================== */
+
+.speakers-page {
+  --speaker-plum: var(--plum, #5b285f);
+  --speaker-deep: var(--deep-plum, #351638);
+  --speaker-pink: var(--soft-pink, #f7dce9);
+  --speaker-cream: var(--cream, #fffaf6);
+  --speaker-border: var(--border, #eadde8);
+  overflow: hidden;
+}
+
+.speaker-hero {
+  position: relative;
+  padding: clamp(64px, 9vw, 120px) 0;
+  background:
+    radial-gradient(circle at 8% 15%, rgba(244, 198, 221, .55), transparent 28%),
+    radial-gradient(circle at 92% 85%, rgba(215, 198, 239, .55), transparent 30%),
+    var(--speaker-cream);
+}
+
+.speaker-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
+  align-items: center;
+  gap: clamp(36px, 7vw, 90px);
+}
+
+.speaker-hero-copy {
+  max-width: 700px;
+}
+
+.speaker-hero-copy h1 {
+  margin: 18px 0;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.8rem, 5.4vw, 5rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -.045em;
+}
+
+.speaker-hero-copy h1 span {
+  display: block;
+  color: var(--speaker-plum);
+  font-style: italic;
+}
+
+.speaker-hero-copy > p:not(.speaker-handwritten) {
+  max-width: 590px;
+  color: var(--text-secondary, #665b68);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.speaker-handwritten {
+  margin-top: 28px;
+  color: var(--speaker-plum);
+  font-family: "Caveat", cursive;
+  font-size: 1.65rem;
+  transform: rotate(-2deg);
+}
+
+.speaker-hero-art {
+  position: relative;
+  display: grid;
+  min-height: 400px;
+  place-items: center;
+  isolation: isolate;
+}
+
+.speaker-art-orbit {
+  position: absolute;
+  width: min(90%, 380px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(91, 40, 95, .18);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+}
+
+.orbit-two {
+  width: min(74%, 310px);
+  border-color: rgba(196, 115, 157, .42);
+  transform: rotate(35deg);
+}
+
+.speaker-art-note {
+  position: relative;
+  display: flex;
+  width: min(80%, 300px);
+  min-height: 280px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 48% 48% 42% 42% / 42% 42% 52% 52%;
+  background: linear-gradient(145deg, #f4d6e5, #e8dcf6 75%);
+  box-shadow: 0 28px 70px rgba(73, 34, 78, .14);
+  text-align: center;
+  transform: rotate(3deg);
+}
+
+.speaker-art-note > span {
+  color: var(--speaker-plum);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.speaker-art-note strong {
+  margin: 20px 0;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.15;
+}
+
+.speaker-art-note small {
+  color: var(--speaker-plum);
+  font-size: .75rem;
+}
+
+.speaker-art-flower,
+.speaker-art-star {
+  position: absolute;
+  z-index: 2;
+  color: var(--speaker-plum);
+}
+
+.speaker-art-flower {
+  top: 5%;
+  right: 14%;
+  font-size: 4rem;
+}
+
+.star-one {
+  bottom: 9%;
+  left: 10%;
+  font-size: 3rem;
+}
+
+.star-two {
+  top: 20%;
+  left: 9%;
+  font-size: 2.2rem;
+}
+
+.speaker-intro {
+  padding-top: clamp(55px, 8vw, 95px);
+  padding-bottom: clamp(55px, 8vw, 95px);
+}
+
+.speaker-intro-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.speaker-intro-inner h2,
+.speaker-archive .section-heading h2,
+.speaker-values .section-heading h2 {
+  margin: 14px 0;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.2;
+}
+
+.speaker-intro-inner > p,
+.speaker-archive .section-heading > p:not(.section-label) {
+  max-width: 690px;
+  margin: 0 auto;
+  color: var(--text-secondary, #665b68);
+  line-height: 1.85;
+}
+
+.speaker-archive {
+  background:
+    radial-gradient(circle at 100% 10%, rgba(240, 215, 231, .35), transparent 25%),
+    var(--background, #fff);
+}
+
+.speaker-archive .section-heading {
+  margin-bottom: 48px;
+}
+
+.speaker-archive .section-heading > p:not(.section-label) {
+  margin-top: 14px;
+}
+
+.speaker-session-list {
+  display: grid;
+  gap: 34px;
+}
+
+.speaker-session {
+  overflow: hidden;
+  border: 1px solid var(--speaker-border);
+  border-radius: 26px;
+  background: var(--background, #fff);
+  box-shadow: 0 12px 35px rgba(53, 22, 56, .045);
+}
+
+.speaker-session-heading {
+  padding: clamp(24px, 4vw, 38px);
+  background: linear-gradient(115deg, #fbecf3, #f1eafa);
+}
+
+.speaker-session-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--speaker-plum);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.speaker-session-heading h3 {
+  max-width: 850px;
+  margin: 13px 0 0;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  line-height: 1.3;
+}
+
+.speaker-session-people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+
+.speaker-profile {
+  display: grid;
+  grid-template-columns: 125px minmax(0, 1fr);
+  align-items: start;
+  gap: 22px;
+  padding: 28px;
+}
+
+.speaker-profile + .speaker-profile {
+  border-left: 1px solid var(--speaker-border);
+}
+
+.speaker-profile.has-no-photo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.speaker-profile-photo {
+  display: block;
+  width: 125px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f1e5f1;
+}
+
+.speaker-profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.speaker-profile-content {
+  min-width: 0;
+}
+
+.speaker-profile-content h4 {
+  margin: 0 0 10px;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.speaker-profile-content p {
+  margin: 0;
+  color: var(--text-secondary, #665b68);
+  font-size: .94rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.speaker-profile-content .speaker-session-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--speaker-plum);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.speaker-loading,
+.speaker-message {
+  padding: 22px;
+  border: 1px solid var(--speaker-border);
+  border-radius: 16px;
+  color: var(--speaker-plum);
+  text-align: center;
+}
+
+.speaker-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 36px;
+}
+
+.speaker-value-card {
+  padding: 30px;
+  border: 1px solid var(--speaker-border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .8);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.speaker-value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(53, 22, 56, .08);
+}
+
+.speaker-value-number {
+  display: inline-block;
+  margin-bottom: 26px;
+  color: #bd83b9;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.4rem;
+}
+
+.speaker-value-card h3 {
+  margin: 0 0 12px;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.4rem;
+}
+
+.speaker-value-card p {
+  margin: 0;
+  color: var(--text-secondary, #665b68);
+  line-height: 1.8;
+}
+
+.speaker-invite {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+  align-items: center;
+  gap: 36px;
+  overflow: hidden;
+  padding: clamp(28px, 5vw, 62px);
+  border: 1px solid var(--speaker-border);
+  border-radius: 30px;
+  background: linear-gradient(125deg, #fff9fc, #f0e7f7);
+}
+
+.speaker-invite-copy h2 {
+  margin: 14px 0;
+  color: var(--speaker-deep);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+.speaker-invite-copy > p:not(.section-label) {
+  max-width: 600px;
+  margin-bottom: 25px;
+  color: var(--text-secondary, #665b68);
+  line-height: 1.85;
+}
+
+.speaker-invite-note {
+  position: relative;
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border-radius: 45% 55% 48% 52% / 54% 43% 57% 46%;
+  background: #e5d4f0;
+  color: var(--speaker-deep);
+  text-align: center;
+  transform: rotate(2deg);
+}
+
+.speaker-invite-note > span:first-child {
+  font-family: "Caveat", cursive;
+  font-size: 1.8rem;
+}
+
+.speaker-invite-note strong {
+  margin-top: 12px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.2;
+}
+
+.speaker-invite-note .invite-flower {
+  margin-top: 15px;
+  color: var(--speaker-plum);
+  font-size: 2rem;
+}
+
+@media (max-width: 900px) {
+  .speaker-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .speaker-hero-copy {
+    max-width: 760px;
+  }
+
+  .speaker-hero-art {
+    min-height: 320px;
+  }
+
+  .speaker-session-people {
+    grid-template-columns: 1fr;
+  }
+
+  .speaker-profile + .speaker-profile {
+    border-top: 1px solid var(--speaker-border);
+    border-left: 0;
+  }
+
+  .speaker-values-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .speaker-hero {
+    padding: 58px 0;
+  }
+
+  .speaker-hero-copy h1 {
+    font-size: clamp(2.55rem, 12vw, 3.5rem);
+  }
+
+  .speaker-hero-art {
+    min-height: 290px;
+  }
+
+  .speaker-art-note {
+    min-height: 240px;
+  }
+
+  .speaker-profile {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .speaker-profile-photo {
+    width: 90px;
+    border-radius: 13px;
+  }
+
+  .speaker-profile-content h4 {
+    font-size: 1.15rem;
+  }
+
+  .speaker-profile-content p {
+    font-size: .9rem;
+  }
+
+  .speaker-values-grid,
+  .speaker-invite {
+    grid-template-columns: 1fr;
+  }
+
+  .speaker-value-card {
+    padding: 24px;
+  }
+
+  .speaker-value-number {
+    margin-bottom: 15px;
+  }
+
+  .speaker-invite-note {
+    min-height: 235px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-value-card {
+    transition: none;
+  }
+
+  .speaker-value-card:hover {
+    transform: none;
+  }
+}
