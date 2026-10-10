@@ -1,1 +1,85 @@
-speakers.json
+
+{
+  "sessions": [
+    {
+      "id": "becoming-enough",
+      "date": "6 March 2026",
+      "title": "Becoming Enough: Confidence, Boundaries and Self-Worth",
+      "speakers": [
+        {
+          "name": "Ramatu Karim Sesay",
+          "image": "",
+          "bio": "A girls' and women's empowerment advocate from Sierra Leone, associated with Ramatu's Girls and Women Empowerment Sierra Leone. She joined Girls Unplugged for a conversation about confidence, boundaries and self-worth."
+        }
+      ]
+    },
+    {
+      "id": "figuring-life-out",
+      "date": "3 April 2026",
+      "title": "Figuring Life Out in Your Early Years: Confidence, Choices, and Not Having It All Together",
+      "speakers": [
+        {
+          "name": "Divine-Treasure Ajayi",
+          "image": "",
+          "bio": "A Nigerian young leader and science advocate studying Physics with Electronics at Crawford University. Her experience includes student leadership, youth advocacy and serving as a Global Youth Ambassador at Theirworld and a UNICEF U-Reporter."
+        },
+        {
+          "name": "Joy Kenneth Ibanga",
+          "image": "",
+          "bio": "A content and article writer who works with brands to communicate ideas clearly. She joined a conversation about navigating early adulthood, choices and personal growth."
+        }
+      ]
+    },
+    {
+      "id": "becoming-disciplined",
+      "date": "1 May 2026",
+      "title": "Becoming Disciplined: Doing What Needs to Be Done Even When You Don't Feel Like It",
+      "speakers": [
+        {
+          "name": "Opemipo Akinwumi",
+          "image": "",
+          "bio": "A young changemaker working across technology, environmental sustainability and social impact. Her experience includes project development, innovation challenges and youth engagement."
+        },
+        {
+          "name": "Tabo Chalenga",
+          "image": "",
+          "bio": "A young Zambian leader and member of the 2025 Pan Africa Youth Leadership Program cohort, with interests in leadership, civic engagement, community service and cross-cultural collaboration."
+        }
+      ]
+    },
+    {
+      "id": "future-self",
+      "date": "September 2026",
+      "title": "What Am I Doing With My Life? Your Future Self Is Watching",
+      "speakers": [
+        {
+          "name": "Inioluwa Oyabambi",
+          "image": "",
+          "bio": "A nursing student, youth advocate and social impact enthusiast. She is also a co-founder of Book Bridge Foundation, with interests in personal growth, mental health and purpose."
+        },
+        {
+          "name": "Atuoma Okwandu",
+          "image": "",
+          "bio": "An Early Childhood Development Practitioner, writer and arbitration practitioner. Her work includes child safeguarding, literacy, STEM and innovation, advocacy, storytelling and mentoring. She studied International Law and Diplomacy at Babcock University and holds a master's degree in Law Enforcement and Criminal Justice from Ahmadu Bello University."
+        }
+      ]
+    },
+    {
+      "id": "girls-and-money",
+      "date": "9 October 2026",
+      "title": "Girls & Money: Building Financial Confidence Early",
+      "speakers": [
+        {
+          "name": "Oluwafunto Kolawole Favour",
+          "image": "",
+          "bio": "A penultimate-year Accounting student at the University of Lagos and an Investment Banking Analyst at The Investment Society. She is a Girl in Bloom Global Ambassador, a UN Millennium Fellow and a 2026 NHEF Scholar."
+        },
+        {
+          "name": "Pelumi Oyetade",
+          "image": "",
+          "bio": "A computer science student and founder of Bloom in STEM. She is an Ashoka Young Changemaker and has supported STEM engagement for girls, including outreach across four schools."
+        }
+      ]
+    }
+  ]
+}
