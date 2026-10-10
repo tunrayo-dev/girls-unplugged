@@ -632,4 +632,72 @@
   .speaker-session:hover {
     transform: none;
   }
+
+   /* ==========================================
+   SPEAKER HERO — HOMEPAGE-STYLE FLOATING
+========================================== */
+
+.speaker-hero-art .speaker-art-flower,
+.speaker-hero-art .speaker-art-star {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  line-height: 1;
+  animation: floating 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.speaker-hero-art .speaker-art-flower {
+  top: 8%;
+  right: 12%;
+  left: auto;
+  font-size: clamp(2.8rem, 4vw, 3.6rem);
+}
+
+.speaker-hero-art .speaker-art-star.star-one {
+  right: auto;
+  bottom: 8%;
+  left: 8%;
+  font-size: 2.4rem;
+  animation-delay: 1s;
+}
+
+.speaker-hero-art .speaker-art-star.star-two {
+  top: 19%;
+  right: auto;
+  left: 9%;
+  font-size: 1.8rem;
+  animation-delay: 2s;
+}
+
+/* Make the impact message fit comfortably inside the oval */
+
+.speaker-art-note {
+  width: min(84%, 340px);
+  min-height: 320px;
+  padding: 38px 34px;
+}
+
+.speaker-art-note strong {
+  margin: 22px 0 14px;
+  font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+  line-height: 1.2;
+}
+
+.speaker-art-note small {
+  display: block;
+  max-width: 230px;
+  margin-inline: auto;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+
+/* Respect visitors who prefer reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-hero-art .speaker-art-flower,
+  .speaker-hero-art .speaker-art-star {
+    animation: none;
+  }
+}
 }
