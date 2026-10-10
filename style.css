@@ -5491,4 +5491,177 @@ min-height: auto;
   .building-section .why-grid {
     grid-template-columns: 1fr;
   }
+
+
+
+/* ==========================================
+   HOMEPAGE TEAM PREVIEW — REAL PORTRAITS
+========================================== */
+
+#team-preview .team-preview-image,
+.page-team .team-preview-image {
+  position: relative;
+  min-height: 230px;
+  overflow: hidden;
+}
+
+#team-preview .team-preview-photo,
+.page-team .team-preview-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 2;
+}
+
+#team-preview .team-placeholder-icon,
+#team-preview .team-image-fallback,
+#team-preview .team-preview-image > small,
+.page-team .team-placeholder-icon,
+.page-team .team-preview-image > small {
+  display: none !important;
+}
+
+#team-preview .team-preview-card {
+  grid-template-columns: 170px minmax(0, 1fr);
+  min-width: 0;
+}
+
+#team-preview .team-preview-content {
+  min-width: 0;
+}
+
+#team-preview .team-home-preview-card
+.team-preview-content > p:first-of-type {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+#team-preview .team-home-preview-card
+.team-preview-content > p:nth-of-type(n + 2) {
+  display: none;
+}
+
+#team-preview .team-preview-profile-link {
+  margin-top: 12px;
+}
+
+
+/* ==========================================
+   HOMEPAGE SPEAKERS — MATCH THE ARCHIVE
+========================================== */
+
+#speakers-preview .speakers-preview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+#speakers-preview .speaker-preview-card {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--warm-white);
+  box-shadow: var(--shadow-sm);
+}
+
+#speakers-preview .speaker-preview-image {
+  position: relative;
+  height: auto;
+  min-height: 230px;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+#speakers-preview .speaker-preview-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
+}
+
+#speakers-preview .speaker-image-fallback {
+  display: none !important;
+}
+
+#speakers-preview .speaker-preview-content {
+  min-width: 0;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+#speakers-preview .speaker-preview-content h3 {
+  margin: 0 0 10px;
+  color: var(--deep-plum);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+  line-height: 1.3;
+}
+
+#speakers-preview .speaker-preview-role {
+  margin: 0 0 10px;
+  color: var(--plum);
+  font-size: .88rem;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+#speakers-preview .speaker-preview-session {
+  margin: 0 0 12px;
+  color: var(--text-medium);
+  font-size: .82rem;
+  line-height: 1.65;
+}
+
+#speakers-preview .speaker-preview-bio {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  margin: 0 0 16px;
+  color: var(--text-medium);
+  font-size: .93rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 650px) {
+  #team-preview .team-preview-card {
+    grid-template-columns: 140px minmax(0, 1fr);
+  }
+
+  #speakers-preview .speaker-preview-card {
+    grid-template-columns: 140px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  #team-preview .team-preview-card,
+  #speakers-preview .speaker-preview-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #team-preview .team-preview-image,
+  .page-team .team-preview-image {
+    min-height: 220px;
+  }
+
+  #speakers-preview .speaker-preview-image {
+    height: 230px;
+    min-height: 230px;
+  }
+}
+
 }
