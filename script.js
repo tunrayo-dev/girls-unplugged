@@ -1515,319 +1515,208 @@ function updateHomepageSection(contentKey, content) {
 }
 
 
+
+
+
 /* =========================================================
-   TEAM PREVIEW
-   ========================================================= */
+   TEAM PREVIEW — USE THE REAL TEAM PAGE
+========================================================= */
 
 async function loadTeamPreview() {
+  const section = document.querySelector("#team-preview");
+  const grid = section?.querySelector(".team-preview-grid");
 
-  if (typeof supabaseClient === "undefined") {
-    return;
-  }
-
-  const section =
-    document.querySelector("#team-preview");
-
-  if (!section) {
-    return;
-  }
+  if (!grid) return;
 
   try {
+    const response = await fetch("team.html", { cache: "no-cache" });
 
-    const {
-      data,
-      error
-    } = await supabaseClient
-      .from("team_members")
-      .select("*")
-      .eq("published", true)
-      .order("display_order", {
-        ascending: true
-      })
-      .order("id", {
-        ascending: true
-      })
-      .limit(4);
-
-    if (error) {
-
-      console.error(
-        "Team preview error:",
-        error
-      );
-
-      return;
+    if (!response.ok) {
+      throw new Error("Could not load team.html");
     }
 
-    const cards =
-      section.querySelectorAll(
-        ".team-preview-card"
-      );
+    const html = await response.text();
+    const page = new DOMParser().parseFromString(html, "text/html");
 
-    (data || []).forEach(
-      (member, index) => {
+    const sourceCards = Array.from(
+      page.querySelectorAll("#our-team .team-preview-card")
+    ).slice(0, 4);
 
-        const card =
-          cards[index];
+    if (!sourceCards.length) {
+      throw new Error("No team cards found on team.html");
+    }
 
-        if (!card) {
-          return;
-        }
+    const fragment = document.createDocumentFragment();
 
-        const image =
-          card.querySelector(
-            "[data-team-preview-image]"
-          );
+    sourceCards.forEach((sourceCard) => {
+      const card = sourceCard.cloneNode(true);
 
-        const fallback =
-          card.querySelector(
-            ".team-image-fallback"
-          );
+      card.classList.remove("reveal", "active");
+      card.classList.add("team-home-preview-card");
 
-        if (
-          image &&
-          member.image_url
-        ) {
+      // Remove icons and labels that should never cover a portrait.
+      card.querySelectorAll(
+        ".team-placeholder-icon, .team-image-fallback, .team-preview-image > small"
+      ).forEach((element) => element.remove());
 
-          image.src =
-            member.image_url;
+      const image = card.querySelector(".team-preview-photo");
 
-          image.alt =
-            member.name
-              ? `${member.name} — ${
-                  member.role ||
-                  "Girls Unplugged team member"
-                }`
-              : "Girls Unplugged team member";
-
-          image.classList.add(
-            "loaded"
-          );
-
-          if (fallback) {
-            fallback.hidden = true;
-          }
-
-        }
-
-        const role =
-          card.querySelector(
-            ".team-role"
-          );
-
-        const name =
-          card.querySelector(
-            "h3"
-          );
-
-        const bio =
-          card.querySelector(
-            ".team-preview-content > p"
-          );
-
-        if (
-          role &&
-          member.role
-        ) {
-          role.textContent =
-            member.role;
-        }
-
-        if (
-          name &&
-          member.name
-        ) {
-          name.textContent =
-            member.name;
-        }
-
-        if (
-          bio &&
-          member.bio
-        ) {
-          bio.textContent =
-            member.bio;
-        }
-
+      if (image) {
+        image.addEventListener("error", () => image.remove(), {
+          once: true
+        });
       }
-    );
 
+      const content = card.querySelector(".team-preview-content");
+
+      if (content && !content.querySelector(".team-preview-profile-link")) {
+        const link = document.createElement("a");
+        link.className = "text-link team-preview-profile-link";
+        link.href = "team.html#our-team";
+        link.textContent = "Meet the team →";
+        content.appendChild(link);
+      }
+
+      fragment.appendChild(card);
+    });
+
+    grid.replaceChildren(fragment);
   } catch (error) {
-
-    console.error(
-      "Could not load team preview:",
-      error
-    );
-
+    console.error("Could not load Team preview:", error);
   }
-
 }
 
 
 /* =========================================================
-   GUEST SPEAKERS PREVIEW
-   ========================================================= */
+   GUEST SPEAKERS PREVIEW — USE speakers.json
+========================================================= */
 
 async function loadSpeakerPreview() {
+  const section = document.querySelector("#speakers-preview");
+  const grid = section?.querySelector(".speakers-preview-grid");
 
-  if (typeof supabaseClient === "undefined") {
-    return;
-  }
-
-  const section =
-    document.querySelector(
-      "#speakers-preview"
-    );
-
-  if (!section) {
-    return;
-  }
+  if (!grid) return;
 
   try {
+    const response = await fetch("speakers.json", { cache: "no-cache" });
 
-    const {
-      data,
-      error
-    } = await supabaseClient
-      .from("speakers")
-      .select("*")
-      .eq("published", true)
-      .order("display_order", {
-        ascending: true
-      })
-      .order("id", {
-        ascending: true
-      })
-      .limit(3);
-
-    if (error) {
-
-      console.error(
-        "Speaker preview error:",
-        error
-      );
-
-      return;
+    if (!response.ok) {
+      throw new Error("Could not load speakers.json");
     }
 
-    const cards =
-      section.querySelectorAll(
-        ".speaker-preview-card"
-      );
+    const data = await response.json();
 
-    (data || []).forEach(
-      (speaker, index) => {
+    const sessions = Array.isArray(data)
+      ? data
+      : Array.isArray(data.sessions)
+        ? data.sessions
+        : [];
 
-        const card =
-          cards[index];
+    // Get the three most recent speakers from the archive.
+    const recentSpeakers = sessions
+      .slice()
+      .reverse()
+      .flatMap((session) => {
+        const people = Array.isArray(session.speakers)
+          ? session.speakers
+          : [];
 
-        if (!card) {
-          return;
-        }
+        return people.map((speaker) => ({
+          speaker,
+          session
+        }));
+      })
+      .slice(0, 3);
 
-        const image =
-          card.querySelector(
-            "[data-speaker-preview-image]"
-          );
+    if (!recentSpeakers.length) {
+      throw new Error("No speakers found in speakers.json");
+    }
 
-        const fallback =
-          card.querySelector(
-            ".speaker-image-fallback"
-          );
+    const fragment = document.createDocumentFragment();
 
-        if (
-          image &&
-          speaker.image_url
-        ) {
+    recentSpeakers.forEach(({ speaker, session }) => {
+      const card = document.createElement("article");
+      card.className = "speaker-preview-card";
 
-          image.src =
-            speaker.image_url;
+      const imageBox = document.createElement("div");
+      imageBox.className = "speaker-preview-image";
 
-          image.alt =
-            speaker.name
-              ? `${speaker.name} — ${
-                  speaker.role ||
-                  "Guest speaker"
-                }`
-              : "Girls Unplugged guest speaker";
+      const imagePath =
+        typeof speaker.image === "string"
+          ? speaker.image.trim()
+          : "";
 
-          image.classList.add(
-            "loaded"
-          );
+      if (
+        imagePath &&
+        !imagePath.startsWith("//") &&
+        !/^(javascript|data|vbscript):/i.test(imagePath)
+      ) {
+        const image = document.createElement("img");
 
-          if (fallback) {
-            fallback.hidden = true;
-          }
+        image.className = "speaker-preview-photo";
+        image.alt = `Portrait of ${speaker.name || "guest speaker"}`;
+        image.loading = "lazy";
+        image.decoding = "async";
 
-        }
+        image.addEventListener("error", () => {
+          image.remove();
+        }, { once: true });
 
-        const tag =
-          card.querySelector(
-            ".speaker-preview-tag"
-          );
-
-        const heading =
-          card.querySelector(
-            "h3"
-          );
-
-        const bio =
-          card.querySelector(
-            ".speaker-preview-content > p"
-          );
-
-        if (
-          tag &&
-          speaker.role
-        ) {
-          tag.textContent =
-            speaker.role;
-        }
-
-        if (
-          heading &&
-          speaker.name
-        ) {
-          heading.textContent =
-            speaker.name;
-        }
-
-        if (
-          bio &&
-          speaker.bio
-        ) {
-          bio.textContent =
-            speaker.bio;
-        }
-
+        image.src = imagePath;
+        imageBox.appendChild(image);
       }
-    );
 
+      const content = document.createElement("div");
+      content.className = "speaker-preview-content";
+
+      const tag = document.createElement("span");
+      tag.className = "speaker-preview-tag";
+      tag.textContent = "Guest Speaker";
+
+      const name = document.createElement("h3");
+      name.textContent = speaker.name || "Guest Speaker";
+
+      const role = document.createElement("p");
+      role.className = "speaker-preview-role";
+      role.textContent = speaker.role || "Guest speaker";
+
+      const sessionLine = document.createElement("p");
+      sessionLine.className = "speaker-preview-session";
+      sessionLine.textContent =
+        `${session.date || ""}${session.title ? " · " + session.title : ""}`;
+
+      const bioText = Array.isArray(speaker.bio)
+        ? speaker.bio.find((paragraph) => String(paragraph).trim()) || ""
+        : speaker.bio || speaker.biography || "";
+
+      const bio = document.createElement("p");
+      bio.className = "speaker-preview-bio";
+      bio.textContent =
+        bioText || "Explore this speaker's story in our archive.";
+
+      const link = document.createElement("a");
+      link.className = "text-link";
+      link.href = "speakers.html#speaker-archive";
+      link.textContent = "View speaker archive →";
+
+      content.append(tag, name, role, sessionLine, bio, link);
+      card.append(imageBox, content);
+      fragment.appendChild(card);
+    });
+
+    grid.replaceChildren(fragment);
   } catch (error) {
-
-    console.error(
-      "Could not load speaker preview:",
-      error
-    );
-
+    console.error("Could not load Guest Speakers preview:", error);
   }
-
 }
 
 
 /* =========================================================
    PAGE LOAD
-   ========================================================= */
+========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    loadHomepageContent();
-
-    loadTeamPreview();
-
-    loadSpeakerPreview();
-
-  }
-);
+document.addEventListener("DOMContentLoaded", () => {
+  loadHomepageContent();
+  loadTeamPreview();
+  loadSpeakerPreview();
+});
