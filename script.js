@@ -519,19 +519,23 @@ function updateHomepageSection(contentKey, content) {
      HELPERS
   ====================================== */
 
-  const setText = (selector, value) => {
 
-    const element = document.querySelector(selector);
+const setText = (selectorOrElement, value) => {
+  const element =
+    typeof selectorOrElement === "string"
+      ? document.querySelector(selectorOrElement)
+      : selectorOrElement;
 
-    if (
-      element &&
-      value !== undefined &&
-      value !== null
-    ) {
-      element.textContent = value;
-    }
+  if (
+    element &&
+    typeof element.textContent !== "undefined" &&
+    value !== undefined &&
+    value !== null
+  ) {
+    element.textContent = value;
+  }
+};
 
-  };
 
 
   const setLink = (selector, value) => {
