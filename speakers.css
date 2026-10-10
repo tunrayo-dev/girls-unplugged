@@ -700,4 +700,87 @@
     animation: none;
   }
 }
+
+/* ==========================================
+   SINGLE-SPEAKER SESSION
+   Use the full width instead of leaving a
+   blank half-card beside the speaker.
+========================================== */
+
+.speaker-session-people:has(> .speaker-profile:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.speaker-session-people > .speaker-profile:only-child {
+  grid-template-columns: 190px minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(24px, 4vw, 42px);
+  width: 100%;
+  padding: clamp(28px, 4vw, 44px);
+  border-left: 0;
+}
+
+.speaker-session-people > .speaker-profile:only-child .speaker-profile-photo {
+  width: 190px;
+  aspect-ratio: 4 / 5;
+  border-radius: 20px;
+}
+
+.speaker-session-people > .speaker-profile:only-child .speaker-profile-content {
+  max-width: 900px;
+  padding-top: 4px;
+}
+
+.speaker-session-people > .speaker-profile:only-child .speaker-profile-content h4 {
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+}
+
+.speaker-session-people > .speaker-profile:only-child .speaker-bio p {
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+/* Empty photo slots: no text, icon, border or fake image */
+
+.speaker-profile-photo.is-placeholder {
+  border: 0;
+  background: transparent;
+  color: transparent;
+}
+
+.speaker-profile-photo.is-placeholder .speaker-photo-flower {
+  display: none;
+}
+
+/* Tablet */
+
+@media (max-width: 700px) {
+  .speaker-session-people > .speaker-profile:only-child {
+    grid-template-columns: 155px minmax(0, 1fr);
+    gap: 22px;
+    padding: 24px;
+  }
+
+  .speaker-session-people > .speaker-profile:only-child .speaker-profile-photo {
+    width: 155px;
+  }
+}
+
+/* Small phones */
+
+@media (max-width: 480px) {
+  .speaker-session-people > .speaker-profile:only-child {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px;
+  }
+
+  .speaker-session-people > .speaker-profile:only-child .speaker-profile-photo {
+    width: min(100%, 240px);
+  }
+
+  .speaker-session-people > .speaker-profile:only-child .speaker-profile-content {
+    max-width: none;
+  }
+}
 }
