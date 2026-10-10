@@ -1,52 +1,102 @@
-/* ==========================================
-   GIRLS UNPLUGGED
-   GUEST SPEAKERS PAGE
-   Loads session details and full biographies
-========================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
-  const sessionList = document.getElementById("speaker-session-list");
+  const sessionsContainer = document.getElementById("speaker-sessions");
+  const statusMessage = document.getElementById("speakers-status");
 
-  if (!sessionList) return;
+  if (!sessionsContainer) return;
 
-  const escapeHTML = (value = "") =>
-    String(value).replace(/[&<>"']/g, character => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    })[character]);
+  loadSpeakerSessions();
 
-  const safeImageSource = value => {
-    const source = String(value || "").trim();
+  async function loadSpeakerSessions() {
+    try {
+      const response = await fetch("speakers.json");
 
-    // Only allow local image paths or secure HTTPS image URLs.
-    if (
-      source.startsWith("images/speakers/") ||
-      source.startsWith("https://")
-    ) {
-      return source;
+      if (!response.ok) {
+        throw new Error(`Could not load speakers.json (${response.status})`);
+      }
+
+      const data = await response.json();
+      const sessions = Array.isArray(data)
+        ? data
+        : data.sessions || [];
+
+      sessionsContainer.innerHTML = "";
+
+      if (sessions.length === 0) {
+        showStatus("Our guest speaker sessions will appear here soon.");
+        return;
+      }
+
+      sessions.forEach((session) => {
+        sessionsContainer.appendChild(createSessionCard(session));
+      });
+
+      if (statusMessage) {
+        statusMessage.hidden = true;
+      }
+    } catch (error) {
+      console.error("Error loading guest speaker sessions:", error);
+      showStatus(
+        "We couldn't load the guest speaker sessions right now. Please try again later."
+      );
+    }
+  }
+
+  function createSessionCard(session) {
+    const article = document.createElement("article");
+    article.className = "speaker-session";
+
+    const date = escapeHTML(session.date || "");
+    const title = escapeHTML(session.title || "Guest Speaker Session");
+    const topic = escapeHTML(session.topic || session.title || "");
+    const description = escapeHTML(
+      session.description || session.summary || ""
+    );
+
+    const speakers = Array.isArray(session.speakers)
+      ? session.speakers
+      : Array.isArray(session.guests)
+        ? session.guests
+        : [];
+
+    article.innerHTML = `
+      <div class="speaker-session-header">
+        <div class="speaker-session-date">${date}</div>
+        <div class="speaker-session-heading">
+          <span class="speaker-session-tag">Guest Speaker Session</span>
+          <h3>${title}</h3>
+          ${topic && topic !== title ? `<p class="speaker-session-topic">${topic}</p>` : ""}
+          ${description ? `<p class="speaker-session-description">${description}</p>` : ""}
+        </div>
+      </div>
+      <div class="speaker-session-people"></div>
+    `;
+
+    const peopleContainer = article.querySelector(".speaker-session-people");
+
+    if (speakers.length > 0) {
+      speakers.forEach((speaker) => {
+        peopleContainer.appendChild(createSpeakerCard(speaker));
+      });
+    } else {
+      const emptyMessage = document.createElement("p");
+      emptyMessage.className = "speaker-session-empty";
+      emptyMessage.textContent = "Speaker details coming soon.";
+      peopleContainer.appendChild(emptyMessage);
     }
 
-    return "";
-  };
-
-  const normaliseBio = bio => {
-    if (Array.isArray(bio)) return bio.filter(Boolean);
-    if (typeof bio === "string" && bio.trim()) return [bio.trim()];
-    return ["More information about this guest speaker will be added soon."];
-  };
+    return article;
+  }
 
   function createSpeakerCard(speaker) {
     const card = document.createElement("article");
     card.className = "speaker-profile";
 
     const name = escapeHTML(speaker.name || "Guest Speaker");
-    const role = escapeHTML(speaker.role || "Guest speaker");
+    const role = escapeHTML(speaker.role || speaker.title || "Guest speaker");
     const image = safeImageSource(speaker.image);
-    const paragraphs = normaliseBio(speaker.bio);
+    const paragraphs = normaliseBio(speaker.bio || speaker.biography);
 
+    // Create a portrait area. It remains blank if there is no usable photo.
     const photo = document.createElement("div");
     photo.className = "speaker-profile-photo";
 
@@ -57,35 +107,35 @@ document.addEventListener("DOMContentLoaded", () => {
       img.loading = "lazy";
       img.decoding = "async";
 
-      img.addEventListener("error", () => {
-        photo.replaceChildren();
-        photo.classList.add("is-placeholder");
-        photo.innerHTML = `
-          <span class="speaker-photo-flower" aria-hidden="true">✿</span>
-          <span>Add speaker photo</span>
-        `;
-      }, { once: true });
+      img.addEventListener(
+        "error",
+        () => {
+          img.remove();
+          photo.classList.add("is-placeholder");
+        },
+        { once: true }
+      );
 
       photo.appendChild(img);
     } else {
       photo.classList.add("is-placeholder");
-      photo.innerHTML = `
-        <span class="speaker-photo-flower" aria-hidden="true">✿</span>
-        <span>Add speaker photo</span>
-      `;
     }
 
     const content = document.createElement("div");
     content.className = "speaker-profile-content";
 
     content.innerHTML = `
-      <span class="speaker-session-tag">Guest speaker</span>
+      <span class="speaker-session-tag">Guest Speaker</span>
       <h4>${name}</h4>
       <p class="speaker-profile-role">${role}</p>
       <div class="speaker-bio">
-        ${paragraphs.map(paragraph =>
-          `<p>${escapeHTML(paragraph)}</p>`
-        ).join("")}
+        ${
+          paragraphs.length
+            ? paragraphs
+                .map((paragraph) => `<p>${escapeHTML(paragraph)}</p>`)
+                .join("")
+            : "<p>Speaker biography coming soon.</p>"
+        }
       </div>
     `;
 
@@ -93,82 +143,58 @@ document.addEventListener("DOMContentLoaded", () => {
     return card;
   }
 
-  function createSessionCard(session) {
-    const article = document.createElement("article");
-    article.className = "speaker-session";
-    article.id = `session-${String(session.id || "guest-session")
-      .replace(/[^a-z0-9-]/gi, "-")}`;
+  function normaliseBio(bio) {
+    if (!bio) return [];
 
-    const heading = document.createElement("div");
-    heading.className = "speaker-session-heading";
+    if (Array.isArray(bio)) {
+      return bio
+        .map((paragraph) => String(paragraph).trim())
+        .filter(Boolean);
+    }
 
-    heading.innerHTML = `
-      <div class="speaker-session-meta">
-        <span class="speaker-session-date">
-          <span aria-hidden="true">✿</span>
-          ${escapeHTML(session.date || "Date to be confirmed")}
-        </span>
-        <span class="speaker-session-type">Girls Unplugged Guest Conversation</span>
-      </div>
-      <h3>${escapeHTML(session.title || "Guest Conversation")}</h3>
-      ${session.description
-        ? `<p class="speaker-session-description">${escapeHTML(session.description)}</p>`
-        : ""}
-    `;
+    return String(bio)
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+  }
 
-    const people = document.createElement("div");
-    people.className = "speaker-session-people";
+  function safeImageSource(source) {
+    if (typeof source !== "string") return "";
 
-    if (Array.isArray(session.speakers) && session.speakers.length) {
-      session.speakers.forEach(speaker => {
-        people.appendChild(createSpeakerCard(speaker));
-      });
+    const value = source.trim();
+
+    if (!value) return "";
+
+    // Allow local image paths and secure HTTPS image URLs only.
+    if (
+      value.startsWith("https://") ||
+      (!value.startsWith("//") &&
+        !value.startsWith("data:") &&
+        !value.startsWith("javascript:"))
+    ) {
+      return value;
+    }
+
+    return "";
+  }
+
+  function escapeHTML(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function showStatus(message) {
+    if (statusMessage) {
+      statusMessage.textContent = message;
+      statusMessage.hidden = false;
     } else {
-      people.innerHTML = `
-        <p class="speaker-message">
-          Speaker details for this session will be added soon.
-        </p>
+      sessionsContainer.innerHTML = `
+        <p class="speaker-load-message">${escapeHTML(message)}</p>
       `;
     }
-
-    article.append(heading, people);
-    return article;
   }
-
-  function renderSessions(sessions) {
-    sessionList.replaceChildren();
-
-    if (!Array.isArray(sessions) || sessions.length === 0) {
-      sessionList.innerHTML = `
-        <p class="speaker-message">
-          Our guest conversation archive is being updated.
-        </p>
-      `;
-      return;
-    }
-
-    sessions.forEach(session => {
-      sessionList.appendChild(createSessionCard(session));
-    });
-  }
-
-  fetch("speakers.json")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("The speaker data could not be loaded.");
-      }
-
-      return response.json();
-    })
-    .then(data => renderSessions(data.sessions))
-    .catch(error => {
-      console.error("Girls Unplugged speaker archive:", error);
-
-      sessionList.innerHTML = `
-        <p class="speaker-message">
-          We couldn't load the speaker archive. Please refresh the page
-          or check that speakers.json is saved in the website's root folder.
-        </p>
-      `;
-    });
 });
