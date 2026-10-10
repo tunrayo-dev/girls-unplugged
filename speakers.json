@@ -1,32 +1,45 @@
-
 {
   "sessions": [
     {
       "id": "becoming-enough",
       "date": "6 March 2026",
       "title": "Becoming Enough: Confidence, Boundaries and Self-Worth",
+      "description": "A conversation about learning to value yourself, recognise your boundaries and build confidence without feeling the need to prove your worth to everyone.",
       "speakers": [
         {
           "name": "Ramatu Karim Sesay",
-          "image": "",
-          "bio": "A girls' and women's empowerment advocate from Sierra Leone, associated with Ramatu's Girls and Women Empowerment Sierra Leone. She joined Girls Unplugged for a conversation about confidence, boundaries and self-worth."
+          "role": "Girls' and women's empowerment advocate",
+          "image": "images/speakers/ramatu-karim-sesay.jpg",
+          "bio": [
+            "Ramatu Karim Sesay is a girls' and women's empowerment advocate from Sierra Leone, associated with Girls and Women Empowerment Sierra Leone. Her work and interests centre on supporting girls and women and creating room for conversations about their experiences, confidence and personal development.",
+            "Ramatu joined Girls Unplugged for a conversation about becoming enough, building self-worth and understanding personal boundaries. Through the session, she helped create space for Bloomies to reflect on the way they see themselves, the expectations they carry and the importance of recognising their own value."
+          ]
         }
       ]
     },
     {
       "id": "figuring-life-out",
       "date": "3 April 2026",
-      "title": "Figuring Life Out in Your Early Years: Confidence, Choices, and Not Having It All Together",
+      "title": "Figuring Life Out in Your Early Years",
+      "description": "Confidence, choices and navigating the feeling that everyone else has life figured out.",
       "speakers": [
         {
           "name": "Divine-Treasure Ajayi",
-          "image": "",
-          "bio": "A Nigerian young leader and science advocate studying Physics with Electronics at Crawford University. Her experience includes student leadership, youth advocacy and serving as a Global Youth Ambassador at Theirworld and a UNICEF U-Reporter."
+          "role": "Physics with Electronics student, youth advocate and Global Youth Ambassador",
+          "image": "images/speakers/divine-treasure-ajayi.jpg",
+          "bio": [
+            "Divine-Treasure Ajayi is a Nigerian young leader studying Physics with Electronics at Crawford University. Her experiences include student leadership and youth advocacy, alongside her involvement as a Theirworld Global Youth Ambassador and a UNICEF U-Reporter.",
+            "Her interests bring together learning, young people's voices and opportunities for youth to participate in conversations that affect their lives. At Girls Unplugged, Divine-Treasure shared the session with Bloomies as they explored the choices, uncertainties and expectations that often come with the early years of adulthood."
+          ]
         },
         {
           "name": "Joy Kenneth Ibanga",
-          "image": "",
-          "bio": "A content and article writer who works with brands to communicate ideas clearly. She joined a conversation about navigating early adulthood, choices and personal growth."
+          "role": "Content and article writer",
+          "image": "images/speakers/joy-kenneth-ibanga.jpg",
+          "bio": [
+            "Joy Kenneth Ibanga is a content and article writer who works with brands to communicate ideas and messages through written content. Her work involves turning thoughts and information into writing that helps an audience understand and connect with a subject.",
+            "Joy joined Girls Unplugged for a conversation about figuring life out in your early years. The session made room for the realities of growing up, making choices and finding your direction without having every answer at once, encouraging girls to give themselves room to learn as they go."
+          ]
         }
       ]
     },
@@ -34,16 +47,25 @@
       "id": "becoming-disciplined",
       "date": "1 May 2026",
       "title": "Becoming Disciplined: Doing What Needs to Be Done Even When You Don't Feel Like It",
+      "description": "An honest look at consistency, motivation and building habits that support the person you want to become.",
       "speakers": [
         {
           "name": "Opemipo Akinwumi",
-          "image": "",
-          "bio": "A young changemaker working across technology, environmental sustainability and social impact. Her experience includes project development, innovation challenges and youth engagement."
+          "role": "Young changemaker interested in technology and social impact",
+          "image": "images/speakers/opemipo-akinwumi.jpg",
+          "bio": [
+            "Opemipo Akinwumi is a young changemaker whose interests span technology, environmental sustainability and social impact. Her experiences include project development, innovation challenges and youth engagement, bringing together ideas and opportunities to contribute to positive change.",
+            "Opemipo joined Girls Unplugged to explore discipline and the everyday decisions behind personal growth. Her session invited Bloomies to think beyond motivation alone and consider how small, consistent actions can help them make progress toward the goals and commitments that matter to them."
+          ]
         },
         {
           "name": "Tabo Chalenga",
-          "image": "",
-          "bio": "A young Zambian leader and member of the 2025 Pan Africa Youth Leadership Program cohort, with interests in leadership, civic engagement, community service and cross-cultural collaboration."
+          "role": "Young Zambian leader and PAYLP 2025 alumna",
+          "image": "images/speakers/tabo-chalenga.jpg",
+          "bio": [
+            "Tabo Chalenga is a young Zambian leader and a member of the 2025 Pan Africa Youth Leadership Program cohort. Her leadership interests include civic engagement, community service and cross-cultural collaboration, with a focus on the ways young people can contribute to their communities.",
+            "Through her participation in Girls Unplugged, Tabo brought her perspective to a conversation about discipline and following through even when motivation is low. The discussion connected personal responsibility with the practical work of building habits, making deliberate choices and continuing to show up for one's goals."
+          ]
         }
       ]
     },
@@ -51,16 +73,25 @@
       "id": "future-self",
       "date": "September 2026",
       "title": "What Am I Doing With My Life? Your Future Self Is Watching",
+      "description": "A conversation about purpose, personal growth and making choices today with the person you hope to become in mind.",
       "speakers": [
         {
           "name": "Inioluwa Oyabambi",
-          "image": "",
-          "bio": "A nursing student, youth advocate and social impact enthusiast. She is also a co-founder of Book Bridge Foundation, with interests in personal growth, mental health and purpose."
+          "role": "Nursing student, youth advocate and social impact enthusiast",
+          "image": "images/speakers/inioluwa-oyabambi.jpg",
+          "bio": [
+            "Inioluwa Oyabambi is a nursing student, youth advocate and social impact enthusiast. She is also a co-founder of Book Bridge Foundation, reflecting her interest in initiatives that support people and create opportunities for positive change.",
+            "Her interests include personal growth, mental health and purpose. At Girls Unplugged, Inioluwa joined a conversation about the uncertainty of figuring out what comes next, encouraging girls to reflect on their values, the choices available to them and how the steps they take now can contribute to the future they want to build."
+          ]
         },
         {
           "name": "Atuoma Okwandu",
-          "image": "",
-          "bio": "An Early Childhood Development Practitioner, writer and arbitration practitioner. Her work includes child safeguarding, literacy, STEM and innovation, advocacy, storytelling and mentoring. She studied International Law and Diplomacy at Babcock University and holds a master's degree in Law Enforcement and Criminal Justice from Ahmadu Bello University."
+          "role": "Early Childhood Development Practitioner, writer and arbitration practitioner",
+          "image": "images/speakers/atuoma-okwandu.jpg",
+          "bio": [
+            "Atuoma Okwandu is an Early Childhood Development Practitioner, writer and arbitration practitioner whose work and interests span child safeguarding, literacy, STEM and innovation, advocacy, storytelling and mentoring. Her multidisciplinary background brings together an interest in learning, communication and the development and protection of children.",
+            "Atuoma studied International Law and Diplomacy at Babcock University and holds a master's degree in Law Enforcement and Criminal Justice from Ahmadu Bello University. She joined Girls Unplugged for a conversation about purpose and the future, bringing her varied experiences to a discussion about personal direction, growth and thinking intentionally about the person one is becoming."
+          ]
         }
       ]
     },
@@ -68,16 +99,25 @@
       "id": "girls-and-money",
       "date": "9 October 2026",
       "title": "Girls & Money: Building Financial Confidence Early",
+      "description": "A practical conversation about money, mindset and confidence, designed to help girls begin building a healthier relationship with their finances.",
       "speakers": [
         {
           "name": "Oluwafunto Kolawole Favour",
-          "image": "",
-          "bio": "A penultimate-year Accounting student at the University of Lagos and an Investment Banking Analyst at The Investment Society. She is a Girl in Bloom Global Ambassador, a UN Millennium Fellow and a 2026 NHEF Scholar."
+          "role": "Accounting student, Investment Banking Analyst and 2026 NHEF Scholar",
+          "image": "images/speakers/oluwafunto-kolawole-favour.jpg",
+          "bio": [
+            "Oluwafunto Kolawole Favour is a penultimate-year Accounting student at the University of Lagos and an Investment Banking Analyst at The Investment Society. Her experience brings together academic training in accounting and exposure to the investment banking space.",
+            "Funto is a Girl in Bloom Global Ambassador, a UN Millennium Fellow and a 2026 NHEF Scholar. She joined Girls Unplugged for the Girls & Money conversation, helping bring financial confidence into a space where girls could think about money, their mindset and the importance of beginning to build financial awareness early."
+          ]
         },
         {
           "name": "Pelumi Oyetade",
-          "image": "",
-          "bio": "A computer science student and founder of Bloom in STEM. She is an Ashoka Young Changemaker and has supported STEM engagement for girls, including outreach across four schools."
+          "role": "Computer Science student, founder of Bloom in STEM and Ashoka Young Changemaker",
+          "image": "images/speakers/pelumi-oyetade.jpg",
+          "bio": [
+            "Pelumi Oyetade is a Computer Science student and the founder of Bloom in STEM. As an Ashoka Young Changemaker and someone involved in encouraging girls to engage with STEM, she is interested in creating more opportunities for young people to explore science, technology and their own potential.",
+            "Her experience includes supporting STEM engagement for girls, including outreach across four schools through Girls Who Lead and volunteer STEM tutoring. At Girls Unplugged, Pelumi joined the Girls & Money conversation with a focus on the connection between money, mindset and confidence, contributing to a discussion that encouraged girls to approach financial learning with curiosity and intention."
+          ]
         }
       ]
     }
