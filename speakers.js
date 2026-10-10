@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sessionsContainer = document.getElementById("speaker-sessions");
-  const statusMessage = document.getElementById("speakers-status");
+  const sessionsContainer = document.getElementById("speaker-session-list");
 
-  if (!sessionsContainer) return;
+  if (!sessionsContainer) {
+    console.error("Speakers archive container was not found.");
+    return;
+  }
 
   loadSpeakerSessions();
 
@@ -11,32 +13,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("speakers.json");
 
       if (!response.ok) {
-        throw new Error(`Could not load speakers.json (${response.status})`);
+        throw new Error(`Could not load speakers.json: ${response.status}`);
       }
 
       const data = await response.json();
       const sessions = Array.isArray(data)
         ? data
-        : data.sessions || [];
+        : Array.isArray(data.sessions)
+          ? data.sessions
+          : [];
 
-      sessionsContainer.innerHTML = "";
+      sessionsContainer.replaceChildren();
 
-      if (sessions.length === 0) {
-        showStatus("Our guest speaker sessions will appear here soon.");
+      if (!sessions.length) {
+        showMessage("Our guest conversations will appear here soon.");
         return;
       }
 
       sessions.forEach((session) => {
         sessionsContainer.appendChild(createSessionCard(session));
       });
-
-      if (statusMessage) {
-        statusMessage.hidden = true;
-      }
     } catch (error) {
-      console.error("Error loading guest speaker sessions:", error);
-      showStatus(
-        "We couldn't load the guest speaker sessions right now. Please try again later."
+      console.error("Unable to load the speaker archive:", error);
+      showMessage(
+        "We couldn't load the guest conversations right now. Please try again later."
       );
     }
   }
@@ -45,12 +45,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const article = document.createElement("article");
     article.className = "speaker-session";
 
-    const date = escapeHTML(session.date || "");
-    const title = escapeHTML(session.title || "Guest Speaker Session");
-    const topic = escapeHTML(session.topic || session.title || "");
-    const description = escapeHTML(
-      session.description || session.summary || ""
+    const heading = document.createElement("div");
+    heading.className = "speaker-session-heading";
+
+    const meta = document.createElement("div");
+    meta.className = "speaker-session-meta";
+
+    const date = document.createElement("span");
+    date.className = "speaker-session-date";
+    date.textContent = session.date || "";
+
+    const type = document.createElement("span");
+    type.className = "speaker-session-type";
+    type.textContent = "Guest Speaker Session";
+
+    meta.append(date, type);
+
+    const title = document.createElement("h3");
+    title.textContent = session.title || "Guest Speaker Session";
+
+    heading.append(meta, title);
+
+    const descriptions = normaliseParagraphs(
+      session.description || session.descriptions || session.summary
     );
+
+    descriptions.forEach((paragraph) => {
+      const p = document.createElement("p");
+      p.className = "speaker-session-description";
+      p.textContent = paragraph;
+      heading.appendChild(p);
+    });
+
+    const peopleContainer = document.createElement("div");
+    peopleContainer.className = "speaker-session-people";
 
     const speakers = Array.isArray(session.speakers)
       ? session.speakers
@@ -58,32 +86,18 @@ document.addEventListener("DOMContentLoaded", () => {
         ? session.guests
         : [];
 
-    article.innerHTML = `
-      <div class="speaker-session-header">
-        <div class="speaker-session-date">${date}</div>
-        <div class="speaker-session-heading">
-          <span class="speaker-session-tag">Guest Speaker Session</span>
-          <h3>${title}</h3>
-          ${topic && topic !== title ? `<p class="speaker-session-topic">${topic}</p>` : ""}
-          ${description ? `<p class="speaker-session-description">${description}</p>` : ""}
-        </div>
-      </div>
-      <div class="speaker-session-people"></div>
-    `;
-
-    const peopleContainer = article.querySelector(".speaker-session-people");
-
-    if (speakers.length > 0) {
+    if (speakers.length) {
       speakers.forEach((speaker) => {
         peopleContainer.appendChild(createSpeakerCard(speaker));
       });
     } else {
       const emptyMessage = document.createElement("p");
-      emptyMessage.className = "speaker-session-empty";
+      emptyMessage.className = "speaker-message";
       emptyMessage.textContent = "Speaker details coming soon.";
       peopleContainer.appendChild(emptyMessage);
     }
 
+    article.append(heading, peopleContainer);
     return article;
   }
 
@@ -91,30 +105,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const card = document.createElement("article");
     card.className = "speaker-profile";
 
-    const name = escapeHTML(speaker.name || "Guest Speaker");
-    const role = escapeHTML(speaker.role || speaker.title || "Guest speaker");
-    const image = safeImageSource(speaker.image);
-    const paragraphs = normaliseBio(speaker.bio || speaker.biography);
-
-    // Create a portrait area. It remains blank if there is no usable photo.
     const photo = document.createElement("div");
     photo.className = "speaker-profile-photo";
 
-    if (image) {
+    const imageSource = safeImageSource(speaker.image);
+
+    if (imageSource) {
       const img = document.createElement("img");
-      img.src = image;
+      img.src = imageSource;
       img.alt = `Portrait of ${speaker.name || "guest speaker"}`;
       img.loading = "lazy";
       img.decoding = "async";
 
-      img.addEventListener(
-        "error",
-        () => {
-          img.remove();
-          photo.classList.add("is-placeholder");
-        },
-        { once: true }
-      );
+      img.addEventListener("error", () => {
+        img.remove();
+        photo.classList.add("is-placeholder");
+      }, { once: true });
 
       photo.appendChild(img);
     } else {
@@ -124,35 +130,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = document.createElement("div");
     content.className = "speaker-profile-content";
 
-    content.innerHTML = `
-      <span class="speaker-session-tag">Guest Speaker</span>
-      <h4>${name}</h4>
-      <p class="speaker-profile-role">${role}</p>
-      <div class="speaker-bio">
-        ${
-          paragraphs.length
-            ? paragraphs
-                .map((paragraph) => `<p>${escapeHTML(paragraph)}</p>`)
-                .join("")
-            : "<p>Speaker biography coming soon.</p>"
-        }
-      </div>
-    `;
+    const tag = document.createElement("span");
+    tag.className = "speaker-session-tag";
+    tag.textContent = "Guest Speaker";
 
+    const name = document.createElement("h4");
+    name.textContent = speaker.name || "Guest Speaker";
+
+    const role = document.createElement("p");
+    role.className = "speaker-profile-role";
+    role.textContent = speaker.role || speaker.title || "Guest speaker";
+
+    const bio = document.createElement("div");
+    bio.className = "speaker-bio";
+
+    const paragraphs = normaliseParagraphs(
+      speaker.bio || speaker.biography
+    );
+
+    if (paragraphs.length) {
+      paragraphs.forEach((paragraph) => {
+        const p = document.createElement("p");
+        p.textContent = paragraph;
+        bio.appendChild(p);
+      });
+    } else {
+      const p = document.createElement("p");
+      p.textContent = "Speaker biography coming soon.";
+      bio.appendChild(p);
+    }
+
+    content.append(tag, name, role, bio);
     card.append(photo, content);
+
     return card;
   }
 
-  function normaliseBio(bio) {
-    if (!bio) return [];
+  function normaliseParagraphs(value) {
+    if (!value) return [];
 
-    if (Array.isArray(bio)) {
-      return bio
+    if (Array.isArray(value)) {
+      return value
         .map((paragraph) => String(paragraph).trim())
         .filter(Boolean);
     }
 
-    return String(bio)
+    return String(value)
       .split(/\n\s*\n/)
       .map((paragraph) => paragraph.trim())
       .filter(Boolean);
@@ -163,38 +186,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const value = source.trim();
 
-    if (!value) return "";
+    if (!value || value.startsWith("//")) return "";
 
-    // Allow local image paths and secure HTTPS image URLs only.
-    if (
-      value.startsWith("https://") ||
-      (!value.startsWith("//") &&
-        !value.startsWith("data:") &&
-        !value.startsWith("javascript:"))
-    ) {
-      return value;
-    }
+    if (/^https:\/\//i.test(value)) return value;
 
-    return "";
+    // Local image paths are supported; unsafe URL schemes are not.
+    if (/^(javascript|data|vbscript):/i.test(value)) return "";
+
+    return value;
   }
 
-  function escapeHTML(value) {
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
+  function showMessage(message) {
+    sessionsContainer.replaceChildren();
 
-  function showStatus(message) {
-    if (statusMessage) {
-      statusMessage.textContent = message;
-      statusMessage.hidden = false;
-    } else {
-      sessionsContainer.innerHTML = `
-        <p class="speaker-load-message">${escapeHTML(message)}</p>
-      `;
-    }
+    const paragraph = document.createElement("p");
+    paragraph.className = "speaker-message";
+    paragraph.textContent = message;
+
+    sessionsContainer.appendChild(paragraph);
   }
 });
