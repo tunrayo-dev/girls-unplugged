@@ -782,5 +782,136 @@
   .speaker-session-people > .speaker-profile:only-child .speaker-profile-content {
     max-width: none;
   }
+} 
 }
+
+
+
+/* ==========================================
+   SPEAKERS PAGE — MATCH THE HOMEPAGE
+========================================== */
+
+.speaker-page-hero .hero-placeholder-content {
+  max-width: 340px;
+  padding: 30px;
+  text-align: center;
+}
+
+.speaker-page-hero .hero-placeholder-content strong {
+  display: block;
+  margin: 18px 0 14px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  line-height: 1.2;
+}
+
+.speaker-page-hero .hero-placeholder-content small {
+  display: block;
+  line-height: 1.7;
+}
+
+.speaker-page-hero .hero-flower {
+  animation: floating 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.speaker-page-hero .flower-two {
+  animation-delay: 1.2s;
+}
+
+/* ==========================================
+   SPEAKER CARDS — FULL WIDTH WHEN SOLO
+========================================== */
+
+.speaker-session-people:has(> .speaker-profile:only-child) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.speaker-session-people > .speaker-profile:only-child {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(28px, 4vw, 48px);
+  width: 100%;
+  padding: clamp(28px, 4vw, 48px);
+  border-left: 0;
+}
+
+.speaker-session-people > .speaker-profile:only-child
+.speaker-profile-photo {
+  width: 200px;
+  max-width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.speaker-session-people > .speaker-profile:only-child
+.speaker-profile-content {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+.speaker-session-people > .speaker-profile:only-child
+.speaker-profile-content h4 {
+  font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+}
+
+.speaker-session-people > .speaker-profile:only-child
+.speaker-bio {
+  gap: 16px;
+}
+
+.speaker-session-people > .speaker-profile:only-child
+.speaker-bio p {
+  max-width: none;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+/* Leave portrait slots empty until a real photo is uploaded. */
+
+.speaker-profile-photo.is-placeholder {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Keep paired speaker cards balanced on smaller screens. */
+
+@media (max-width: 760px) {
+  .speaker-session-people > .speaker-profile:only-child {
+    grid-template-columns: 155px minmax(0, 1fr);
+    gap: 24px;
+    padding: 26px;
+  }
+
+  .speaker-session-people > .speaker-profile:only-child
+  .speaker-profile-photo {
+    width: 155px;
+  }
+}
+
+@media (max-width: 520px) {
+  .speaker-session-people > .speaker-profile:only-child {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    padding: 22px;
+  }
+
+  .speaker-session-people > .speaker-profile:only-child
+  .speaker-profile-photo {
+    width: min(100%, 230px);
+  }
+
+  .speaker-session-people > .speaker-profile:only-child
+  .speaker-profile-content h4 {
+    font-size: 1.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-page-hero .hero-flower {
+    animation: none;
+  }
 }
