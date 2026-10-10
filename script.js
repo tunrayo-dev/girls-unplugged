@@ -5,6 +5,35 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+   const contactForm = document.querySelector("#contact-email-form");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const name = String(formData.get("Name") || "").trim();
+    const email = String(formData.get("Email") || "").trim();
+    const topic = String(formData.get("Topic") || "").trim();
+    const message = String(formData.get("Message") || "").trim();
+
+    const subject = `Girls Unplugged contact: ${topic}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Topic: ${topic}`,
+      "",
+      "Message:",
+      message
+    ].join("\n");
+
+    window.location.href =
+      "mailto:grlsunplugged@gmail.com" +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+  });
+}
+
   /* ======================================
      REDUCED MOTION
   ====================================== */
