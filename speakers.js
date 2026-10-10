@@ -1,7 +1,7 @@
-
 /* ==========================================
    GIRLS UNPLUGGED
    GUEST SPEAKERS PAGE
+   Loads session details and full biographies
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,24 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!sessionList) return;
 
   const escapeHTML = (value = "") =>
-    String(value).replace(/[&<>"']/g, (character) => {
-      const entities = {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      };
+    String(value).replace(/[&<>"']/g, character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
 
-      return entities[character];
-    });
+  const safeImageSource = value => {
+    const source = String(value || "").trim();
 
-  const safeImageSource = (value = "") => {
-    const source = String(value).trim();
-
+    // Only allow local image paths or secure HTTPS image URLs.
     if (
-      source.startsWith("https://") ||
-      source.startsWith("images/")
+      source.startsWith("images/speakers/") ||
+      source.startsWith("https://")
     ) {
       return source;
     }
@@ -35,115 +32,143 @@ document.addEventListener("DOMContentLoaded", () => {
     return "";
   };
 
-  const createSpeakerCard = (speaker) => {
-    const name = escapeHTML(speaker.name);
-    const bio = escapeHTML(speaker.bio);
-    const image = safeImageSource(speaker.image);
-    const safeImage = image ? escapeHTML(image) : "";
+  const normaliseBio = bio => {
+    if (Array.isArray(bio)) return bio.filter(Boolean);
+    if (typeof bio === "string" && bio.trim()) return [bio.trim()];
+    return ["More information about this guest speaker will be added soon."];
+  };
 
+  function createSpeakerCard(speaker) {
     const card = document.createElement("article");
-    card.className = `speaker-profile${image ? "" : " has-no-photo"}`;
+    card.className = "speaker-profile";
 
-    const photoMarkup = image
-      ? `
-        <div class="speaker-profile-photo">
-          <img
-            src="${safeImage}"
-            alt="Portrait of ${name}"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
-      `
-      : "";
+    const name = escapeHTML(speaker.name || "Guest Speaker");
+    const role = escapeHTML(speaker.role || "Guest speaker");
+    const image = safeImageSource(speaker.image);
+    const paragraphs = normaliseBio(speaker.bio);
 
-    card.innerHTML = `
-      ${photoMarkup}
-      <div class="speaker-profile-content">
-        <span class="speaker-session-tag">Guest speaker</span>
-        <h4>${name}</h4>
-        <p>${bio}</p>
+    const photo = document.createElement("div");
+    photo.className = "speaker-profile-photo";
+
+    if (image) {
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = `Portrait of ${speaker.name || "guest speaker"}`;
+      img.loading = "lazy";
+      img.decoding = "async";
+
+      img.addEventListener("error", () => {
+        photo.replaceChildren();
+        photo.classList.add("is-placeholder");
+        photo.innerHTML = `
+          <span class="speaker-photo-flower" aria-hidden="true">✿</span>
+          <span>Add speaker photo</span>
+        `;
+      }, { once: true });
+
+      photo.appendChild(img);
+    } else {
+      photo.classList.add("is-placeholder");
+      photo.innerHTML = `
+        <span class="speaker-photo-flower" aria-hidden="true">✿</span>
+        <span>Add speaker photo</span>
+      `;
+    }
+
+    const content = document.createElement("div");
+    content.className = "speaker-profile-content";
+
+    content.innerHTML = `
+      <span class="speaker-session-tag">Guest speaker</span>
+      <h4>${name}</h4>
+      <p class="speaker-profile-role">${role}</p>
+      <div class="speaker-bio">
+        ${paragraphs.map(paragraph =>
+          `<p>${escapeHTML(paragraph)}</p>`
+        ).join("")}
       </div>
     `;
 
-    const photo = card.querySelector(".speaker-profile-photo img");
-
-    if (photo) {
-      photo.addEventListener("error", () => {
-        photo.closest(".speaker-profile-photo")?.remove();
-        card.classList.add("has-no-photo");
-      }, { once: true });
-    }
-
+    card.append(photo, content);
     return card;
-  };
+  }
 
-  const createSessionCard = (session) => {
+  function createSessionCard(session) {
     const article = document.createElement("article");
     article.className = "speaker-session";
-    article.id = `session-${session.id}`;
+    article.id = `session-${String(session.id || "guest-session")
+      .replace(/[^a-z0-9-]/gi, "-")}`;
 
     const heading = document.createElement("div");
     heading.className = "speaker-session-heading";
 
     heading.innerHTML = `
-      <span class="speaker-session-date">
-        <span aria-hidden="true">✿</span>
-        ${escapeHTML(session.date)}
-      </span>
-      <h3>${escapeHTML(session.title)}</h3>
+      <div class="speaker-session-meta">
+        <span class="speaker-session-date">
+          <span aria-hidden="true">✿</span>
+          ${escapeHTML(session.date || "Date to be confirmed")}
+        </span>
+        <span class="speaker-session-type">Girls Unplugged Guest Conversation</span>
+      </div>
+      <h3>${escapeHTML(session.title || "Guest Conversation")}</h3>
+      ${session.description
+        ? `<p class="speaker-session-description">${escapeHTML(session.description)}</p>`
+        : ""}
     `;
 
     const people = document.createElement("div");
     people.className = "speaker-session-people";
 
-    (Array.isArray(session.speakers) ? session.speakers : [])
-      .forEach((speaker) => {
+    if (Array.isArray(session.speakers) && session.speakers.length) {
+      session.speakers.forEach(speaker => {
         people.appendChild(createSpeakerCard(speaker));
       });
+    } else {
+      people.innerHTML = `
+        <p class="speaker-message">
+          Speaker details for this session will be added soon.
+        </p>
+      `;
+    }
 
     article.append(heading, people);
-
     return article;
-  };
+  }
 
-  const renderSessions = (sessions) => {
+  function renderSessions(sessions) {
     sessionList.replaceChildren();
 
     if (!Array.isArray(sessions) || sessions.length === 0) {
-      const message = document.createElement("p");
-      message.className = "speaker-message";
-      message.textContent = "Our guest conversation archive is being updated.";
-      sessionList.appendChild(message);
+      sessionList.innerHTML = `
+        <p class="speaker-message">
+          Our guest conversation archive is being updated.
+        </p>
+      `;
       return;
     }
 
-    sessions.forEach((session) => {
+    sessions.forEach(session => {
       sessionList.appendChild(createSessionCard(session));
     });
-  };
+  }
 
   fetch("speakers.json")
-    .then((response) => {
+    .then(response => {
       if (!response.ok) {
-        throw new Error("Could not load the speaker data.");
+        throw new Error("The speaker data could not be loaded.");
       }
 
       return response.json();
     })
-    .then((data) => {
-      renderSessions(data.sessions);
-    })
-    .catch((error) => {
+    .then(data => renderSessions(data.sessions))
+    .catch(error => {
       console.error("Girls Unplugged speaker archive:", error);
 
-      sessionList.replaceChildren();
-
-      const message = document.createElement("p");
-      message.className = "speaker-message";
-      message.textContent =
-        "We couldn't load the speaker archive right now. Please refresh the page and try again.";
-
-      sessionList.appendChild(message);
+      sessionList.innerHTML = `
+        <p class="speaker-message">
+          We couldn't load the speaker archive. Please refresh the page
+          or check that speakers.json is saved in the website's root folder.
+        </p>
+      `;
     });
 });
