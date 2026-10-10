@@ -1103,54 +1103,42 @@ function updateHomepageSection(contentKey, content) {
       );
 
 
+   
     if (Array.isArray(content.stats)) {
+      content.stats.forEach((stat, index) => {
+        const element = stats[index];
+        if (!element) return;
 
-      content.stats.forEach(
-        (stat, index) => {
+        const number = element.querySelector(".stat-number");
 
-          const element = stats[index];
+        if (number) {
+          const value = Number(stat.value);
+          const suffix = stat.suffix || "";
 
-          if (!element) return;
+          if (Number.isFinite(value)) {
+            number.dataset.target = String(value);
+            number.dataset.suffix = suffix;
+            number.textContent =
+              new Intl.NumberFormat("en-US").format(value) + suffix;
 
-
-          const number =
-            element.querySelector(".stat-number");
-
-          if (number) {
-
-  number.dataset.target =
-    stat.value;
-
-  number.dataset.suffix =
-    stat.suffix || "";
-
-  number.textContent =
-    `0${stat.suffix || ""}`;
-
-  number.dataset.counted = "false";
-
-  number.classList.remove("counted");
-
-  if (window.animateStatCounter) {
-    window.animateStatCounter(number);
-  }
-
-}
-
-          setText(
-            element.querySelector(".stat-label"),
-            stat.label
-          );
-
-          setText(
-            element.querySelector("small"),
-            stat.description
-          );
-
+            // Display the CMS value reliably after it loads.
+            number.dataset.counted = "true";
+            number.classList.add("counted");
+          }
         }
-      );
 
+        setText(
+          element.querySelector(".stat-label"),
+          stat.label
+        );
+
+        setText(
+          element.querySelector("small"),
+          stat.description
+        );
+      });
     }
+
 
 
     setText(
