@@ -320,8 +320,8 @@ content="Get in touch with Girls Unplugged: Bloom & Glow Circle."
       </h2>
 
       <p>
-        Fill in the form below and your email app will open with the
-        message prepared for Girls Unplugged.
+  Fill in the form below and send us a message directly.
+  We'd love to hear from you!
       </p>
 
     </div>
@@ -372,7 +372,12 @@ content="Get in touch with Girls Unplugged: Bloom & Glow Circle."
 
       <div class="contact-form-card reveal">
 
-       <form id="contact-email-form" class="contact-form">
+       <form
+  id="contact-email-form"
+  class="contact-form"
+  action="https://formspree.io/f/mzedgkpd"
+  method="POST"
+>
 
           <div class="contact-form-row">
 
@@ -383,12 +388,13 @@ content="Get in touch with Girls Unplugged: Bloom & Glow Circle."
               </label>
 
               <input
-                type="text"
-                id="name"
-                name="Name"
-                placeholder="Your name"
-                required
-              >
+  type="text"
+  id="name"
+  name="Name"
+  placeholder="Your name"
+  autocomplete="name"
+  required
+>
 
             </div>
 
@@ -400,12 +406,13 @@ content="Get in touch with Girls Unplugged: Bloom & Glow Circle."
               </label>
 
               <input
-                type="email"
-                id="email"
-                name="Email"
-                placeholder="you@example.com"
-                required
-              >
+  type="email"
+  id="email"
+  name="Email"
+  placeholder="you@example.com"
+  autocomplete="email"
+  required
+>
 
             </div>
 
@@ -482,8 +489,8 @@ content="Get in touch with Girls Unplugged: Bloom & Glow Circle."
           </button>
 
           <p class="contact-form-note">
-            This will open your email app with your message prepared
-            for grlsunplugged@gmail.com.
+  Your message will be sent directly to Girls Unplugged.
+  Thank you for reaching out! 💜
           </p>
 
         </form>
