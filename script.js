@@ -58,191 +58,148 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+   
   /* ======================================
-     STAT COUNTERS
+     STAT COUNTERS — IMPACT JSON
   ====================================== */
 
   const statNumbers = document.querySelectorAll(
     ".stat-number[data-target]"
   );
 
-
   function formatNumber(number) {
     return new Intl.NumberFormat("en-US").format(number);
   }
 
-
-  function getSuffix(element) {
-
-    const suffix =
-      element.getAttribute("data-suffix");
-
-    return suffix === "+" ? "+" : "";
-
-  }
-
-
   function updateStat(element, number) {
+    element.replaceChildren(
+      document.createTextNode(formatNumber(number))
+    );
 
-  const suffix =
-    element.querySelector(".stat-suffix");
+    const suffix = element.getAttribute("data-suffix") || "";
 
-  element.firstChild.textContent =
-    formatNumber(number);
-
-  if (suffix) {
-    suffix.textContent = "+";
+    if (suffix) {
+      const suffixElement = document.createElement("span");
+      suffixElement.className = "stat-suffix";
+      suffixElement.textContent = suffix;
+      element.appendChild(suffixElement);
+    }
   }
-
-}
-
 
   function animateCounter(element) {
+    const target = Number(element.getAttribute("data-target"));
 
-    const target =
-      Number(element.getAttribute("data-target"));
-
-    if (!Number.isFinite(target)) {
-      return;
-    }
-
-
-    /* Prevent duplicate animation */
-
-    if (element.dataset.counted === "true") {
-      return;
-    }
+    if (!Number.isFinite(target)) return;
+    if (element.dataset.counted === "true") return;
 
     element.dataset.counted = "true";
 
-
-    /* Reduced motion */
-
     if (prefersReducedMotion) {
-
       updateStat(element, target);
-
       element.classList.add("counted");
-
       return;
     }
-
 
     const duration = 1800;
     const startTime = performance.now();
 
-
     function updateCounter(currentTime) {
-
-      const elapsed =
-        currentTime - startTime;
-
-      const progress =
-        Math.min(
-          elapsed / duration,
-          1
-        );
-
-
-      const easedProgress =
-        1 - Math.pow(
-          1 - progress,
-          3
-        );
-
-
-      const currentValue =
-        Math.floor(
-          target * easedProgress
-        );
-
-
-      updateStat(
-        element,
-        currentValue
+      const progress = Math.min(
+        (currentTime - startTime) / duration,
+        1
       );
 
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.floor(target * easedProgress);
+
+      updateStat(element, currentValue);
 
       if (progress < 1) {
-
-        requestAnimationFrame(
-          updateCounter
-        );
-
+        requestAnimationFrame(updateCounter);
       } else {
-
-        /* Always show the final suffix */
-
-        updateStat(
-          element,
-          target
-        );
-
+        updateStat(element, target);
         element.classList.add("counted");
+      }
+    }
 
+    requestAnimationFrame(updateCounter);
+  }
+
+  window.animateStatCounter = animateCounter;
+
+  async function loadImpactStats() {
+    try {
+      const response = await fetch(
+        new URL("impact.json", window.location.href),
+        { cache: "no-cache" }
+      );
+
+      if (!response.ok) {
+        throw new Error("Could not load impact.json");
       }
 
+      const data = await response.json();
+
+      if (Array.isArray(data.stats)) {
+        const statsByKey = new Map(
+          data.stats.map((stat) => [
+            String(stat.label || "")
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, ""),
+            stat
+          ])
+        );
+
+        statNumbers.forEach((element) => {
+          const stat = statsByKey.get(element.dataset.stat);
+
+          if (!stat || !Number.isFinite(Number(stat.value))) return;
+
+          element.setAttribute("data-target", Number(stat.value));
+          element.setAttribute("data-suffix", stat.suffix || "");
+        });
+      }
+
+      const updated = document.getElementById("impact-last-updated");
+
+      if (updated && data.lastUpdated) {
+        updated.textContent =
+          "Impact data last updated: " + data.lastUpdated;
+      }
+    } catch (error) {
+      console.warn(
+        "Using the HTML fallback impact figures.",
+        error
+      );
     }
 
-
-    requestAnimationFrame(
-      updateCounter
-    );
-
-  }
-
-window.animateStatCounter = animateCounter;
-
-  if (statNumbers.length > 0) {
+    if (!statNumbers.length) return;
 
     if (prefersReducedMotion) {
-
-      statNumbers.forEach((element) => {
-        animateCounter(element);
-      });
-
-    } else {
-
-      const counterObserver =
-        new IntersectionObserver(
-          (entries, observer) => {
-
-            entries.forEach((entry) => {
-
-              if (entry.isIntersecting) {
-
-                animateCounter(
-                  entry.target
-                );
-
-                observer.unobserve(
-                  entry.target
-                );
-
-              }
-
-            });
-
-          },
-          {
-            threshold: 0.5
-          }
-        );
-
-
-      statNumbers.forEach((element) => {
-
-        counterObserver.observe(
-          element
-        );
-
-      });
-
+      statNumbers.forEach(animateCounter);
+      return;
     }
 
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    statNumbers.forEach((element) => observer.observe(element));
   }
 
+  loadImpactStats();
 
+ 
+   
   /* ======================================
      SMOOTH INTERNAL LINKS
   ====================================== */
