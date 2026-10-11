@@ -1181,3 +1181,27 @@
   }
 
 }
+
+
+
+
+/* Keep navigation visible while scrolling */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Show complete team portraits on mobile */
+@media (max-width: 900px) {
+  .page-team .team-preview-image {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .page-team .team-preview-photo {
+    object-fit: contain;
+    object-position: center center;
+    background: var(--soft-pink);
+  }
+}
