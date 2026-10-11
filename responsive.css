@@ -1192,16 +1192,25 @@
   z-index: 1000;
 }
 
+
 /* Show complete team portraits on mobile */
 @media (max-width: 900px) {
   .page-team .team-preview-image {
-    height: 340px;
-    min-height: 340px;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 3 / 4;
+    background: transparent;
   }
 
   .page-team .team-preview-photo {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
     object-fit: contain;
-    object-position: center center;
-    background: var(--soft-pink);
+    object-position: center;
+    background: transparent;
   }
 }
