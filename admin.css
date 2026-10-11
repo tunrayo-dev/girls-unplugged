@@ -1208,3 +1208,204 @@ button:disabled {
   }
 
 }
+
+
+
+/* =========================================
+   GIRLS UNPLUGGED — FAQ EDITOR REDESIGN
+   ========================================= */
+
+.gu-faq-library,
+.gu-faq-editor {
+  margin-bottom: 24px;
+}
+
+.gu-faq-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.gu-faq-heading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.gu-faq-item {
+  padding: 22px 24px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--white);
+}
+
+.gu-faq-item .editor-item-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.gu-faq-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.gu-faq-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.gu-faq-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.gu-faq-status.published {
+  background: #e6f4ec;
+  color: #286447;
+}
+
+.gu-faq-status.draft {
+  background: #fbf2d9;
+  color: #785d20;
+}
+
+.gu-faq-item .editor-item-title {
+  margin: 0;
+  color: var(--deep-plum);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.gu-faq-answer-preview {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.75;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gu-faq-editor {
+  border-color: rgba(217, 107, 145, 0.35);
+  box-shadow: 0 12px 32px rgba(84, 36, 81, 0.07);
+  scroll-margin-top: 25px;
+}
+
+.gu-faq-editor .form-group {
+  margin-bottom: 20px;
+}
+
+.gu-faq-editor input:not([type="checkbox"]),
+.gu-faq-editor textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #fffdfd;
+  box-sizing: border-box;
+}
+
+.gu-faq-editor textarea {
+  min-height: 140px;
+  line-height: 1.7;
+}
+
+.gu-publish-box {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: #fffafc;
+}
+
+.gu-publish-label {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.gu-publish-label input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--plum);
+  flex: 0 0 auto;
+}
+
+.gu-publish-label span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gu-publish-label strong {
+  color: var(--deep-plum);
+  font-size: 0.85rem;
+}
+
+.gu-publish-label small {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.gu-faq-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+.gu-faq-actions > div {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 650px) {
+  .gu-faq-heading {
+    flex-direction: column;
+  }
+
+  .gu-faq-heading #gu-faq-add {
+    width: 100%;
+  }
+
+  .gu-faq-item .editor-item-header {
+    flex-direction: column;
+  }
+
+  .gu-faq-item .editor-item-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .gu-faq-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .gu-faq-actions > div {
+    width: 100%;
+  }
+
+  .gu-faq-actions button {
+    flex: 1;
+  }
+}
+
