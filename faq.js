@@ -7,13 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const supabaseKey = "sb_publishable_jT9aTC0gXSYO8sel2kDVtQ_HmsSI3Q4";
 
   if (!window.supabase) {
-    console.error("Supabase did not load. Keeping the existing FAQs.");
+    console.error("Supabase did not load. Keeping existing FAQs.");
     initialiseAccordions();
     return;
   }
 
   const db = window.supabase.createClient(supabaseUrl, supabaseKey);
-
   loadPublishedFAQs();
 
   async function loadPublishedFAQs() {
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (error) throw error;
 
-      // Keep the existing FAQ content until database FAQs are published.
+      // Keep the existing website FAQs until database content is available.
       if (!Array.isArray(data) || data.length === 0) {
         initialiseAccordions();
         return;
@@ -37,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       initialiseAccordions();
     } catch (error) {
       console.error("Could not load published FAQs:", error);
-      // Existing hardcoded FAQs remain visible if loading fails.
       initialiseAccordions();
     }
   }
@@ -50,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     items.forEach((item) => {
       const category = (item.category || "General").trim() || "General";
-
       if (!groups.has(category)) groups.set(category, []);
       groups.get(category).push(item);
     });
@@ -99,14 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const answer = document.createElement("div");
         answer.className = "faq-answer";
 
-        // Separate paragraphs using a blank line in the dashboard answer.
         String(item.answer || "")
           .split(/\n\s*\n/)
           .map((paragraph) => paragraph.trim())
           .filter(Boolean)
           .forEach((paragraphText) => {
             const paragraph = document.createElement("p");
-            paragraph.textContent = paragraphText;
+            appendSafeTextAndLinks(paragraph, paragraphText);
             answer.appendChild(paragraph);
           });
 
@@ -116,6 +112,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
       container.append(heading, list);
     });
+  }
+
+  // Supports safe links written as:
+  // [Join the Circle](https://example.com)
+  // All other content is inserted as plain text, not HTML.
+  function appendSafeTextAndLinks(element, text) {
+    const linkPattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkPattern.exec(text)) !== null) {
+      element.appendChild(
+        document.createTextNode(text.slice(lastIndex, match.index))
+      );
+
+      try {
+        const url = new URL(match[2]);
+
+        if (url.protocol !== "https:" && url.protocol !== "http:") {
+          element.appendChild(document.createTextNode(match[0]));
+        } else {
+          const link = document.createElement("a");
+          link.href = url.href;
+          link.textContent = match[1];
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          element.appendChild(link);
+        }
+      } catch {
+        element.appendChild(document.createTextNode(match[0]));
+      }
+
+      lastIndex = linkPattern.lastIndex;
+    }
+
+    element.appendChild(document.createTextNode(text.slice(lastIndex)));
   }
 
   function initialiseAccordions() {
@@ -128,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       question.addEventListener("click", () => {
         const isOpen = item.classList.contains("active");
-
         item.classList.toggle("active", !isOpen);
         question.setAttribute("aria-expanded", String(!isOpen));
       });
