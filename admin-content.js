@@ -93,57 +93,83 @@
             </div>
           </div>
 
-          <div class="editor-card">
-            <div class="editor-card-header">
-              <div>
-                <h2>Frequently asked questions</h2>
-                <p>Create, edit, publish or remove individual questions.</p>
-              </div>
-            </div>
+         
+<div class="editor-card gu-faq-library">
+  <div class="editor-card-header gu-faq-heading">
+    <div>
+      <p class="eyebrow">CONTENT LIBRARY</p>
+      <h2>Frequently asked questions</h2>
+      <p>Manage your questions one at a time.</p>
+    </div>
+    <button type="button" id="gu-faq-add" class="primary-button">
+      + Add FAQ
+    </button>
+  </div>
 
-            <form id="gu-faq-form">
-              <input type="hidden" id="gu-faq-id">
+  <div id="gu-faq-list" class="editor-list"></div>
+</div>
 
-              <div class="form-grid">
-                <div class="form-group full">
-                  <label for="gu-faq-question">Question</label>
-                  <input id="gu-faq-question" required>
-                </div>
+<div id="gu-faq-editor-panel" class="editor-card gu-faq-editor hidden">
+  <div class="editor-card-header gu-faq-heading">
+    <div>
+      <p class="eyebrow">FAQ EDITOR</p>
+      <h2 id="gu-faq-editor-title">Add a question</h2>
+      <p>Make your changes below.</p>
+    </div>
+    <button type="button" id="gu-faq-close" class="secondary-button">
+      Close
+    </button>
+  </div>
 
-                <div class="form-group full">
-                  <label for="gu-faq-answer">Answer</label>
-                  <textarea id="gu-faq-answer" rows="5" required></textarea>
-                </div>
+  <form id="gu-faq-form">
+    <input type="hidden" id="gu-faq-id">
 
-                <div class="form-group">
-                  <label for="gu-faq-category">Category</label>
-                  <input id="gu-faq-category"
-                    placeholder="Joining, activities, opportunities">
-                </div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="gu-faq-question">Question</label>
+        <input id="gu-faq-question" type="text"
+          placeholder="Enter the question" required>
+      </div>
 
-                <div class="form-group">
-                  <label for="gu-faq-order">Display order</label>
-                  <input id="gu-faq-order" type="number" value="0">
-                </div>
+      <div class="form-group full">
+        <label for="gu-faq-answer">Answer</label>
+        <textarea id="gu-faq-answer" rows="5"
+          placeholder="Write the answer" required></textarea>
+      </div>
 
-                <div class="form-group">
-                  <label>
-                    <input id="gu-faq-published" type="checkbox">
-                    Published
-                  </label>
-                </div>
-              </div>
+      <div class="form-group">
+        <label for="gu-faq-category">Category</label>
+        <input id="gu-faq-category" placeholder="e.g. Membership">
+      </div>
 
-              <div class="editor-actions">
-                <button type="submit" class="primary-button">Save FAQ</button>
-                <button type="button" id="gu-faq-reset"
-                  class="secondary-button">Clear</button>
-                <span id="gu-faq-message" class="save-message"></span>
-              </div>
-            </form>
+      <div class="form-group">
+        <label for="gu-faq-order">Display order</label>
+        <input id="gu-faq-order" type="number" min="0" value="0">
+      </div>
 
-            <div id="gu-faq-list" class="editor-list"></div>
-          </div>
+      <div class="form-group full gu-publish-box">
+        <label class="gu-publish-label" for="gu-faq-published">
+          <input id="gu-faq-published" type="checkbox">
+          <span>
+            <strong>Publish this FAQ</strong>
+            <small>Published questions can appear on the public website.</small>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="gu-faq-actions">
+      <span id="gu-faq-message" class="save-message" role="status"></span>
+      <div>
+        <button type="button" id="gu-faq-reset" class="secondary-button">
+          Cancel
+        </button>
+        <button type="submit" class="primary-button">Save FAQ</button>
+      </div>
+    </div>
+  </form>
+</div>
+
 
           <div class="editor-card">
             <div class="editor-card-header">
@@ -351,33 +377,46 @@
     document.addEventListener("click", handleItemAction);
   }
 
-  async function loadFaqs() {
-    const { data, error } = await client()
-      .from("faq_items")
-      .select("*")
-      .order("display_order", { ascending: true });
+ 
+async function loadFaqs() {
+  const { data, error } = await client()
+    .from("faq_items")
+    .select("*")
+    .order("display_order", { ascending: true });
 
-    if (error) throw error;
+  if (error) throw error;
 
-    faqRows = data || [];
+  faqRows = data || [];
 
-    $("#gu-faq-list").innerHTML = faqRows.map((item) => `
-      <article class="editor-card">
-        <h3>${esc(item.question)}</h3>
-        <p>${esc(item.answer)}</p>
-        <small>
-          ${esc(item.category || "Uncategorised")} ·
-          ${item.published ? "Published" : "Draft"}
-        </small>
-        <div class="editor-actions">
+  $("#gu-faq-list").innerHTML = faqRows.map((item) => `
+    <article class="editor-item gu-faq-item">
+      <div class="editor-item-header">
+        <div class="gu-faq-main">
+          <div class="gu-faq-meta">
+            <span class="gu-faq-status ${item.published ? "published" : "draft"}">
+              ${item.published ? "Published" : "Draft"}
+            </span>
+            <span>${esc(item.category || "Uncategorised")}</span>
+          </div>
+          <h3 class="editor-item-title">${esc(item.question)}</h3>
+        </div>
+
+        <div class="editor-item-actions">
           <button type="button" class="secondary-button"
             data-gu-edit="faq" data-id="${item.id}">Edit</button>
-          <button type="button" class="secondary-button"
+          <button type="button" class="danger-button"
             data-gu-delete="faq" data-id="${item.id}">Delete</button>
         </div>
-      </article>
-    `).join("") || '<p class="empty-state">No FAQs yet.</p>';
-  }
+      </div>
+
+      <p class="gu-faq-answer-preview">${esc(item.answer)}</p>
+    </article>
+  `).join("") || `
+    <div class="empty-state">
+      <strong>No FAQs imported yet</strong>
+      <p>Your existing website FAQs still need to be imported.</p>
+    </div>`;
+}
 
   async function loadPages() {
     const { data, error } = await client()
@@ -491,9 +530,10 @@
       const { error } = await query;
       if (error) throw error;
 
-      resetFaq();
-      showMessage("#gu-faq-message", "FAQ saved.");
-      await loadFaqs();
+     resetFaq();
+$("#gu-faq-editor-panel").classList.add("hidden");
+showMessage("#gu-faq-message", "FAQ saved.");
+await loadFaqs();
     } catch (error) {
       showMessage("#gu-faq-message", error.message, true);
     }
@@ -624,18 +664,28 @@
       const type = editButton.dataset.guEdit;
       const id = editButton.dataset.id;
 
-      if (type === "faq") {
-        const item = faqRows.find((row) => String(row.id) === id);
-        if (!item) return;
+    
+if (type === "faq") {
+  const item = faqRows.find((row) => String(row.id) === id);
+  if (!item) return;
 
-        $("#gu-faq-id").value = item.id;
-        $("#gu-faq-question").value = item.question;
-        $("#gu-faq-answer").value = item.answer;
-        $("#gu-faq-category").value = item.category || "";
-        $("#gu-faq-order").value = item.display_order ?? 0;
-        $("#gu-faq-published").checked = item.published;
-        switchSection("content-tools");
-      }
+  $("#gu-faq-id").value = item.id;
+  $("#gu-faq-question").value = item.question;
+  $("#gu-faq-answer").value = item.answer;
+  $("#gu-faq-category").value = item.category || "";
+  $("#gu-faq-order").value = item.display_order ?? 0;
+  $("#gu-faq-published").checked = item.published;
+
+  $("#gu-faq-editor-title").textContent = "Edit question";
+  switchSection("content-tools");
+
+  $("#gu-faq-editor-panel").classList.remove("hidden");
+  $("#gu-faq-editor-panel").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 
       if (type === "page") {
         const item = pageRows.find((row) => String(row.id) === id);
@@ -714,8 +764,30 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    addDashboardSections();
-    refreshAll();
+
+document.addEventListener("DOMContentLoaded", () => {
+  addDashboardSections();
+
+  $("#gu-faq-add").addEventListener("click", () => {
+    resetFaq();
+    $("#gu-faq-editor-title").textContent = "Add a question";
+    $("#gu-faq-editor-panel").classList.remove("hidden");
+    $("#gu-faq-editor-panel").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   });
+
+  $("#gu-faq-close").addEventListener("click", () => {
+    $("#gu-faq-editor-panel").classList.add("hidden");
+  });
+
+  $("#gu-faq-reset").addEventListener("click", () => {
+    resetFaq();
+    $("#gu-faq-editor-panel").classList.add("hidden");
+  });
+
+  refreshAll();
+});
 })();
+
