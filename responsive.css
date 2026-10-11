@@ -1185,24 +1185,38 @@
 
 
 
-/* Keep the site navbar visible while scrolling */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 9999;
-}
-
-/* Prevent page content from sitting underneath the fixed navbar */
-body {
-  padding-top: var(--header-height, 80px);
-}
-
+/* MOBILE NAVBAR — KEEP VISIBLE WHILE SCROLLING */
 @media (max-width: 900px) {
+  html {
+    scroll-padding-top: 76px;
+  }
+
   body {
-    padding-top: 76px;
+    padding-top: 76px !important;
+  }
+
+  body > .site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+    transform: none !important;
+  }
+
+  .site-header .nav-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 250, 245, 0.98);
+  }
+
+  .site-header .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99999;
   }
 }
 
