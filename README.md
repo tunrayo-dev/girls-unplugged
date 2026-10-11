@@ -51,7 +51,9 @@ The website introduces the community, its programmes, people, impact and resourc
 
 ## Community
 
-Girls Unplugged currently has **120+ Bloomies** across:
+
+Girls Unplugged currently has **185+ Bloomies across 10+ countries**:
+
 
 - Eswatini
 - Nigeria
