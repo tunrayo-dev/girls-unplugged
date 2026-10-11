@@ -5491,6 +5491,7 @@ min-height: auto;
   .building-section .why-grid {
     grid-template-columns: 1fr;
   }
+}
 
 
 
@@ -5498,12 +5499,17 @@ min-height: auto;
    HOMEPAGE TEAM PREVIEW — REAL PORTRAITS
 ========================================== */
 
+
 #team-preview .team-preview-image,
 .page-team .team-preview-image {
   position: relative;
+  width: 100%;
+  height: 230px;
   min-height: 230px;
+  align-self: start;
   overflow: hidden;
 }
+
 
 #team-preview .team-preview-photo,
 .page-team .team-preview-photo {
@@ -5647,6 +5653,7 @@ min-height: auto;
   }
 }
 
+
 @media (max-width: 480px) {
   #team-preview .team-preview-card,
   #speakers-preview .speaker-preview-card {
@@ -5655,6 +5662,7 @@ min-height: auto;
 
   #team-preview .team-preview-image,
   .page-team .team-preview-image {
+    height: 220px;
     min-height: 220px;
   }
 
@@ -5663,10 +5671,6 @@ min-height: auto;
     min-height: 230px;
   }
 }
-
-}
-
-
 
 
 /* ==========================================
