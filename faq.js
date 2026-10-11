@@ -117,38 +117,63 @@ document.addEventListener("DOMContentLoaded", () => {
   // Supports safe links written as:
   // [Join the Circle](https://example.com)
   // All other content is inserted as plain text, not HTML.
-  function appendSafeTextAndLinks(element, text) {
-    const linkPattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
-    let lastIndex = 0;
-    let match;
 
-    while ((match = linkPattern.exec(text)) !== null) {
-      element.appendChild(
-        document.createTextNode(text.slice(lastIndex, match.index))
-      );
+function appendSafeTextAndLinks(element, text) {
+  // Supports **bold text** and [link text](URL).
+  // Keeps content as text unless it is a recognized safe link.
 
+  const pattern =
+    /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)/g;
+
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(text)) !== null) {
+    element.appendChild(
+      document.createTextNode(text.slice(lastIndex, match.index))
+    );
+
+    // Bold Markdown: **important text**
+    if (match[1] !== undefined) {
+      const bold = document.createElement("strong");
+      bold.textContent = match[1];
+      element.appendChild(bold);
+    } else {
+      // Markdown link: [Join us](circle.html)
       try {
-        const url = new URL(match[2]);
+        const url = new URL(match[3], window.location.href);
 
-        if (url.protocol !== "https:" && url.protocol !== "http:") {
-          element.appendChild(document.createTextNode(match[0]));
-        } else {
+        if (
+          url.protocol === "https:" ||
+          url.protocol === "http:"
+        ) {
           const link = document.createElement("a");
           link.href = url.href;
-          link.textContent = match[1];
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
+          link.textContent = match[2];
+
+          if (url.origin !== window.location.origin) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+          }
+
           element.appendChild(link);
+        } else {
+          element.appendChild(document.createTextNode(match[0]));
         }
       } catch {
         element.appendChild(document.createTextNode(match[0]));
       }
-
-      lastIndex = linkPattern.lastIndex;
     }
 
-    element.appendChild(document.createTextNode(text.slice(lastIndex)));
+    lastIndex = pattern.lastIndex;
   }
+
+  element.appendChild(
+    document.createTextNode(text.slice(lastIndex))
+  );
+}
+
+       
 
   function initialiseAccordions() {
     faqSection.querySelectorAll(".faq-item").forEach((item) => {
