@@ -1,0 +1,721 @@
+
+/* =========================================================
+   GIRLS UNPLUGGED — ADDITIONAL CMS EDITORS
+   FAQs • Guest Sessions • Other Page Sections
+   ========================================================= */
+
+(() => {
+  "use strict";
+
+  const $ = (selector) => document.querySelector(selector);
+
+  const esc = (value) =>
+    typeof escapeHTML === "function"
+      ? escapeHTML(value ?? "")
+      : String(value ?? "");
+
+  let faqRows = [];
+  let sessionRows = [];
+  let pageRows = [];
+
+  const client = () => {
+    if (typeof supabaseClient === "undefined") {
+      throw new Error("Supabase is not available.");
+    }
+    return supabaseClient;
+  };
+
+  function showMessage(selector, text, isError = false) {
+    const element = $(selector);
+    if (!element) return;
+
+    element.textContent = text;
+    element.style.color = isError ? "#b42318" : "";
+  }
+
+  function switchSection(name) {
+    document.querySelectorAll(".dashboard-section").forEach((section) => {
+      section.classList.toggle(
+        "active-section",
+        section.id === `section-${name}`
+      );
+    });
+
+    document.querySelectorAll(".dashboard-nav-item").forEach((button) => {
+      button.classList.toggle(
+        "active",
+        button.dataset.section === name
+      );
+    });
+
+    const dashboard = $(".main-content");
+    if (dashboard) dashboard.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function addDashboardSections() {
+    const nav = $(".dashboard-nav");
+    const main = $(".main-content");
+
+    if (!nav || !main) return;
+
+    if (!nav.querySelector('[data-section="content-tools"]')) {
+      nav.insertAdjacentHTML(
+        "beforeend",
+        `
+          <button type="button"
+            class="dashboard-nav-item"
+            data-section="content-tools">
+            <span class="nav-symbol">08</span>
+            <span>FAQs & Pages</span>
+          </button>
+
+          <button type="button"
+            class="dashboard-nav-item"
+            data-section="sessions">
+            <span class="nav-symbol">09</span>
+            <span>Guest Sessions</span>
+          </button>
+        `
+      );
+    }
+
+    if (!$("#section-content-tools")) {
+      main.insertAdjacentHTML(
+        "beforeend",
+        `
+        <section id="section-content-tools" class="dashboard-section">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">08 / CONTENT MANAGEMENT</p>
+              <h1>FAQs & Page Sections</h1>
+              <p>Manage individual FAQs and additional website content.</p>
+            </div>
+          </div>
+
+          <div class="editor-card">
+            <div class="editor-card-header">
+              <div>
+                <h2>Frequently asked questions</h2>
+                <p>Create, edit, publish or remove individual questions.</p>
+              </div>
+            </div>
+
+            <form id="gu-faq-form">
+              <input type="hidden" id="gu-faq-id">
+
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="gu-faq-question">Question</label>
+                  <input id="gu-faq-question" required>
+                </div>
+
+                <div class="form-group full">
+                  <label for="gu-faq-answer">Answer</label>
+                  <textarea id="gu-faq-answer" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-faq-category">Category</label>
+                  <input id="gu-faq-category"
+                    placeholder="Joining, activities, opportunities">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-faq-order">Display order</label>
+                  <input id="gu-faq-order" type="number" value="0">
+                </div>
+
+                <div class="form-group">
+                  <label>
+                    <input id="gu-faq-published" type="checkbox">
+                    Published
+                  </label>
+                </div>
+              </div>
+
+              <div class="editor-actions">
+                <button type="submit" class="primary-button">Save FAQ</button>
+                <button type="button" id="gu-faq-reset"
+                  class="secondary-button">Clear</button>
+                <span id="gu-faq-message" class="save-message"></span>
+              </div>
+            </form>
+
+            <div id="gu-faq-list" class="editor-list"></div>
+          </div>
+
+          <div class="editor-card">
+            <div class="editor-card-header">
+              <div>
+                <h2>Other page sections</h2>
+                <p>
+                  Store editable section content for Programs, Team,
+                  Resources, Contact, Privacy and other pages.
+                </p>
+              </div>
+            </div>
+
+            <form id="gu-page-form">
+              <input type="hidden" id="gu-page-id">
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="gu-page-slug">Page</label>
+                  <select id="gu-page-slug">
+                    <option value="programs">Programs</option>
+                    <option value="team">Our Team</option>
+                    <option value="resources">Resources</option>
+                    <option value="get-involved">Get Involved</option>
+                    <option value="contact">Contact</option>
+                    <option value="circle">Bloom & Glow Circle</option>
+                    <option value="impact">Impact</option>
+                    <option value="faq">FAQ</option>
+                    <option value="privacy">Privacy Policy</option>
+                    <option value="speakers">Guest Speakers</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-page-key">Section key</label>
+                  <input id="gu-page-key" required placeholder="hero">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-page-type">Section type</label>
+                  <input id="gu-page-type" value="content" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-page-title">Section title</label>
+                  <input id="gu-page-title">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-page-order">Display order</label>
+                  <input id="gu-page-order" type="number" value="0">
+                </div>
+
+                <div class="form-group full">
+                  <label for="gu-page-content">Section content (JSON)</label>
+                  <textarea id="gu-page-content" rows="7" required
+                    placeholder='{"heading":"Section heading","paragraphs":["Paragraph one"]}'></textarea>
+                  <small>Enter valid JSON. Text, buttons, links and lists can be stored here.</small>
+                </div>
+
+                <div class="form-group">
+                  <label>
+                    <input id="gu-page-published" type="checkbox">
+                    Published
+                  </label>
+                </div>
+              </div>
+
+              <div class="editor-actions">
+                <button type="submit" class="primary-button">Save section</button>
+                <button type="button" id="gu-page-reset"
+                  class="secondary-button">Clear</button>
+                <span id="gu-page-message" class="save-message"></span>
+              </div>
+            </form>
+
+            <div id="gu-page-list" class="editor-list"></div>
+          </div>
+        </section>
+
+        <section id="section-sessions" class="dashboard-section">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">09 / GUEST SESSIONS</p>
+              <h1>Guest Sessions</h1>
+              <p>
+                Manage conversations separately from the speakers' profiles.
+              </p>
+            </div>
+          </div>
+
+          <div class="editor-card">
+            <div class="editor-card-header">
+              <div>
+                <h2>Session details</h2>
+                <p>
+                  Speaker IDs are optional comma-separated IDs from
+                  your Speakers section.
+                </p>
+              </div>
+            </div>
+
+            <form id="gu-session-form">
+              <input type="hidden" id="gu-session-id">
+
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="gu-session-title">Session title</label>
+                  <input id="gu-session-title" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-slug">Slug</label>
+                  <input id="gu-session-slug" placeholder="girls-and-money">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-date">Date</label>
+                  <input id="gu-session-date" type="date">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-start">Start time</label>
+                  <input id="gu-session-start" placeholder="7:00 PM WAT">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-end">End time</label>
+                  <input id="gu-session-end" placeholder="8:30 PM WAT">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-platform">Platform</label>
+                  <input id="gu-session-platform" placeholder="Google Meet">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-url">Meeting URL</label>
+                  <input id="gu-session-url" type="url">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-image">Cover image URL</label>
+                  <input id="gu-session-image" type="url">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-order">Display order</label>
+                  <input id="gu-session-order" type="number" value="0">
+                </div>
+
+                <div class="form-group">
+                  <label for="gu-session-speakers">Speaker IDs</label>
+                  <input id="gu-session-speakers" placeholder="e.g. 2, 3">
+                </div>
+
+                <div class="form-group full">
+                  <label for="gu-session-description">Description</label>
+                  <textarea id="gu-session-description" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>
+                    <input id="gu-session-published" type="checkbox">
+                    Published
+                  </label>
+                </div>
+              </div>
+
+              <div class="editor-actions">
+                <button type="submit" class="primary-button">Save session</button>
+                <button type="button" id="gu-session-reset"
+                  class="secondary-button">Clear</button>
+                <span id="gu-session-message" class="save-message"></span>
+              </div>
+            </form>
+
+            <div id="gu-session-list" class="editor-list"></div>
+          </div>
+        </section>
+        `
+      );
+    }
+
+    // Delegated navigation also supports buttons added above.
+    nav.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-section]");
+      if (!button) return;
+
+      const name = button.dataset.section;
+      if (name === "content-tools" || name === "sessions") {
+        event.preventDefault();
+        switchSection(name);
+        refreshAll();
+      }
+    });
+
+    $("#gu-faq-form").addEventListener("submit", saveFaq);
+    $("#gu-page-form").addEventListener("submit", savePage);
+    $("#gu-session-form").addEventListener("submit", saveSession);
+
+    $("#gu-faq-reset").addEventListener("click", resetFaq);
+    $("#gu-page-reset").addEventListener("click", resetPage);
+    $("#gu-session-reset").addEventListener("click", resetSession);
+
+    document.addEventListener("click", handleItemAction);
+  }
+
+  async function loadFaqs() {
+    const { data, error } = await client()
+      .from("faq_items")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (error) throw error;
+
+    faqRows = data || [];
+
+    $("#gu-faq-list").innerHTML = faqRows.map((item) => `
+      <article class="editor-card">
+        <h3>${esc(item.question)}</h3>
+        <p>${esc(item.answer)}</p>
+        <small>
+          ${esc(item.category || "Uncategorised")} ·
+          ${item.published ? "Published" : "Draft"}
+        </small>
+        <div class="editor-actions">
+          <button type="button" class="secondary-button"
+            data-gu-edit="faq" data-id="${item.id}">Edit</button>
+          <button type="button" class="secondary-button"
+            data-gu-delete="faq" data-id="${item.id}">Delete</button>
+        </div>
+      </article>
+    `).join("") || '<p class="empty-state">No FAQs yet.</p>';
+  }
+
+  async function loadPages() {
+    const { data, error } = await client()
+      .from("page_sections")
+      .select("*")
+      .order("page_slug")
+      .order("display_order", { ascending: true });
+
+    if (error) throw error;
+
+    pageRows = data || [];
+
+    $("#gu-page-list").innerHTML = pageRows.map((item) => `
+      <article class="editor-card">
+        <h3>${esc(item.page_slug)} / ${esc(item.section_key)}</h3>
+        <p>${esc(item.title || item.section_type)} ·
+          ${item.published ? "Published" : "Draft"}</p>
+        <pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(
+          JSON.stringify(item.content, null, 2)
+        )}</pre>
+        <div class="editor-actions">
+          <button type="button" class="secondary-button"
+            data-gu-edit="page" data-id="${item.id}">Edit</button>
+          <button type="button" class="secondary-button"
+            data-gu-delete="page" data-id="${item.id}">Delete</button>
+        </div>
+      </article>
+    `).join("") || '<p class="empty-state">No extra page sections yet.</p>';
+  }
+
+  async function loadSessions() {
+    const { data, error } = await client()
+      .from("guest_sessions")
+      .select("*")
+      .order("session_date", { ascending: false, nullsFirst: false })
+      .order("display_order", { ascending: true });
+
+    if (error) throw error;
+
+    sessionRows = data || [];
+
+    $("#gu-session-list").innerHTML = sessionRows.map((item) => `
+      <article class="editor-card">
+        <h3>${esc(item.title)}</h3>
+        <p>${esc(item.session_date || "Date not set")} ·
+          ${item.published ? "Published" : "Draft"}</p>
+        <p>${esc(item.description || "")}</p>
+        <div class="editor-actions">
+          <button type="button" class="secondary-button"
+            data-gu-edit="session" data-id="${item.id}">Edit</button>
+          <button type="button" class="secondary-button"
+            data-gu-delete="session" data-id="${item.id}">Delete</button>
+        </div>
+      </article>
+    `).join("") || '<p class="empty-state">No guest sessions yet.</p>';
+  }
+
+  async function refreshAll() {
+    try {
+      await Promise.all([loadFaqs(), loadPages(), loadSessions()]);
+    } catch (error) {
+      console.error("Additional CMS loading error:", error);
+      showMessage("#gu-faq-message", error.message, true);
+      showMessage("#gu-page-message", error.message, true);
+      showMessage("#gu-session-message", error.message, true);
+    }
+  }
+
+  function resetFaq() {
+    $("#gu-faq-form").reset();
+    $("#gu-faq-id").value = "";
+    $("#gu-faq-order").value = "0";
+    showMessage("#gu-faq-message", "");
+  }
+
+  function resetPage() {
+    $("#gu-page-form").reset();
+    $("#gu-page-id").value = "";
+    $("#gu-page-order").value = "0";
+    $("#gu-page-type").value = "content";
+    $("#gu-page-content").value = "{}";
+    showMessage("#gu-page-message", "");
+  }
+
+  function resetSession() {
+    $("#gu-session-form").reset();
+    $("#gu-session-id").value = "";
+    $("#gu-session-order").value = "0";
+    showMessage("#gu-session-message", "");
+  }
+
+  async function saveFaq(event) {
+    event.preventDefault();
+
+    try {
+      const id = $("#gu-faq-id").value;
+
+      const payload = {
+        question: $("#gu-faq-question").value.trim(),
+        answer: $("#gu-faq-answer").value.trim(),
+        category: $("#gu-faq-category").value.trim() || null,
+        display_order: Number($("#gu-faq-order").value) || 0,
+        published: $("#gu-faq-published").checked,
+        updated_at: new Date().toISOString()
+      };
+
+      const query = id
+        ? client().from("faq_items").update(payload).eq("id", id)
+        : client().from("faq_items").insert(payload);
+
+      const { error } = await query;
+      if (error) throw error;
+
+      resetFaq();
+      showMessage("#gu-faq-message", "FAQ saved.");
+      await loadFaqs();
+    } catch (error) {
+      showMessage("#gu-faq-message", error.message, true);
+    }
+  }
+
+  async function savePage(event) {
+    event.preventDefault();
+
+    try {
+      const content = JSON.parse($("#gu-page-content").value);
+      const id = $("#gu-page-id").value;
+
+      const payload = {
+        page_slug: $("#gu-page-slug").value,
+        section_key: $("#gu-page-key").value.trim(),
+        section_type: $("#gu-page-type").value.trim(),
+        title: $("#gu-page-title").value.trim() || null,
+        content,
+        display_order: Number($("#gu-page-order").value) || 0,
+        published: $("#gu-page-published").checked,
+        updated_at: new Date().toISOString()
+      };
+
+      const query = id
+        ? client().from("page_sections").update(payload).eq("id", id)
+        : client().from("page_sections").upsert(payload, {
+            onConflict: "page_slug,section_key"
+          });
+
+      const { error } = await query;
+      if (error) throw error;
+
+      resetPage();
+      showMessage("#gu-page-message", "Section saved.");
+      await loadPages();
+    } catch (error) {
+      showMessage("#gu-page-message", error.message, true);
+    }
+  }
+
+  async function saveSession(event) {
+    event.preventDefault();
+
+    try {
+      const id = $("#gu-session-id").value;
+      const title = $("#gu-session-title").value.trim();
+      const slug = $("#gu-session-slug").value.trim() ||
+        title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+      const payload = {
+        slug,
+        title,
+        description: $("#gu-session-description").value.trim() || null,
+        session_date: $("#gu-session-date").value || null,
+        start_time: $("#gu-session-start").value.trim() || null,
+        end_time: $("#gu-session-end").value.trim() || null,
+        platform: $("#gu-session-platform").value.trim() || null,
+        meeting_url: $("#gu-session-url").value.trim() || null,
+        cover_image_url: $("#gu-session-image").value.trim() || null,
+        display_order: Number($("#gu-session-order").value) || 0,
+        published: $("#gu-session-published").checked,
+        updated_at: new Date().toISOString()
+      };
+
+      let sessionId = id;
+
+      if (id) {
+        const { error } = await client()
+          .from("guest_sessions")
+          .update(payload)
+          .eq("id", id);
+
+        if (error) throw error;
+      } else {
+        const { data, error } = await client()
+          .from("guest_sessions")
+          .insert(payload)
+          .select("id")
+          .single();
+
+        if (error) throw error;
+        sessionId = data.id;
+      }
+
+      const speakerIds = [
+        ...new Set(
+          $("#gu-session-speakers").value
+            .split(",")
+            .map((value) => Number(value.trim()))
+            .filter((value) => Number.isInteger(value) && value > 0)
+        )
+      ];
+
+      const { error: deleteError } = await client()
+        .from("guest_session_speakers")
+        .delete()
+        .eq("session_id", sessionId);
+
+      if (deleteError) throw deleteError;
+
+      if (speakerIds.length) {
+        const rows = speakerIds.map((speaker_id, index) => ({
+          session_id: sessionId,
+          speaker_id,
+          display_order: index
+        }));
+
+        const { error } = await client()
+          .from("guest_session_speakers")
+          .insert(rows);
+
+        if (error) throw error;
+      }
+
+      resetSession();
+      showMessage("#gu-session-message", "Session saved.");
+      await loadSessions();
+    } catch (error) {
+      showMessage("#gu-session-message", error.message, true);
+    }
+  }
+
+  async function handleItemAction(event) {
+    const editButton = event.target.closest("[data-gu-edit]");
+    const deleteButton = event.target.closest("[data-gu-delete]");
+
+    if (editButton) {
+      const type = editButton.dataset.guEdit;
+      const id = editButton.dataset.id;
+
+      if (type === "faq") {
+        const item = faqRows.find((row) => String(row.id) === id);
+        if (!item) return;
+
+        $("#gu-faq-id").value = item.id;
+        $("#gu-faq-question").value = item.question;
+        $("#gu-faq-answer").value = item.answer;
+        $("#gu-faq-category").value = item.category || "";
+        $("#gu-faq-order").value = item.display_order ?? 0;
+        $("#gu-faq-published").checked = item.published;
+        switchSection("content-tools");
+      }
+
+      if (type === "page") {
+        const item = pageRows.find((row) => String(row.id) === id);
+        if (!item) return;
+
+        $("#gu-page-id").value = item.id;
+        $("#gu-page-slug").value = item.page_slug;
+        $("#gu-page-key").value = item.section_key;
+        $("#gu-page-type").value = item.section_type;
+        $("#gu-page-title").value = item.title || "";
+        $("#gu-page-content").value = JSON.stringify(item.content, null, 2);
+        $("#gu-page-order").value = item.display_order ?? 0;
+        $("#gu-page-published").checked = item.published;
+        switchSection("content-tools");
+      }
+
+      if (type === "session") {
+        const item = sessionRows.find((row) => String(row.id) === id);
+        if (!item) return;
+
+        $("#gu-session-id").value = item.id;
+        $("#gu-session-title").value = item.title;
+        $("#gu-session-slug").value = item.slug || "";
+        $("#gu-session-description").value = item.description || "";
+        $("#gu-session-date").value = item.session_date || "";
+        $("#gu-session-start").value = item.start_time || "";
+        $("#gu-session-end").value = item.end_time || "";
+        $("#gu-session-platform").value = item.platform || "";
+        $("#gu-session-url").value = item.meeting_url || "";
+        $("#gu-session-image").value = item.cover_image_url || "";
+        $("#gu-session-order").value = item.display_order ?? 0;
+
+        const { data, error } = await client()
+          .from("guest_session_speakers")
+          .select("speaker_id")
+          .eq("session_id", item.id);
+
+        if (error) {
+          showMessage("#gu-session-message", error.message, true);
+          return;
+        }
+
+        $("#gu-session-speakers").value =
+          (data || []).map((row) => row.speaker_id).join(", ");
+
+        switchSection("sessions");
+      }
+    }
+
+    if (deleteButton) {
+      const type = deleteButton.dataset.guDelete;
+      const id = deleteButton.dataset.id;
+
+      if (!window.confirm("Delete this item? This cannot be undone.")) {
+        return;
+      }
+
+      try {
+        const table = {
+          faq: "faq_items",
+          page: "page_sections",
+          session: "guest_sessions"
+        }[type];
+
+        const { error } = await client()
+          .from(table)
+          .delete()
+          .eq("id", id);
+
+        if (error) throw error;
+
+        await refreshAll();
+      } catch (error) {
+        window.alert("Could not delete item: " + error.message);
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    addDashboardSections();
+    refreshAll();
+  });
+})();
