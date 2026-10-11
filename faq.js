@@ -153,9 +153,14 @@ link.href = url.href;
 link.textContent = match[2];
 
 // Restore the original purple button style
-if (/join the (whatsapp|circle|sisterhood)/i.test(match[2])) {
+
+if (
+  /join the (whatsapp|circle|sisterhood)/i.test(match[2]) ||
+  /explore volunteering|learn about|contact the team|express interest|become a speaker|get involved|view opportunities/i.test(match[2])
+) {
   link.className = "btn btn-secondary";
 }
+
 
 if (url.origin !== window.location.origin) {
   link.target = "_blank";
