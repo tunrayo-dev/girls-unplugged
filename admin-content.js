@@ -229,12 +229,20 @@
                   <small>Enter valid JSON. Text, buttons, links and lists can be stored here.</small>
                 </div>
 
-                <div class="form-group">
-                  <label>
-                    <input id="gu-page-published" type="checkbox">
-                    Published
-                  </label>
-                </div>
+              <div class="form-group full gu-page-publish-field">
+  <div class="publish-row">
+    <label class="publish-switch" for="gu-page-published">
+      <input id="gu-page-published" type="checkbox">
+      <span class="switch-track"></span>
+    </label>
+    <label class="publish-label" for="gu-page-published">
+      Publish this section
+    </label>
+  </div>
+  <small class="gu-publish-help">
+    Turn on to mark this section as published.
+  </small>
+</div>
               </div>
 
               <div class="editor-actions">
