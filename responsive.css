@@ -1185,11 +1185,25 @@
 
 
 
-/* Keep navigation visible while scrolling */
+/* Keep the site navbar visible while scrolling */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+/* Prevent page content from sitting underneath the fixed navbar */
+body {
+  padding-top: var(--header-height, 80px);
+}
+
+@media (max-width: 900px) {
+  body {
+    padding-top: 76px;
+  }
 }
 
 
