@@ -147,9 +147,21 @@ function appendSafeTextAndLinks(element, text) {
           url.protocol === "https:" ||
           url.protocol === "http:"
         ) {
-          const link = document.createElement("a");
-          link.href = url.href;
-          link.textContent = match[2];
+         
+const link = document.createElement("a");
+link.href = url.href;
+link.textContent = match[2];
+
+// Restore the original purple button style
+if (/join the (whatsapp|circle|sisterhood)/i.test(match[2])) {
+  link.className = "btn btn-secondary";
+}
+
+if (url.origin !== window.location.origin) {
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+}
+
 
           if (url.origin !== window.location.origin) {
             link.target = "_blank";
