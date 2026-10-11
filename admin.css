@@ -1476,3 +1476,26 @@ button:disabled {
   vertical-align: middle;
 }
 
+
+/* Fix alignment in page and session editor actions */
+.editor-actions .primary-button,
+.editor-actions .secondary-button {
+  margin-top: 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.editor-actions .save-message {
+  flex-basis: 100%;
+  margin-top: 4px;
+}
+
+.editor-actions {
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
