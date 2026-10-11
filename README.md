@@ -4,33 +4,22 @@ Girls Unplugged is a digital sisterhood created by girls, for girls — a space 
 
 The **Bloom & Glow Circle** brings girls and young women from across Africa together through community activities, conversations, learning, opportunities and shared experiences.
 
----
+**Tagline:** Unplug. Connect. Bloom. Glow.
 
 ## About Girls Unplugged
 
 Girls Unplugged was founded in September 2025 by **Motunrayo Linda Idowu**.
 
-The community exists to create a safe and welcoming digital space where girls can:
-
+The community creates a welcoming digital space where girls can:
 - Connect with other girls
-- Build confidence
-- Learn new things
-- Discover opportunities
-- Share experiences
+- Build confidence and discover opportunities
+- Share experiences and ask questions without fear of judgement
 - Take part in meaningful activities
-- Ask questions without fear of judgement
-- Grow together as a sisterhood
-
-**Our motto:**  
-> Action, not titles.
-
----
+- Learn and grow together as a sisterhood
 
 ## The Website
 
-This repository contains the official Girls Unplugged website.
-
-The website introduces the community, its programmes, people, impact and resources while providing ways for girls and potential collaborators to connect with Girls Unplugged.
+This repository contains the official Girls Unplugged website. It introduces the community, its programmes, people, impact and resources, and provides ways for girls and potential collaborators to connect with us.
 
 ### Main Pages
 
@@ -47,185 +36,79 @@ The website introduces the community, its programmes, people, impact and resourc
 - **Contact** — Ways to reach Girls Unplugged
 - **Privacy** — Our approach to privacy and trust
 
----
-
 ## Community
 
+As of October 2026, Girls Unplugged has **185+ Bloomies across 10+ countries**. The community continues to grow.
 
-Girls Unplugged currently has **185+ Bloomies across 10+ countries**:
-
-
-- Eswatini
-- Nigeria
-- Sierra Leone
-- Uganda
-- Zambia
-- Zimbabwe
-- Kenya
-- Liberia
-- The Gambia
-- Mozambique
-
-The community continues to grow.
-
----
+Countries represented include Eswatini, Nigeria, Sierra Leone, Uganda, Zambia, Zimbabwe, Kenya, Liberia, The Gambia and Mozambique.
 
 ## Weekly Activities
 
-The Bloom & Glow Circle keeps the community active through recurring activities including:
-
+Recurring community activities include:
 - Motivation Monday
 - Wellness Wednesday
 - Fun Friday
 
 We also host community conversations, guest speaker sessions, games, discussions and other activities throughout the year.
 
----
+## Technology and Project Structure
 
-## Technology
+The public website uses HTML, CSS and JavaScript. The admin dashboard connects to Supabase for supported content-management features.
 
-The website is built with simple, lightweight web technologies:
+Key files include:
 
-- HTML5
-- CSS3
-- JavaScript
+- `index.html` — Homepage
+- `about.html` — About page
+- `circle.html` — Community page
+- `programs.html` — Programs page
+- `speakers.html` — Guest speaker page
+- `team.html` — Team page
+- `impact.html` — Impact page
+- `resources.html` — Resources and opportunities
+- `get-involved.html` — Ways to participate
+- `faq.html` — Frequently asked questions
+- `contact.html` — Contact information
+- `privacy.html` — Privacy policy
+- `admin.html` — Admin dashboard
+- `style.css` — Shared visual styling
+- `responsive.css` — Responsive layouts
+- `animations.css` — CSS animations
+- `navigation.js` — Navigation behaviour
+- `script.js` — Shared website functionality
+- `speakers.js` — Speaker page functionality
+- `faq.js` — FAQ interactions
+- `admin.js` — Admin dashboard functionality
+- `borders-cms.js` — Country bubble content management
+- `impact.json` — Impact statistics
+- `images/` — Website images
 
-### Main Files
+## Design Principles
 
-```text
-girls-unplugged/
-│
-├── index.html
-├── about.html
-├── circle.html
-├── programs.html
-├── speakers.html
-├── team.html
-├── impact.html
-├── resources.html
-├── get-involved.html
-├── faq.html
-├── contact.html
-├── privacy.html
-│
-├── style.css
-├── responsive.css
-├── animations.css
-│
-├── navigation.js
-├── script.js
-├── faq.js
-│
-├── impact.json
-├── team.json
-│
-└── README.md
+The website aims to feel warm, feminine, modern, welcoming, editorial, accessible, responsive and community-centred.
 
----
+## Resources
 
-Design Principles
+The Resources page covers areas such as technology, leadership, climate, scholarships, fellowships, STEM, competitions, internships, exchanges, volunteering, learning, wellbeing and life skills.
 
-The Girls Unplugged website is designed to feel:
+Visitors should follow each resource's original link to confirm current eligibility and application details.
 
-- Warm
-- Feminine
-- Modern
-- Welcoming
-- Editorial
-- Clean
-- Community-centred
-- Accessible and responsive
+## Contact and Socials
 
-The design uses shared components and styles across the website to keep the experience consistent.
+- **Instagram:** https://www.instagram.com/grls_unplugged
+- **TikTok:** https://www.tiktok.com/@grls.unplugged
+- **Email:** grlsunplugged@gmail.com
 
----
+For partnership, programme, resource or volunteering enquiries, please contact the Girls Unplugged team.
 
-Website Features
+## Founder
 
-The website includes:
+**Motunrayo Linda Idowu**  
+Founder & Community Director, Girls Unplugged: Bloom & Glow Circle
 
-- Responsive navigation
-- Mobile menu
-- Animated page reveals
-- Responsive layouts
-- Reusable card designs
-- Community impact statistics
-- FAQ accordion
-- Resource library
-- Opportunities Centre
-- External resource links
-- Contact options
-- Responsive page heroes
-- Shared footer and navigation
+## Project Status
+
+The website is actively maintained as the community grows. Community figures and programme information may change over time.
 
 ---
-
-Resources
-
-The Resources page includes useful places to explore:
-
-- Technology
-- Leadership
-- Climate
-- Scholarships
-- Fellowships
-- STEM
-- Competitions
-- Internships
-- Exchanges
-- Volunteering
-- Learning
-- Wellbeing
-- Life skills
-- Other useful platforms
-
-Opportunities are linked to their original platforms so visitors can check the latest eligibility requirements and application information directly from the relevant organisation.
-
----
-
-Socials
-
-Instagram:
-https://www.instagram.com/grls_unplugged
-
-TikTok:
-https://www.tiktok.com/@grls.unplugged
-
-Email:
-grlsunplugged@gmail.com
-
----
-
-Contributing
-
-Girls Unplugged is a community project.
-
-If you would like to contribute ideas, resources, partnerships, programmes or other forms of support, please contact the Girls Unplugged team.
-
----
-
-Founder
-
-Motunrayo Linda Idowu
-
-Founder & Community Director, Girls Unplugged
-Bloom & Glow Circle
-
-Youth Leader • Technologist • Speaker • Girls' Empowerment Advocate
-
----
-
-Project Status
-
-The Girls Unplugged website is actively maintained and updated as the community grows.
-
-New resources, activities, opportunities and community information may be added over time.
-
----
-
-License
 
 © Girls Unplugged: Bloom & Glow Circle. All rights reserved.
-
-
-This one is intentionally **professional but not overly technical**. It tells someone who lands on the GitHub repo what Girls Unplugged is, what the website contains, how it's built, and where to find the important pieces.
