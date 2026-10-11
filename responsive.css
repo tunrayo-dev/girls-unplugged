@@ -1317,3 +1317,49 @@
     object-position: center 20%;
   }
 }
+
+
+
+/* HOMEPAGE TEAM PREVIEW — FILL THE FULL CARD HEIGHT */
+#team-preview .team-preview-card {
+  align-items: stretch;
+}
+
+#team-preview .team-preview-image {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+#team-preview .team-preview-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 20%;
+  background: transparent;
+}
+
+/* Keep the photo tall when the card stacks on mobile */
+@media (max-width: 480px) {
+  #team-preview .team-preview-image {
+    width: 100%;
+    height: 260px;
+    min-height: 260px;
+  }
+
+  #team-preview .team-preview-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+}
