@@ -1,25 +1,26 @@
+
 {
   "stats": [
     {
       "label": "Community Members",
-      "value": 120,
+      "value": 185,
       "suffix": "+"
     },
     {
       "label": "Countries Represented",
       "value": 10,
-      "suffix": ""
+      "suffix": "+"
     },
     {
       "label": "Guest Conversations",
-      "value": 4,
+      "value": 5,
       "suffix": ""
     },
     {
       "label": "Community Activities",
-      "value": 51,
+      "value": 55,
       "suffix": "+"
     }
   ],
-  "lastUpdated": "September 2026"
+  "lastUpdated": "October 2026"
 }
