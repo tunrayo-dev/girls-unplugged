@@ -1409,3 +1409,70 @@ button:disabled {
   }
 }
 
+
+/* Align action buttons across CMS editor forms */
+.editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+  margin-top: 22px;
+}
+
+.editor-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  box-sizing: border-box;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.editor-actions .primary-button {
+  min-width: 120px;
+}
+
+.editor-actions .secondary-button {
+  min-width: 100px;
+}
+
+/* Keep buttons side by side on smaller screens too */
+@media (max-width: 620px) {
+  .editor-actions {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .editor-actions button {
+    flex: 1;
+  }
+}
+
+
+/* Refined publish controls */
+.editor-card button.primary-button,
+.editor-card .publish-button {
+  border-radius: 10px;
+  min-height: 43px;
+  padding: 11px 20px;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.editor-card button.primary-button:hover,
+.editor-card .publish-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(84, 36, 81, 0.12);
+}
+
+/* Align checkboxes and publish labels neatly */
+.editor-card .form-group input[type="checkbox"] {
+  accent-color: var(--plum);
+  vertical-align: middle;
+}
+
