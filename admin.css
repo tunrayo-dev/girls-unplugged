@@ -1499,3 +1499,47 @@ button:disabled {
   flex-wrap: wrap;
   gap: 12px;
 }
+
+
+
+/* Page section publishing control */
+.gu-page-publish-field {
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: #fffafc;
+}
+
+.gu-page-publish-field .publish-row {
+  margin: 0;
+  gap: 12px;
+}
+
+.gu-page-publish-field .publish-label {
+  cursor: pointer;
+  color: var(--deep-plum);
+  font-weight: 700;
+}
+
+.gu-page-publish-field .publish-switch {
+  display: inline-block;
+  flex: 0 0 42px;
+}
+
+.gu-page-publish-field .publish-switch input {
+  position: absolute;
+}
+
+.gu-publish-help {
+  display: block;
+  margin: 8px 0 0 54px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 620px) {
+  .editor-actions .save-message {
+    flex-basis: 100%;
+  }
+}
