@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       categoryNumber++;
 
       const heading = document.createElement("div");
-      heading.className = "section-heading reveal";
+      heading.className = "section-heading";
 
       const label = document.createElement("span");
       label.className = "section-label";
