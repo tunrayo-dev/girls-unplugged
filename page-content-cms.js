@@ -113,7 +113,7 @@ if (cardSelector && Array.isArray(data.cards)) {
     }
   });
 }
- {
+ 
         
 
         if (item.section_key === "founder-message") {
