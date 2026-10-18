@@ -189,6 +189,7 @@
                 <div class="form-group">
                   <label for="gu-page-slug">Page</label>
                   <select id="gu-page-slug">
+                    <option value="about">About</option>
                     <option value="programs">Programs</option>
                     <option value="team">Our Team</option>
                     <option value="resources">Resources</option>
