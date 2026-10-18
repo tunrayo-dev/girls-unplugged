@@ -739,6 +739,7 @@ async function loadPages() {
     $("#gu-section-button-text").value = "";
     $("#gu-section-button-link").value = "";
     $("#gu-section-secondary-text").value = "";
+    $("#gu-section-secondary-link").value = "";
 
     renderSectionCards([]);
     showMessage("#gu-page-message", "");
