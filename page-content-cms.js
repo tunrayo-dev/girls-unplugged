@@ -70,11 +70,12 @@ const cardSelector = {
 }[item.section_key];
 
 if (cardSelector && Array.isArray(data.cards)) {
-  const containerSelector = {
-    "our-story": ".welcome-cards",
-    "why-we-exist": ".why-grid",
-    "our-values": ".values-grid"
-  }[item.section_key];
+ const containerSelector = {
+  "our-story": ".welcome-cards",
+  "why-we-exist": ".why-grid",
+  "our-values": ".values-grid",
+  "what-we-are-building": ".why-grid"
+}[item.section_key];
 
   const container = section.querySelector(containerSelector);
   if (!container) return;
