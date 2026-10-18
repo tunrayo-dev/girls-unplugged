@@ -181,7 +181,10 @@ const footer = card.querySelector(".why-card-footer");
       .trim();
 
     icon.classList.add(
-      iconValue.toLowerCase().replace(/\s+/g, "-").replace(/^icon-/, "icon-")
+      const iconClass = iconValue.toLowerCase().replace(/\s+/g, "-");
+icon.classList.add(
+  iconClass.startsWith("icon-") ? iconClass : "icon-" + iconClass
+);
     );
   }
 }
