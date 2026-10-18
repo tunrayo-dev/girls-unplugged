@@ -409,11 +409,17 @@
       if (!button) return;
 
       const name = button.dataset.section;
-      if (name === "content-tools" || name === "sessions") {
+     
+      if (
+        name === "faqs" ||
+        name === "page-editor" ||
+        name === "sessions"
+      ) {
         event.preventDefault();
-        switchSection(name);
+        switchSection(name, button.dataset.pageSlug);
         refreshAll();
       }
+
     });
 
     $("#gu-faq-form").addEventListener("submit", saveFaq);
