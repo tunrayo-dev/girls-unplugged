@@ -86,11 +86,19 @@ if (cardSelector && Array.isArray(data.cards)) {
     cards.pop().remove();
   }
 
-  while (cards.length < data.cards.length && cards.length > 0) {
-    const newCard = cards[0].cloneNode(true);
-    container.appendChild(newCard);
-    cards.push(newCard);
+  while (cards.length < data.cards.length) {
+  if (cards.length === 0) {
+    console.warn(
+      "Cannot add cards because this section has no existing card template:",
+      item.section_key
+    );
+    break;
   }
+
+  const newCard = cards[0].cloneNode(true);
+  container.appendChild(newCard);
+  cards.push(newCard);
+}
 
   data.cards.forEach((cardData, index) => {
     const card = cards[index];
