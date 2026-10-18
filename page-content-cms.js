@@ -29,12 +29,16 @@
         const data = item.metadata && typeof item.metadata === "object"
           ? item.metadata : {};
 
-        const heading = section.querySelector(".section-heading h2");
+        const heading = section.querySelector(
+  ".section-heading h2, .hero-text h1, .final-cta-content h2"
+);
         if (heading && (item.title || data.heading)) {
           heading.textContent = data.heading || item.title;
         }
 
-        const intro = section.querySelector(".section-heading > p");
+        const intro = section.querySelector(
+  ".section-heading > p, .hero-description, .final-cta-content > p"
+);
         const introText = data.intro || item.description || data.description;
         if (intro && introText) intro.textContent = introText;
 
