@@ -113,6 +113,13 @@ const footer = card.querySelector(".why-card-footer");
     if (icon && typeof cardData.icon === "string" && cardData.icon.trim()) {
       icon.textContent = cardData.icon;
     }
+    if (number && typeof cardData.number === "string") {
+  number.textContent = cardData.number;
+}
+
+if (footer && typeof cardData.footer === "string") {
+  footer.textContent = cardData.footer;
+}
   });
 }
  
