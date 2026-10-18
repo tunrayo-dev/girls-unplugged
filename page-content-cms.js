@@ -169,7 +169,8 @@ const footer = card.querySelector(".why-card-footer");
       description.textContent = cardData.description;
     }
 
-  if (icon && typeof cardData.icon === "string" && cardData.icon.trim()) {
+  
+if (icon && typeof cardData.icon === "string" && cardData.icon.trim()) {
   const iconValue = cardData.icon.trim();
 
   if (/^[\p{Emoji}\uFE0F\u200D]+$/u.test(iconValue)) {
@@ -180,14 +181,14 @@ const footer = card.querySelector(".why-card-footer");
       .replace(/\bicon-[\w-]+\b/g, "")
       .trim();
 
+    const iconClass = iconValue.toLowerCase().replace(/\s+/g, "-");
+
     icon.classList.add(
-      const iconClass = iconValue.toLowerCase().replace(/\s+/g, "-");
-icon.classList.add(
-  iconClass.startsWith("icon-") ? iconClass : "icon-" + iconClass
-);
+      iconClass.startsWith("icon-") ? iconClass : "icon-" + iconClass
     );
   }
 }
+
     
     if (number && typeof cardData.number === "string") {
   number.textContent = cardData.number;
