@@ -685,24 +685,49 @@ await loadFaqs();
   }
 
 
+
 async function savePage(event) {
   event.preventDefault();
 
   try {
-    const metadata = JSON.parse($("#gu-page-content").value);
     const id = $("#gu-page-id").value;
+    const title = $("#gu-page-title").value.trim();
+    const intro = $("#gu-section-intro").value.trim();
+
+    const cards = Array.from(
+      $("#gu-section-cards").querySelectorAll(".gu-section-card-item")
+    ).map((card) => ({
+      title: card.querySelector('[data-card-field="title"]').value.trim(),
+      description: card.querySelector('[data-card-field="description"]').value.trim(),
+      icon: card.querySelector('[data-card-field="icon"]').value.trim(),
+      number: card.querySelector('[data-card-field="number"]').value.trim(),
+      footer: card.querySelector('[data-card-field="footer"]').value.trim()
+    }));
+
+    const metadata = {
+      label: $("#gu-section-label").value.trim(),
+      heading: $("#gu-section-heading").value.trim() || title,
+      intro,
+      bodyParagraphs: $("#gu-section-body").value
+        .split("\n")
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean),
+      cards,
+      buttonText: $("#gu-section-button-text").value.trim(),
+      buttonLink: $("#gu-section-button-link").value.trim(),
+      secondaryButtonText: $("#gu-section-secondary-text").value.trim(),
+      secondaryButtonLink: $("#gu-section-secondary-link").value.trim()
+    };
 
     const payload = {
       page_slug: $("#gu-page-slug").value,
       section_key: $("#gu-page-key").value.trim(),
       content_type: $("#gu-page-type").value.trim() || "content",
-      title: $("#gu-page-title").value.trim(),
-      description: typeof metadata === "string"
-        ? metadata
-        : (metadata.description || metadata.text || ""),
-      link: metadata.link || null,
-      link_text: metadata.link_text || null,
-      icon: metadata.icon || null,
+      title: metadata.heading,
+      description: intro,
+      link: metadata.buttonLink || null,
+      link_text: metadata.buttonText || null,
+      icon: null,
       metadata,
       display_order: Number($("#gu-page-order").value) || 0,
       published: $("#gu-page-published").checked,
@@ -720,9 +745,11 @@ async function savePage(event) {
     showMessage("#gu-page-message", "Section saved.");
     await loadPages();
   } catch (error) {
+    console.error("Could not save page section:", error);
     showMessage("#gu-page-message", error.message, true);
   }
 }
+
 
 
   async function saveSession(event) {
