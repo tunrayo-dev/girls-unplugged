@@ -169,9 +169,23 @@ const footer = card.querySelector(".why-card-footer");
       description.textContent = cardData.description;
     }
 
-    if (icon && typeof cardData.icon === "string" && cardData.icon.trim()) {
-      icon.textContent = cardData.icon;
-    }
+  if (icon && typeof cardData.icon === "string" && cardData.icon.trim()) {
+  const iconValue = cardData.icon.trim();
+
+  if (/^[\p{Emoji}\uFE0F\u200D]+$/u.test(iconValue)) {
+    icon.textContent = iconValue;
+  } else {
+    icon.textContent = "";
+    icon.className = icon.className
+      .replace(/\bicon-[\w-]+\b/g, "")
+      .trim();
+
+    icon.classList.add(
+      "icon-" + iconValue.toLowerCase().replace(/\s+/g, "-")
+    );
+  }
+}
+    
     if (number && typeof cardData.number === "string") {
   number.textContent = cardData.number;
 }
