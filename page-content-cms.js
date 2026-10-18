@@ -61,13 +61,59 @@
           });
         }
 
-        const cardSelector = {
-          "our-story": ".welcome-card",
-          "why-we-exist": ".why-card",
-          "our-values": ".value-card"
-        }[item.section_key];
+        
+const cardSelector = {
+  "our-story": ".welcome-card",
+  "why-we-exist": ".why-card",
+  "our-values": ".value-card"
+}[item.section_key];
 
-        if (cardSelector && Array.isArray(data.cards)) {
+if (cardSelector && Array.isArray(data.cards)) {
+  const containerSelector = {
+    "our-story": ".welcome-cards",
+    "why-we-exist": ".why-grid",
+    "our-values": ".values-grid"
+  }[item.section_key];
+
+  const container = section.querySelector(containerSelector);
+  if (!container) return;
+
+  let cards = Array.from(container.querySelectorAll(cardSelector));
+
+  while (cards.length > data.cards.length) {
+    cards.pop().remove();
+  }
+
+  while (cards.length < data.cards.length && cards.length > 0) {
+    const newCard = cards[0].cloneNode(true);
+    container.appendChild(newCard);
+    cards.push(newCard);
+  }
+
+  data.cards.forEach((cardData, index) => {
+    const card = cards[index];
+    if (!card || !cardData) return;
+
+    const title = card.querySelector("h3");
+    const description = card.querySelector("p");
+    const icon = card.querySelector(
+      ".welcome-icon, .why-icon, .value-icon"
+    );
+
+    if (title && typeof cardData.title === "string") {
+      title.textContent = cardData.title;
+    }
+
+    if (description && typeof cardData.description === "string") {
+      description.textContent = cardData.description;
+    }
+
+    if (icon && typeof cardData.icon === "string" && cardData.icon.trim()) {
+      icon.textContent = cardData.icon;
+    }
+  });
+}
+ {
           const cards = section.querySelectorAll(cardSelector);
 
           data.cards.forEach((cardData, index) => {
