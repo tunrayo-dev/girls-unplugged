@@ -427,34 +427,35 @@ async function loadFaqs() {
     </div>`;
 }
 
-  async function loadPages() {
-    const { data, error } = await client()
-      .from("page_sections")
-      .select("*")
-      .order("page_slug")
-      .order("display_order", { ascending: true });
+ 
+async function loadPages() {
+  const { data, error } = await client()
+    .from("page_content_items")
+    .select("*")
+    .order("page_slug")
+    .order("display_order", { ascending: true });
 
-    if (error) throw error;
+  if (error) throw error;
 
-    pageRows = data || [];
+  pageRows = data || [];
 
-    $("#gu-page-list").innerHTML = pageRows.map((item) => `
-      <article class="editor-card">
-        <h3>${esc(item.page_slug)} / ${esc(item.section_key)}</h3>
-        <p>${esc(item.title || item.section_type)} ·
-          ${item.published ? "Published" : "Draft"}</p>
-        <pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(
-          JSON.stringify(item.content, null, 2)
-        )}</pre>
-        <div class="editor-actions">
-          <button type="button" class="secondary-button"
-            data-gu-edit="page" data-id="${item.id}">Edit</button>
-          <button type="button" class="secondary-button"
-            data-gu-delete="page" data-id="${item.id}">Delete</button>
-        </div>
-      </article>
-    `).join("") || '<p class="empty-state">No extra page sections yet.</p>';
-  }
+  $("#gu-page-list").innerHTML = pageRows.map((item) => `
+    <article class="editor-card">
+      <h3>${esc(item.page_slug)} / ${esc(item.section_key)}</h3>
+      <p>${esc(item.title || item.content_type)} ·
+        ${item.published ? "Published" : "Draft"}</p>
+      <pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(
+        JSON.stringify(item.metadata || {}, null, 2)
+      )}</pre>
+      <div class="editor-actions">
+        <button type="button" class="secondary-button"
+          data-gu-edit="page" data-id="${item.id}">Edit</button>
+        <button type="button" class="secondary-button"
+          data-gu-delete="page" data-id="${item.id}">Delete</button>
+      </div>
+    </article>
+  `).join("") || '<p class="empty-state">No extra page sections yet.</p>';
+}
 
   async function loadSessions() {
     const { data, error } = await client()
@@ -548,40 +549,46 @@ await loadFaqs();
     }
   }
 
-  async function savePage(event) {
-    event.preventDefault();
 
-    try {
-      const content = JSON.parse($("#gu-page-content").value);
-      const id = $("#gu-page-id").value;
+async function savePage(event) {
+  event.preventDefault();
 
-      const payload = {
-        page_slug: $("#gu-page-slug").value,
-        section_key: $("#gu-page-key").value.trim(),
-        section_type: $("#gu-page-type").value.trim(),
-        title: $("#gu-page-title").value.trim() || null,
-        content,
-        display_order: Number($("#gu-page-order").value) || 0,
-        published: $("#gu-page-published").checked,
-        updated_at: new Date().toISOString()
-      };
+  try {
+    const metadata = JSON.parse($("#gu-page-content").value);
+    const id = $("#gu-page-id").value;
 
-      const query = id
-        ? client().from("page_sections").update(payload).eq("id", id)
-        : client().from("page_sections").upsert(payload, {
-            onConflict: "page_slug,section_key"
-          });
+    const payload = {
+      page_slug: $("#gu-page-slug").value,
+      section_key: $("#gu-page-key").value.trim(),
+      content_type: $("#gu-page-type").value.trim() || "content",
+      title: $("#gu-page-title").value.trim(),
+      description: typeof metadata === "string"
+        ? metadata
+        : (metadata.description || metadata.text || ""),
+      link: metadata.link || null,
+      link_text: metadata.link_text || null,
+      icon: metadata.icon || null,
+      metadata,
+      display_order: Number($("#gu-page-order").value) || 0,
+      published: $("#gu-page-published").checked,
+      updated_at: new Date().toISOString()
+    };
 
-      const { error } = await query;
-      if (error) throw error;
+    const query = id
+      ? client().from("page_content_items").update(payload).eq("id", id)
+      : client().from("page_content_items").insert(payload);
 
-      resetPage();
-      showMessage("#gu-page-message", "Section saved.");
-      await loadPages();
-    } catch (error) {
-      showMessage("#gu-page-message", error.message, true);
-    }
+    const { error } = await query;
+    if (error) throw error;
+
+    resetPage();
+    showMessage("#gu-page-message", "Section saved.");
+    await loadPages();
+  } catch (error) {
+    showMessage("#gu-page-message", error.message, true);
   }
+}
+
 
   async function saveSession(event) {
     event.preventDefault();
@@ -703,9 +710,9 @@ if (type === "faq") {
         $("#gu-page-id").value = item.id;
         $("#gu-page-slug").value = item.page_slug;
         $("#gu-page-key").value = item.section_key;
-        $("#gu-page-type").value = item.section_type;
+        $("#gu-page-type").value = item.content_type || "content";
         $("#gu-page-title").value = item.title || "";
-        $("#gu-page-content").value = JSON.stringify(item.content, null, 2);
+        $("#gu-page-content").value = JSON.stringify(item.metadata || {}, null, 2);
         $("#gu-page-order").value = item.display_order ?? 0;
         $("#gu-page-published").checked = item.published;
         switchSection("content-tools");
@@ -755,7 +762,7 @@ if (type === "faq") {
       try {
         const table = {
           faq: "faq_items",
-          page: "page_sections",
+          page: "page_content_items",
           session: "guest_sessions"
         }[type];
 
