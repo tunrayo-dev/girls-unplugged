@@ -262,6 +262,131 @@ async function loadImpactStats() {
 loadImpactStats();
 
  
+
+/* ======================================
+   PROGRAMS CMS
+   Loads published programs from Supabase
+====================================== */
+
+async function loadProgramsFromCMS() {
+  const container = document.getElementById("program-cards");
+
+  // Only run on pages that have the program cards container.
+  if (!container) return;
+
+  const supabaseUrl = "https://siiysnvzwjoyvmxqjruz.supabase.co";
+  const publishableKey = "sb_publishable_jT9aTC0gXSYO8sel2kDVtQ_HmsSI3Q4";
+
+  const escapeHTML = (value) =>
+    String(value ?? "").replace(/[&<>"']/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
+
+  const safeLink = (value) => {
+    const link = String(value || "").trim();
+
+    if (!link) return "";
+
+    // Allow site-relative links and in-page anchors.
+    if (
+      link.startsWith("#") ||
+      link.startsWith("./") ||
+      link.startsWith("../") ||
+      /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_.#?=&%-]*)?$/.test(link)
+    ) {
+      return link;
+    }
+
+    // Allow only safe web links.
+    try {
+      const url = new URL(link);
+      if (url.protocol === "https:" || url.protocol === "http:") {
+        return url.href;
+      }
+    } catch (_) {
+      // Invalid URL: don't render it as a link.
+    }
+
+    return "";
+  };
+
+  try {
+    const response = await fetch(
+      `${supabaseUrl}/rest/v1/programs?select=title,description,link,link_text,icon,section,display_order&published=eq.true&order=display_order.asc`,
+      {
+        cache: "no-cache",
+        headers: {
+          apikey: publishableKey
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Programs request failed (${response.status}).`);
+    }
+
+    const programs = await response.json();
+
+    // Preserve the original six cards if Supabase has no published
+    // programs yet, or if the returned data is not usable.
+    if (!Array.isArray(programs) || programs.length === 0) {
+      console.info("No published CMS programs found; keeping the original cards.");
+      return;
+    }
+
+    const cardsHTML = programs.map((program, index) => {
+      const title = escapeHTML(program.title || "Untitled program");
+      const description = escapeHTML(program.description || "");
+      const linkText = escapeHTML(program.link_text || "Learn more");
+      const href = safeLink(program.link);
+
+      let iconName = String(program.icon || "icon-spark")
+        .trim()
+        .split(/\s+/)[0]
+        .replace(/[^a-zA-Z0-9_-]/g, "");
+
+      if (!iconName) iconName = "icon-spark";
+      if (!iconName.startsWith("icon-")) {
+        iconName = `icon-${iconName}`;
+      }
+
+      const iconClass = escapeHTML(iconName);
+      const delayClass = `reveal-delay-${Math.min(index, 5)}`;
+
+      const linkHTML = href
+        ? `<a href="${escapeHTML(href)}" class="building-card-link">${linkText}</a>`
+        : "";
+
+      return `
+        <article class="value-card reveal ${delayClass} active">
+          <span
+            class="value-icon ${iconClass}"
+            aria-hidden="true"
+          ></span>
+
+          <h3>${title}</h3>
+          <p>${description}</p>
+          ${linkHTML}
+        </article>
+      `;
+    }).join("");
+
+    container.innerHTML = cardsHTML;
+
+  } catch (error) {
+    // Keep the existing HTML cards if the connection fails.
+    console.error("Could not load Programs from Supabase:", error);
+  }
+}
+
+loadProgramsFromCMS();
+
+
+
    
   /* ======================================
      SMOOTH INTERNAL LINKS
