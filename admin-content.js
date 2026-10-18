@@ -513,6 +513,18 @@
 
     $("#gu-faq-reset").addEventListener("click", resetFaq);
     $("#gu-page-reset").addEventListener("click", resetPage);
+    
+    $("#gu-add-card").addEventListener("click", () => {
+      addSectionCard();
+    });
+
+    $("#gu-section-cards").addEventListener("click", (event) => {
+      const removeButton = event.target.closest("[data-remove-card]");
+      if (!removeButton) return;
+
+      removeButton.closest(".gu-section-card-item").remove();
+    });
+
     $("#gu-session-reset").addEventListener("click", resetSession);
 
     document.addEventListener("click", handleItemAction);
