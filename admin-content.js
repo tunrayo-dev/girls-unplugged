@@ -719,15 +719,26 @@ async function loadPages() {
   }
 
 
+ 
   function resetPage() {
     $("#gu-page-form").reset();
     $("#gu-page-id").value = "";
-    $("#gu-page-slug").value = currentPageSlug; 
+    $("#gu-page-slug").value = currentPageSlug;
     $("#gu-page-order").value = "0";
     $("#gu-page-type").value = "content";
-    $("#gu-page-content").value = "{}";
+
+    $("#gu-section-label").value = "";
+    $("#gu-section-heading").value = "";
+    $("#gu-section-intro").value = "";
+    $("#gu-section-body").value = "";
+    $("#gu-section-button-text").value = "";
+    $("#gu-section-button-link").value = "";
+    $("#gu-section-secondary-text").value = "";
+
+    renderSectionCards([]);
     showMessage("#gu-page-message", "");
   }
+
 
   function resetSession() {
     $("#gu-session-form").reset();
