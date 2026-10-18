@@ -403,6 +403,51 @@
       );
     }
 
+
+    const oldSection = $("#section-content-tools");
+
+    if (oldSection && !$("#section-faqs")) {
+      const faqSection = document.createElement("section");
+      faqSection.id = "section-faqs";
+      faqSection.className = "dashboard-section";
+      faqSection.innerHTML = `
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">08 / CONTENT MANAGEMENT</p>
+            <h1>FAQs</h1>
+            <p>Manage frequently asked questions separately from website pages.</p>
+          </div>
+        </div>
+      `;
+
+      const faqLibrary = oldSection.querySelector(".gu-faq-library");
+      const faqEditor = oldSection.querySelector("#gu-faq-editor-panel");
+
+      if (faqLibrary) faqSection.appendChild(faqLibrary);
+      if (faqEditor) faqSection.appendChild(faqEditor);
+
+      oldSection.id = "section-page-editor";
+
+      const heading = oldSection.querySelector(".page-heading h1");
+      if (heading) {
+        heading.id = "gu-page-editor-heading";
+        heading.textContent = "About Editor";
+      }
+
+      const eyebrow = oldSection.querySelector(".page-heading .eyebrow");
+      if (eyebrow) eyebrow.textContent = "PAGE MANAGEMENT";
+
+      const description = oldSection.querySelector(
+        ".page-heading p:not(.eyebrow)"
+      );
+      if (description) {
+        description.textContent = "Manage content for the selected page.";
+      }
+
+      main.insertBefore(faqSection, oldSection);
+    }
+
+     
     // Delegated navigation also supports buttons added above.
     nav.addEventListener("click", (event) => {
       const button = event.target.closest("[data-section]");
