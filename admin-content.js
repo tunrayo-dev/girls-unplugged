@@ -809,7 +809,7 @@ if (type === "faq") {
         $("#gu-page-content").value = JSON.stringify(item.metadata || {}, null, 2);
         $("#gu-page-order").value = item.display_order ?? 0;
         $("#gu-page-published").checked = item.published;
-        switchSection("content-tools");
+       switchSection("page-editor", item.page_slug);
       }
 
       if (type === "session") {
