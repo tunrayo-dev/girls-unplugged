@@ -114,24 +114,7 @@ if (cardSelector && Array.isArray(data.cards)) {
   });
 }
  {
-          const cards = section.querySelectorAll(cardSelector);
-
-          data.cards.forEach((cardData, index) => {
-            const card = cards[index];
-            if (!card || !cardData) return;
-
-            const title = card.querySelector("h3");
-            const description = card.querySelector("p");
-
-            if (title && typeof cardData.title === "string") {
-              title.textContent = cardData.title;
-            }
-
-            if (description && typeof cardData.description === "string") {
-              description.textContent = cardData.description;
-            }
-          });
-        }
+        
 
         if (item.section_key === "founder-message") {
           const subheading = section.querySelector(".founder-message-intro h3");
