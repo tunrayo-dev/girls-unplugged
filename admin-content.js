@@ -95,26 +95,31 @@
 
     if (!nav || !main) return;
 
-    if (!nav.querySelector('[data-section="content-tools"]')) {
-      nav.insertAdjacentHTML(
-        "beforeend",
-        `
-          <button type="button"
-            class="dashboard-nav-item"
-            data-section="content-tools">
-            <span class="nav-symbol">08</span>
-            <span>FAQs & Pages</span>
-          </button>
+   
+    nav.querySelectorAll(
+      '[data-section="content-tools"], [data-section="sessions"]'
+    ).forEach((button) => button.remove());
 
-          <button type="button"
-            class="dashboard-nav-item"
-            data-section="sessions">
-            <span class="nav-symbol">09</span>
-            <span>Guest Sessions</span>
+    if (!nav.querySelector('[data-section="faqs"]')) {
+      nav.insertAdjacentHTML("beforeend", `
+        <button type="button" class="dashboard-nav-item" data-section="faqs">
+          <span class="nav-symbol">08</span><span>FAQs</span>
+        </button>
+
+        ${GU_PAGES.map((page, index) => `
+          <button type="button" class="dashboard-nav-item"
+            data-section="page-editor" data-page-slug="${page[0]}">
+            <span class="nav-symbol">${String(index + 9).padStart(2, "0")}</span>
+            <span>${page[1]}</span>
           </button>
-        `
-      );
+        `).join("")}
+
+        <button type="button" class="dashboard-nav-item" data-section="sessions">
+          <span class="nav-symbol">15</span><span>Guest Sessions</span>
+        </button>
+      `);
     }
+
 
     if (!$("#section-content-tools")) {
       main.insertAdjacentHTML(
