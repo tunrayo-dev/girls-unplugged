@@ -86,16 +86,65 @@ if (cardSelector && Array.isArray(data.cards)) {
     cards.pop().remove();
   }
 
-  while (cards.length < data.cards.length) {
-  if (cards.length === 0) {
-    console.warn(
-      "Cannot add cards because this section has no existing card template:",
-      item.section_key
-    );
-    break;
+ 
+while (cards.length < data.cards.length) {
+  let newCard;
+
+  if (cards.length > 0) {
+    newCard = cards[0].cloneNode(true);
+  } else {
+    newCard = document.createElement("article");
+
+    const cardClasses = {
+      "our-story": "welcome-card",
+      "why-we-exist": "why-card reveal",
+      "our-values": "value-card reveal",
+      "what-we-are-building": "why-card reveal"
+    };
+
+    const iconClasses = {
+      "our-story": "welcome-icon",
+      "why-we-exist": "why-icon",
+      "our-values": "value-icon",
+      "what-we-are-building": "why-icon"
+    };
+
+    newCard.className = cardClasses[item.section_key];
+
+    if (item.section_key === "what-we-are-building") {
+      const number = document.createElement("span");
+      number.className = "why-number";
+      newCard.appendChild(number);
+    }
+
+    const icon = document.createElement("span");
+    icon.className = iconClasses[item.section_key];
+    icon.setAttribute("aria-hidden", "true");
+    newCard.appendChild(icon);
+
+    if (item.section_key === "our-story") {
+      icon.classList.add("icon-spark");
+    } else if (item.section_key === "why-we-exist") {
+      icon.classList.add("icon-message");
+    } else if (item.section_key === "our-values") {
+      icon.classList.add("icon-respect");
+    } else {
+      icon.classList.add("icon-flower");
+    }
+
+    const title = document.createElement("h3");
+    const description = document.createElement("p");
+
+    newCard.appendChild(title);
+    newCard.appendChild(description);
+
+    if (item.section_key === "what-we-are-building") {
+      const footer = document.createElement("span");
+      footer.className = "why-card-footer";
+      newCard.appendChild(footer);
+    }
   }
 
-  const newCard = cards[0].cloneNode(true);
   container.appendChild(newCard);
   cards.push(newCard);
 }
