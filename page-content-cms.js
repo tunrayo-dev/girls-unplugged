@@ -6,9 +6,7 @@
   const SUPABASE_KEY = "sb_publishable_jT9aTC0gXSYO8sel2kDVtQ_HmsSI3Q4";
 
   async function loadPageContent() {
-    const pageSlug = location.pathname
-      .split("/")
-      .pop()
+    const pageSlug = location.pathname.split("/").pop()
       .replace(/\.html$/, "") || "index";
 
     try {
@@ -20,9 +18,7 @@
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Could not load published page content.");
-      }
+      if (!response.ok) throw new Error("Could not load published content.");
 
       const items = await response.json();
 
@@ -30,16 +26,77 @@
         const section = document.getElementById(item.section_key);
         if (!section) return;
 
-        if (item.title) {
-          const heading = section.querySelector("h2");
-          if (heading) heading.textContent = item.title;
+        const data = item.metadata && typeof item.metadata === "object"
+          ? item.metadata : {};
+
+        const heading = section.querySelector(".section-heading h2");
+        if (heading && (item.title || data.heading)) {
+          heading.textContent = data.heading || item.title;
         }
 
-        if (item.description) {
-          const paragraph = section.querySelector(
-            ".section-heading > p, p"
-          );
-          if (paragraph) paragraph.textContent = item.description;
+        const intro = section.querySelector(".section-heading > p");
+        const introText = data.intro || item.description || data.description;
+        if (intro && introText) intro.textContent = introText;
+
+        const label = section.querySelector(".section-label");
+        if (label && data.label) label.textContent = data.label;
+
+        if (Array.isArray(data.bodyParagraphs)) {
+          let paragraphs = [];
+
+          if (item.section_key === "our-story") {
+            paragraphs = [
+              ...section.querySelectorAll(".welcome-grid > div:first-child > p")
+            ];
+          } else if (item.section_key === "founder-message") {
+            paragraphs = [
+              ...section.querySelectorAll(".founder-message-body > p")
+            ];
+          }
+
+          data.bodyParagraphs.forEach((text, index) => {
+            if (paragraphs[index] && typeof text === "string") {
+              paragraphs[index].textContent = text;
+            }
+          });
+        }
+
+        const cardSelector = {
+          "our-story": ".welcome-card",
+          "why-we-exist": ".why-card",
+          "our-values": ".value-card"
+        }[item.section_key];
+
+        if (cardSelector && Array.isArray(data.cards)) {
+          const cards = section.querySelectorAll(cardSelector);
+
+          data.cards.forEach((cardData, index) => {
+            const card = cards[index];
+            if (!card || !cardData) return;
+
+            const title = card.querySelector("h3");
+            const description = card.querySelector("p");
+
+            if (title && typeof cardData.title === "string") {
+              title.textContent = cardData.title;
+            }
+
+            if (description && typeof cardData.description === "string") {
+              description.textContent = cardData.description;
+            }
+          });
+        }
+
+        if (item.section_key === "founder-message") {
+          const subheading = section.querySelector(".founder-message-intro h3");
+          const name = section.querySelector(".founder-signature strong");
+          const role = section.querySelector(".founder-signature span:not(.founder-signature-line)");
+
+          if (subheading && data.subheading) {
+            subheading.textContent = data.subheading;
+          }
+          if (name && data.founderName) name.textContent = data.founderName;
+          if (role && data.founderRole) role.textContent = data.founderRole;
         }
       });
     } catch (error) {
