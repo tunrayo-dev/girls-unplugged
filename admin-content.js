@@ -787,7 +787,7 @@ if (type === "faq") {
   $("#gu-faq-published").checked = item.published;
 
   $("#gu-faq-editor-title").textContent = "Edit question";
-  switchSection("content-tools");
+  switchSection("faqs");
 
   $("#gu-faq-editor-panel").classList.remove("hidden");
   $("#gu-faq-editor-panel").scrollIntoView({
