@@ -959,20 +959,49 @@ if (type === "faq") {
 }
 
 
-      if (type === "page") {
-        const item = pageRows.find((row) => String(row.id) === id);
-        if (!item) return;
+     
+if (type === "page") {
+  const item = pageRows.find((row) => String(row.id) === id);
+  if (!item) return;
 
-        $("#gu-page-id").value = item.id;
-        $("#gu-page-slug").value = item.page_slug;
-        $("#gu-page-key").value = item.section_key;
-        $("#gu-page-type").value = item.content_type || "content";
-        $("#gu-page-title").value = item.title || "";
-        $("#gu-page-content").value = JSON.stringify(item.metadata || {}, null, 2);
-        $("#gu-page-order").value = item.display_order ?? 0;
-        $("#gu-page-published").checked = item.published;
-       switchSection("page-editor", item.page_slug);
-      }
+  const metadata =
+    item.metadata && typeof item.metadata === "object"
+      ? item.metadata
+      : {};
+
+  $("#gu-page-id").value = item.id;
+  $("#gu-page-slug").value = item.page_slug;
+  $("#gu-page-key").value = item.section_key;
+  $("#gu-page-type").value = item.content_type || "content";
+  $("#gu-page-title").value = item.title || "";
+  $("#gu-page-order").value = item.display_order ?? 0;
+  $("#gu-page-published").checked = item.published;
+
+  $("#gu-section-label").value = metadata.label || "";
+  $("#gu-section-heading").value = metadata.heading || item.title || "";
+  $("#gu-section-intro").value = metadata.intro || item.description || "";
+  $("#gu-section-body").value = Array.isArray(metadata.bodyParagraphs)
+    ? metadata.bodyParagraphs.join("\n")
+    : "";
+
+  $("#gu-section-button-text").value = metadata.buttonText || item.link_text || "";
+  $("#gu-section-button-link").value = metadata.buttonLink || item.link || "";
+  $("#gu-section-secondary-text").value = metadata.secondaryButtonText || "";
+
+  const secondaryLink = $("#gu-section-secondary-link");
+  if (secondaryLink) {
+    secondaryLink.value = metadata.secondaryButtonLink || "";
+  }
+
+  renderSectionCards(Array.isArray(metadata.cards) ? metadata.cards : []);
+
+  switchSection("page-editor", item.page_slug);
+  $("#gu-page-form").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 
       if (type === "session") {
         const item = sessionRows.find((row) => String(row.id) === id);
