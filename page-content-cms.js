@@ -99,6 +99,8 @@ if (cardSelector && Array.isArray(data.cards)) {
     const icon = card.querySelector(
       ".welcome-icon, .why-icon, .value-icon"
     );
+    const number = card.querySelector(".why-number");
+const footer = card.querySelector(".why-card-footer");
 
     if (title && typeof cardData.title === "string") {
       title.textContent = cardData.title;
