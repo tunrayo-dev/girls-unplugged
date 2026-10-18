@@ -311,6 +311,11 @@
   <input id="gu-section-secondary-text" placeholder="Optional">
 </div>
 
+<div class="form-group full">
+  <label for="gu-section-secondary-link">Secondary button link</label>
+  <input id="gu-section-secondary-link" placeholder="e.g. about.html">
+</div>
+
               <div class="form-group full gu-page-publish-field">
   <div class="publish-row">
     <label class="publish-switch" for="gu-page-published">
