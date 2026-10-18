@@ -127,76 +127,139 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.animateStatCounter = animateCounter;
 
-  async function loadImpactStats() {
+ 
+async function loadImpactStats() {
+  try {
+    let stats = [];
+    let lastUpdatedLabel = "";
+
+    // First, try loading the latest statistics from Supabase.
     try {
       const response = await fetch(
+        "https://siiysnvzwjoyvmxqjruz.supabase.co/rest/v1/impact_stats?select=stat_key,label,value,suffix,updated_at,display_order&order=display_order.asc,id.asc",
+        {
+          cache: "no-cache",
+          headers: {
+            apikey: "sb_publishable_jT9aTC0gXSYO8sel2kDVtQ_HmsSI3Q4"
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Could not load impact statistics from Supabase.");
+      }
+
+      const rows = await response.json();
+
+      if (!Array.isArray(rows) || rows.length === 0) {
+        throw new Error("No impact statistics found in Supabase.");
+      }
+
+      stats = rows;
+
+      const dates = rows
+        .map((stat) => stat.updated_at)
+        .filter(Boolean)
+        .sort();
+
+      if (dates.length) {
+        lastUpdatedLabel = new Date(
+          dates[dates.length - 1]
+        ).toLocaleDateString("en-GB", {
+          month: "long",
+          year: "numeric"
+        });
+      }
+    } catch (supabaseError) {
+      console.warn(
+        "Could not load Supabase impact statistics. Trying impact.json instead.",
+        supabaseError
+      );
+
+      // Fall back to impact.json if Supabase is unavailable.
+      const fallbackResponse = await fetch(
         new URL("impact.json", window.location.href),
         { cache: "no-cache" }
       );
 
-      if (!response.ok) {
-        throw new Error("Could not load impact.json");
+      if (!fallbackResponse.ok) {
+        throw new Error("Could not load impact.json either.");
       }
 
-      const data = await response.json();
+      const data = await fallbackResponse.json();
+      stats = Array.isArray(data.stats) ? data.stats : [];
+      lastUpdatedLabel = data.lastUpdated || "";
+    }
 
-      if (Array.isArray(data.stats)) {
-        const statsByKey = new Map(
-          data.stats.map((stat) => [
-            String(stat.label || "")
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/^-|-$/g, ""),
-            stat
-          ])
+    const normalize = (value) =>
+      String(value || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+
+    const statsByKey = new Map();
+
+    stats.forEach((stat) => {
+      if (stat.stat_key) {
+        statsByKey.set(normalize(stat.stat_key), stat);
+      }
+
+      if (stat.label) {
+        statsByKey.set(normalize(stat.label), stat);
+      }
+    });
+
+    statNumbers.forEach((element) => {
+      const stat = statsByKey.get(normalize(element.dataset.stat));
+
+      if (!stat || !Number.isFinite(Number(stat.value))) {
+        console.warn(
+          "No matching impact statistic found for:",
+          element.dataset.stat
         );
-
-        statNumbers.forEach((element) => {
-          const stat = statsByKey.get(element.dataset.stat);
-
-          if (!stat || !Number.isFinite(Number(stat.value))) return;
-
-          element.setAttribute("data-target", Number(stat.value));
-          element.setAttribute("data-suffix", stat.suffix || "");
-        });
+        return;
       }
 
-      const updated = document.getElementById("impact-last-updated");
+      element.setAttribute("data-target", Number(stat.value));
+      element.setAttribute("data-suffix", stat.suffix || "");
+    });
 
-      if (updated && data.lastUpdated) {
-        updated.textContent =
-          "Impact data last updated: " + data.lastUpdated;
-      }
-    } catch (error) {
-      console.warn(
-        "Using the HTML fallback impact figures.",
-        error
-      );
+    const updated = document.getElementById("impact-last-updated");
+
+    if (updated && lastUpdatedLabel) {
+      updated.textContent = "Impact data last updated: " + lastUpdatedLabel;
     }
-
-    if (!statNumbers.length) return;
-
-    if (prefersReducedMotion) {
-      statNumbers.forEach(animateCounter);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.25 }
+  } catch (error) {
+    console.warn(
+      "Could not load impact statistics. Using the HTML fallback figures.",
+      error
     );
-
-    statNumbers.forEach((element) => observer.observe(element));
   }
 
-  loadImpactStats();
+  // Keep the existing counter animation behaviour.
+  if (!statNumbers.length) return;
+
+  if (prefersReducedMotion) {
+    statNumbers.forEach(animateCounter);
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  statNumbers.forEach((element) => observer.observe(element));
+}
+
+loadImpactStats();
 
  
    
