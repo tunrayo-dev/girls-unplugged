@@ -65,6 +65,7 @@
 const cardSelector = {
   "our-story": ".welcome-card",
   "why-we-exist": ".why-card",
+  "what-we-are-building": ".why-card",
   "our-values": ".value-card"
 }[item.section_key];
 
