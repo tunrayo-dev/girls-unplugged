@@ -311,17 +311,6 @@
   <input id="gu-section-secondary-text" placeholder="Optional">
 </div>
 
-<div class="form-group full">
-  <label for="gu-section-secondary-link">Secondary button link</label>
-  <input id="gu-section-secondary-link" placeholder="Optional">
-</div>
-
-                  <label for="gu-page-content">Section content (JSON)</label>
-                  <textarea id="gu-page-content" rows="7" required
-                    placeholder='{"heading":"Section heading","paragraphs":["Paragraph one"]}'></textarea>
-                  <small>Enter valid JSON. Text, buttons, links and lists can be stored here.</small>
-                </div>
-
               <div class="form-group full gu-page-publish-field">
   <div class="publish-row">
     <label class="publish-switch" for="gu-page-published">
