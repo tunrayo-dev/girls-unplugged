@@ -38,6 +38,35 @@
         const introText = data.intro || item.description || data.description;
         if (intro && introText) intro.textContent = introText;
 
+        const buttons = section.querySelectorAll(
+  ".hero-buttons .btn, .final-cta-buttons .btn"
+);
+
+const primaryText = data.buttonText;
+const primaryLink = data.buttonLink;
+const secondaryText = data.secondaryButtonText;
+const secondaryLink = data.secondaryButtonLink;
+
+if (buttons[0]) {
+  if (typeof primaryText === "string" && primaryText.trim()) {
+    buttons[0].textContent = primaryText;
+  }
+
+  if (typeof primaryLink === "string" && primaryLink.trim()) {
+    buttons[0].href = primaryLink;
+  }
+}
+
+if (buttons[1]) {
+  if (typeof secondaryText === "string" && secondaryText.trim()) {
+    buttons[1].textContent = secondaryText;
+  }
+
+  if (typeof secondaryLink === "string" && secondaryLink.trim()) {
+    buttons[1].href = secondaryLink;
+  }
+}
+
         const label = section.querySelector(".section-label");
         if (label && data.label) label.textContent = data.label;
 
