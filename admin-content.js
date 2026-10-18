@@ -33,7 +33,21 @@
     element.style.color = isError ? "#b42318" : "";
   }
 
-  function switchSection(name) {
+ 
+  let currentPageSlug = "about";
+
+  const GU_PAGES = [
+    ["about", "About"],
+    ["circle", "Bloom & Glow Circle"],
+    ["get-involved", "Get Involved"],
+    ["contact", "Contact"],
+    ["faq", "FAQ Page"],
+    ["privacy", "Privacy Policy"]
+  ];
+
+  function switchSection(name, pageSlug) {
+    if (pageSlug) currentPageSlug = pageSlug;
+
     document.querySelectorAll(".dashboard-section").forEach((section) => {
       section.classList.toggle(
         "active-section",
@@ -42,16 +56,38 @@
     });
 
     document.querySelectorAll(".dashboard-nav-item").forEach((button) => {
+      const isActivePage =
+        name === "page-editor" &&
+        button.dataset.pageSlug === currentPageSlug;
+
       button.classList.toggle(
         "active",
-        button.dataset.section === name
+        name === "page-editor"
+          ? isActivePage
+          : button.dataset.section === name
       );
     });
 
+    if (name === "page-editor") {
+      const pageSelect = $("#gu-page-slug");
+      if (pageSelect) pageSelect.value = currentPageSlug;
+
+      const page = GU_PAGES.find((item) => item[0] === currentPageSlug);
+      const heading = $("#gu-page-editor-heading");
+
+      if (heading) {
+        heading.textContent = `${page?.[1] || "Page"} Editor`;
+      }
+
+      loadPages();
+    }
+
     const dashboard = $(".main-content");
     if (dashboard) dashboard.scrollTop = 0;
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
 
   function addDashboardSections() {
     const nav = $(".dashboard-nav");
