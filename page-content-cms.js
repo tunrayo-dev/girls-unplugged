@@ -181,7 +181,7 @@ const footer = card.querySelector(".why-card-footer");
       .trim();
 
     icon.classList.add(
-      "icon-" + iconValue.toLowerCase().replace(/\s+/g, "-")
+      iconValue.toLowerCase().replace(/\s+/g, "-").replace(/^icon-/, "icon-")
     );
   }
 }
