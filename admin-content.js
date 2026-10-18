@@ -264,7 +264,58 @@
                   <input id="gu-page-order" type="number" value="0">
                 </div>
 
-                <div class="form-group full">
+               ```html
+<div class="form-group full">
+  <label for="gu-section-label">Section label</label>
+  <input id="gu-section-label" placeholder="e.g. Our Story">
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-heading">Main heading</label>
+  <input id="gu-section-heading" placeholder="Enter the section heading">
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-intro">Introductory text</label>
+  <textarea id="gu-section-intro" rows="3"
+    placeholder="Enter the short introduction"></textarea>
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-body">Body paragraphs</label>
+  <textarea id="gu-section-body" rows="6"
+    placeholder="Write each paragraph on a separate line"></textarea>
+  <small>Put each paragraph on a new line.</small>
+</div>
+
+<div class="form-group full">
+  <label>Cards in this section</label>
+  <div id="gu-section-cards"></div>
+  <button type="button" id="gu-add-card" class="secondary-button">
+    + Add card
+  </button>
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-button-text">Primary button text</label>
+  <input id="gu-section-button-text" placeholder="e.g. Join the Sisterhood">
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-button-link">Primary button link</label>
+  <input id="gu-section-button-link" placeholder="e.g. get-involved.html">
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-secondary-text">Secondary button text</label>
+  <input id="gu-section-secondary-text" placeholder="Optional">
+</div>
+
+<div class="form-group full">
+  <label for="gu-section-secondary-link">Secondary button link</label>
+  <input id="gu-section-secondary-link" placeholder="Optional">
+</div>
+```
                   <label for="gu-page-content">Section content (JSON)</label>
                   <textarea id="gu-page-content" rows="7" required
                     placeholder='{"heading":"Section heading","paragraphs":["Paragraph one"]}'></textarea>
