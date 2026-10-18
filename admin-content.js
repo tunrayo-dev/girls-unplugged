@@ -264,7 +264,7 @@
                   <input id="gu-page-order" type="number" value="0">
                 </div>
 
-               ```html
+               
 <div class="form-group full">
   <label for="gu-section-label">Section label</label>
   <input id="gu-section-label" placeholder="e.g. Our Story">
@@ -315,7 +315,7 @@
   <label for="gu-section-secondary-link">Secondary button link</label>
   <input id="gu-section-secondary-link" placeholder="Optional">
 </div>
-```
+
                   <label for="gu-page-content">Section content (JSON)</label>
                   <textarea id="gu-page-content" rows="7" required
                     placeholder='{"heading":"Section heading","paragraphs":["Paragraph one"]}'></textarea>
