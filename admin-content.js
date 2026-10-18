@@ -599,6 +599,7 @@ async function loadPages() {
   function resetPage() {
     $("#gu-page-form").reset();
     $("#gu-page-id").value = "";
+    $("#gu-page-slug").value = currentPageSlug; 
     $("#gu-page-order").value = "0";
     $("#gu-page-type").value = "content";
     $("#gu-page-content").value = "{}";
