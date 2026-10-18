@@ -531,7 +531,9 @@ async function loadPages() {
 
   pageRows = data || [];
 
-  $("#gu-page-list").innerHTML = pageRows.map((item) => `
+ $("#gu-page-list").innerHTML = pageRows
+  .filter((item) => item.page_slug === currentPageSlug)
+  .map((item) => `
     <article class="editor-card">
       <h3>${esc(item.page_slug)} / ${esc(item.section_key)}</h3>
       <p>${esc(item.title || item.content_type)} ·
