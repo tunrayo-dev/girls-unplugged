@@ -636,6 +636,77 @@ async function loadPages() {
     showMessage("#gu-faq-message", "");
   }
 
+   
+  function renderSectionCards(cards = []) {
+    const container = $("#gu-section-cards");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    cards.forEach((card) => addSectionCard(card));
+  }
+
+  function addSectionCard(card = {}) {
+    const container = $("#gu-section-cards");
+    if (!container) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "gu-section-card-item editor-card";
+
+    wrapper.innerHTML = `
+      <div class="editor-card-header">
+        <h3>Section card</h3>
+        <button type="button"
+          class="danger-button"
+          data-remove-card>
+          Remove card
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Card title</label>
+          <input data-card-field="title">
+        </div>
+
+        <div class="form-group full">
+          <label>Card description</label>
+          <textarea data-card-field="description" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Icon or symbol</label>
+          <input data-card-field="icon" placeholder="Optional">
+        </div>
+
+        <div class="form-group">
+          <label>Number or statistic</label>
+          <input data-card-field="number" placeholder="Optional">
+        </div>
+
+        <div class="form-group full">
+          <label>Footer text</label>
+          <input data-card-field="footer" placeholder="Optional">
+        </div>
+      </div>
+    `;
+
+    Object.entries({
+      title: card.title,
+      description: card.description,
+      icon: card.icon,
+      number: card.number,
+      footer: card.footer
+    }).forEach(([field, value]) => {
+      wrapper.querySelector(
+        `[data-card-field="${field}"]`
+      ).value = value ?? "";
+    });
+
+    container.appendChild(wrapper);
+  }
+
+
   function resetPage() {
     $("#gu-page-form").reset();
     $("#gu-page-id").value = "";
