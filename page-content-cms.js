@@ -32,10 +32,19 @@
         const heading = section.querySelector(
   ".section-heading h2, .hero-text h1, .final-cta-content h2"
 );
-        if (heading && (item.title || data.heading)) {
-          heading.textContent = data.heading || item.title;
-        }
+       const headingText = data.heading || item.title;
 
+if (heading && headingText) {
+  const accent = heading.querySelector(":scope > span");
+
+  if (accent && typeof headingText === "string" && headingText.includes("|")) {
+    const parts = headingText.split("|");
+    heading.firstChild.textContent = parts[0].trim() + " ";
+    accent.textContent = parts.slice(1).join("|").trim();
+  } else {
+    heading.textContent = headingText;
+  }
+}
         const intro = section.querySelector(
   ".section-heading > p, .hero-description, .final-cta-content > p"
 );
